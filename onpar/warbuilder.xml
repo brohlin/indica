@@ -1,0 +1,19 @@
+<project name="onpar" basedir="c:\workspace\onpar" default="default">
+ 
+	<target name="default" depends="buildwar,deploy"></target>
+ 
+	<target name="buildwar">
+		<war basedir="c:\workspace\onpar" destfile="onpar.war" webxml="c:\workspace\onpar\WEB-INF\web.xml">
+			<webinf dir="WEB-INF/">
+				<include name="**/*.jar, **/*.class" />
+			</webinf>		
+		</war>
+	</target>
+ 
+	<target name="deploy">
+		<move file="onpar.war" todir="c:\apache-tomcat-7.0.32\webapps" />
+		<!-- move file="onpar.war" todir="c:\temp\ruandunduma120.org" / -->
+		<!-- move file="onpar.war" todir="c:\temp\mingob" / -->
+	</target>
+ 
+</project>

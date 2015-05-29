@@ -1,0 +1,17 @@
+<project name="indica" basedir="e:\workspace\indica" default="default">
+ 
+	<target name="default" depends="buildwar,deploy"></target>
+ 
+	<target name="buildwar">
+		<war basedir="e:\workspace\indica" destfile="indica.war" webxml="e:\workspace\indica\WEB-INF\web.xml">
+			<webinf dir="WEB-INF/">
+				<include name="**/*.jar, **/*.class" />
+			</webinf>		
+		</war>
+	</target>
+ 
+	<target name="deploy">
+		<move file="indica.war" todir="c:\apache-tomcat-7.0.32\webapps" />
+	</target>
+ 
+</project>
