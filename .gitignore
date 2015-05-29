@@ -1,3 +1,6 @@
+META-INF/context.xml
+META-INF/test.txt
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
