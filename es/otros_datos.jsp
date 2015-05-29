@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+
 	Highcharts.Renderer.prototype.symbols.line = function(x, y, width, height) {
 		return ['M',x ,y + width / 2,'L',x+height,y + width / 2];
 	};
