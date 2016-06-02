@@ -4,10 +4,47 @@
 <%@ page import="org.undp.log.*" %>
 <%@ page import="org.undp.utils.*" %>
 <%@ page import="org.undp.utils.arrays.*" %>
+<%@ page import="java.util.Enumeration" %>
 
 <%	
+
 	request.setCharacterEncoding("UTF-8");
 	String p_organization_id = request.getParameter("id");
+	int a = 0;
+	int size = 0;
+
+	String upd_rowid = "";
+	String upd_dyn_row = "";
+	String upd_salario_mujeres = "";
+	String upd_salario_hombres = "";
+	
+	DynStringArray params = new DynStringArray();
+	params.add(p_organization_id);
+	params.add("table1"); 
+	DbResults db = Database.callProcResults("p_get_organization_dynamic_row_ids", params);
+	
+	DynStringArray params_upd = new DynStringArray();
+
+	while(size<db.getRowCount())
+	{
+		upd_rowid = db.getRow(size).get(0);
+		upd_dyn_row = request.getParameter("dynamicrow_" + upd_rowid);
+		upd_salario_mujeres = request.getParameter("__salario_mujeres_table5_" + upd_rowid);
+		upd_salario_hombres = request.getParameter("__salario_hombres_table5_" + upd_rowid);
+		
+		params_upd.add(p_organization_id);
+		params_upd.add(upd_dyn_row);
+		params_upd.add(upd_salario_mujeres);
+		params_upd.add(upd_salario_hombres);
+		params_upd.add(upd_rowid);
+		a = Database.callProc("p_upd_organization_dynamic_rows_table5", params_upd);
+			
+		LogManager.writeLog("CL: ", upd_dyn_row + "|" + upd_salario_mujeres + "|" + upd_salario_hombres + "|" +  upd_rowid);
+		System.out.println( upd_dyn_row + "|" + upd_salario_mujeres + "|" + upd_salario_hombres + "|" +  upd_rowid);
+		params_upd.clear();
+		size++;
+
+	}
 	
 	DynStringArray parameters = new DynStringArray();
 	parameters.clear();

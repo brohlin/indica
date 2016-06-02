@@ -12,6 +12,7 @@
 	String p_email = request.getParameter("email");
 	String p_pwd = request.getParameter("pwd");
 	String p_page_target = request.getParameter("page");
+	String p_organization_id = request.getParameter("organization_id");
 	DynStringArray parameters = new DynStringArray();
 	parameters.add(p_email);
 	parameters.add(p_pwd);
@@ -38,10 +39,20 @@
 			session.setAttribute("temp_user_organization_id",db.getRow(size).get(12));
 			session.setAttribute("temp_user_organization_nm",db.getRow(size).get(13));
 			session.setAttribute("temp_user_accept_terms",db.getRow(size).get(14));
+			session.setAttribute("temp_user_organization_completed",db.getRow(size).get(15));
+			
+			
 			
 			size++;
 		}
-		response.sendRedirect("/indica/es/main.jsp?target=" + p_page_target);
+		
+		if (p_page_target.equals("empresa_render_resultados_highcharts")) {
+			response.sendRedirect("/indica/es/" + p_page_target + ".jsp?organization_id=" + p_organization_id);
+		} else if (p_page_target.equals("empresa_render_resultados_encuesta")) {
+			response.sendRedirect("/indica/es/" + p_page_target + ".jsp?organization_id=" + p_organization_id);
+		} else {
+			response.sendRedirect("/indica/es/main.jsp?target=" + p_page_target);
+		}
 	} else if (db.getRowCount() == 0) { 
 		response.sendRedirect("/indica/es/main.jsp?target=login&message=failed_login");
 	} else {

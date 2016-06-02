@@ -3,23 +3,23 @@
 		<div class="container footer-arriba">
 			<div class="row">
 				<div>
-				<div class="col-md-3 text-hide ">Logo Indica Igualdad
+				<div class="col-md-3 text-hide "><fmt:message key="footer.label.col1" />
 					<a><img alt="Indica Igualdad" src="/indica/assets/images/logo.png"></a>
 				</div>
 				</div>
 				 <nav class="col-sm-12 col-md-3 navegacion2" role="navigation">
-					<h4 class="titulo">Indica Igualdad</h4>                    
+					<h4 class="titulo"><fmt:message key="footer.label.col2" /></h4>                    
 					<ul class="nav nav-stacked">
 						<!-- Comentados los links que no están disponibles antes del login -->
 						<!-- <li><a href="#">AUTO-DIAGNÓSTICO</a></li> -->
 						<!-- <li><a href="#">RESULTADOS</a></li> -->
-						<li><a href="#">DESCARGAS</a></li>
+						<li><a href="#"><fmt:message key="footer.label.downloads" /></a></li>
 						<!-- <li><a href="#">ENVIAR ENCUESTA</a></li> -->
 					</ul>
 				
 				</nav>  
 				<section class="col-sm-12 col-md-3">
-					<h4 class=" titulo">Consulta por países</h4>
+					<h4 class=" titulo"><fmt:message key="footer.label.col3" /></h4>
 					<table class="table">
 						<tbody class="paises text-hide" >
 							<tr>
@@ -46,7 +46,7 @@
 					</table>
 				</section>    
 				<section class="col-sm-12 col-md-3">
-				<h4 class="titulo">Sitios de interés</h4>
+				<h4 class="titulo"><fmt:message key="footer.label.col4" /></h4>
 					<div class="logos-footer text-center">
 					<a href="#"><img alt="PNUD" src="/indica/assets/images/logoPnud.png" ></a>
 					<a href="#"><img alt="Genera Igualdad" src="/indica/assets/images/logo-genera.png"></a></div>
@@ -70,10 +70,10 @@
 				</div>
 				 <div class="col-sm-7 col-md-7 ">
 				   <ul class="policies list-inline pull-right ">
-					<li class="active"><a href="#">T&eacute;rminos de uso ·</a></li>
-					<li><a href="#">Privacidad ·</a></li>
-					<li><a href="#">Pol&iacute;ticas de cookies</a></li> 
-					   <li><span class="copyright">&copy;  2014 INDICA IGUALDAD</span></li>   
+					<li class="active"><a href="#"><fmt:message key="footer.label.terms" /> ·</a></li>
+					<li><a href="#"><fmt:message key="footer.label.privacy" /> ·</a></li>
+					<li><a href="#"><fmt:message key="footer.label.cookies" /></a></li> 
+					   <li><span class="copyright"><fmt:message key="footer.label.copyright" /></span></li>   
 				  </ul>
 				</div>
 			</div> <!--fin de row-->
@@ -92,314 +92,275 @@
 	
 <!-- 	INICIALIZAR EL TOOLTIP Y EL POPOVER -->
 	<script type="text/javascript">
+	
+	$(document).on("change", "#table1", function () {
+		
+		updateTableFields();
+		
+		$("#table1").find("input[id*='num_mujeres_table1_dyn_row_']").each(function(){			
+			
+			var a = parseFloat($('#'+this.id).val());
+			if (isNaN(a)) { a = 0; }
+			
+			var x = parseFloat($('#num_subtotal_resto_plantilla_mujeres').val()) + parseFloat(a);
+			var y = parseFloat($('#num_total_de_la_plantilla_mujeres').val()) + parseFloat(a);
+			
+			$('#num_subtotal_resto_plantilla_mujeres').val(x);
+			$('#num_total_de_la_plantilla_mujeres').val(y);
+	
+		});
+		
+		
+		$("#table1").find("input[id*='num_hombres_table1_dyn_row_']").each(function(){			
+			
+			var aa = parseFloat($('#'+this.id).val());
+			if (isNaN(aa)) { aa = 0; }
+			
+			var xx = parseFloat($('#num_subtotal_resto_plantilla_hombres').val()) + parseFloat(aa);
+			var yy = parseFloat($('#num_total_de_la_plantilla_hombres').val()) + parseFloat(aa);
+			
+			$('#num_subtotal_resto_plantilla_hombres').val(xx);
+			$('#num_total_de_la_plantilla_hombres').val(yy);
+	
+		});
+		
+	});
+	
+	
+	
+	$(document).on("change", "#table2", function () {
+		
+		updateTableFields();
+		
+		$("#table2").find("input[id*='num_mujeres_table2_dyn_row_']").each(function(){			
+			
+			var a2 = parseFloat($('#'+this.id).val());
+			if (isNaN(a2)) { a2 = 0; }
+			
+			var y2 = parseFloat($('#num_dept_total_mujeres').val()) + parseFloat(a2);
+			
+			$('#num_dept_total_mujeres').val(y2);
+	
+		});
+		
+		$("#table2").find("input[id*='num_hombres_table2_dyn_row_']").each(function(){			
+			
+			var aa2 = parseFloat($('#'+this.id).val());
+			if (isNaN(aa2)) { aa2 = 0; }
+			
+			var yy2 = parseFloat($('#num_dept_total_hombres').val()) + parseFloat(aa2);
+			
+			$('#num_dept_total_hombres').val(yy2);
+	
+		});
+		
+		// Does the "Total de la Plantilla" match between table1 and table 2 mujeres
+		if ($('#num_dept_total_mujeres').val() == $('#num_total_de_la_plantilla_mujeres').val() ) {
+			$('#coinicide_con_tabla1_mujeres').val('<fmt:message key="footer.select.value.yes" />');	
+		} else {
+			$('#coinicide_con_tabla1_mujeres').val('<fmt:message key="footer.select.value.no" />');
+		}
+		
+		// Does the "Total de la Plantilla" match between table1 and table 2 hombres
+		if ($('#num_dept_total_hombres').val() == $('#num_total_de_la_plantilla_hombres').val() ) {
+			$('#coinicide_con_tabla1_hombres').val('<fmt:message key="footer.select.value.yes" />');	
+		} else {
+			$('#coinicide_con_tabla1_hombres').val('<fmt:message key="footer.select.value.no" />');
+		}
+		
+	});
+	
+	
 	$( document ).ready(function() {
 		$('[data-toggle="tooltip"]').tooltip();
   		$('[data-toggle="popover"]').popover();
   		
-  		$('input').change(function(e)  {
-  			
-  		// Empresa Gestion del Personal calculated fields
-  	        var v_num_total_jornadas_anuales_pactadas_convenio_mujeres = 0;
-  	      	var v_num_total_jornadas_anuales_pactadas_convenio_hombres = 0;
-  	        var v_num_jornadas_anuales_pactadas_convenio_por_trab = parseFloat($('#num_jornadas_anuales_pactadas_convenio_por_trab').val());
-  	        var v_num_total_de_la_plantilla_mujeres = parseFloat($('#num_total_de_la_plantilla_mujeres').val());
-  	      	var v_num_total_de_la_plantilla_hombres  = parseFloat($('#num_total_de_la_plantilla_hombres').val());
-  	        var v_num_total_de_la_plantilla_mujeres2 = parseFloat($('#num_total_de_la_plantilla_mujeres2').val());
-  	      	var v_num_total_de_la_plantilla_hombres2  = parseFloat($('#num_total_de_la_plantilla_hombres2').val());
-  	      	
-  	      	if (isNaN(v_num_jornadas_anuales_pactadas_convenio_por_trab)) { v_num_jornadas_anuales_pactadas_convenio_por_trab = 0; }
-  	      	if (isNaN(v_num_total_de_la_plantilla_mujeres)) { v_num_total_de_la_plantilla_mujeres = 0; }
-  	      	if (isNaN(v_num_total_de_la_plantilla_hombres)) { v_num_total_de_la_plantilla_hombres = 0; }
-  	      	if (isNaN(v_num_total_de_la_plantilla_mujeres2)) { v_num_total_de_la_plantilla_mujeres2 = 0; }
-  	      	if (isNaN(v_num_total_de_la_plantilla_hombres2)) { v_num_total_de_la_plantilla_hombres2 = 0; }
-  	      	
-  	     	v_num_total_jornadas_anuales_pactadas_convenio_mujeres = (v_num_jornadas_anuales_pactadas_convenio_por_trab) * v_num_total_de_la_plantilla_mujeres2;
-  	     	v_num_total_jornadas_anuales_pactadas_convenio_hombres = (v_num_jornadas_anuales_pactadas_convenio_por_trab) * v_num_total_de_la_plantilla_hombres2;
+        var i=1;
+        
 
-  	     	$('#num_total_jornadas_anuales_pactadas_convenio_mujeres').val( v_num_total_jornadas_anuales_pactadas_convenio_mujeres);
-  	     	$('#num_total_jornadas_anuales_pactadas_convenio_hombres').val( v_num_total_jornadas_anuales_pactadas_convenio_hombres);
-  	     	
-  	     	// Empresa Plantilla calculated fields
-  	     	// Cargos de responsabilidad mujeres
-  	     	var v_num_subtotal_cargos_responsabilidad_mujeres = 0;
-  	     	var v_num_direccion_general_o_maximo_cargo_mujeres  = parseFloat($('#num_direccion_general_o_maximo_cargo_mujeres').val());
-  	     	var v_num_puestos_directivos_como_gerencias_mujeres  = parseFloat($('#num_puestos_directivos_como_gerencias_mujeres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel4_mujeres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel4_mujeres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel3_mujeres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel3_mujeres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel2_mujeres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel2_mujeres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel1_mujeres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel1_mujeres').val());
-  	     	
-  	     	if (isNaN(v_num_direccion_general_o_maximo_cargo_mujeres)) { v_num_direccion_general_o_maximo_cargo_mujeres = 0; }
-  	     	if (isNaN(v_num_puestos_directivos_como_gerencias_mujeres)) { v_num_puestos_directivos_como_gerencias_mujeres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel4_mujeres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel4_mujeres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel3_mujeres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel3_mujeres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel2_mujeres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel2_mujeres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel1_mujeres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel1_mujeres = 0; }
-  	     	
-  	     	v_num_subtotal_cargos_responsabilidad_mujeres = v_num_direccion_general_o_maximo_cargo_mujeres +
-													  	     	v_num_puestos_directivos_como_gerencias_mujeres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel4_mujeres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel3_mujeres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel2_mujeres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel1_mujeres;  	
-  	     	$('#num_subtotal_cargos_responsabilidad_mujeres').val( v_num_subtotal_cargos_responsabilidad_mujeres);
-  	     	
-  	     	
-  	     	// Cargos de responsabilidad hombres
-  	     	var v_num_subtotal_cargos_responsabilidad_hombres = 0;
-  	     	var v_num_direccion_general_o_maximo_cargo_hombres  = parseFloat($('#num_direccion_general_o_maximo_cargo_hombres').val());
-  	     	var v_num_puestos_directivos_como_gerencias_hombres  = parseFloat($('#num_puestos_directivos_como_gerencias_hombres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel4_hombres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel4_hombres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel3_hombres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel3_hombres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel2_hombres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel2_hombres').val());
-  	     	var v_num_otras_jefaturas_o_mandos_intermedios_nivel1_hombres  = parseFloat($('#num_otras_jefaturas_o_mandos_intermedios_nivel1_hombres').val());
-  	     	
-  	     	if (isNaN(v_num_direccion_general_o_maximo_cargo_hombres)) { v_num_direccion_general_o_maximo_cargo_hombres = 0; }
-  	     	if (isNaN(v_num_puestos_directivos_como_gerencias_hombres)) { v_num_puestos_directivos_como_gerencias_hombres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel4_hombres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel4_hombres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel3_hombres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel3_hombres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel2_hombres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel2_hombres = 0; }
-  	     	if (isNaN(v_num_otras_jefaturas_o_mandos_intermedios_nivel1_hombres)) { v_num_otras_jefaturas_o_mandos_intermedios_nivel1_hombres = 0; }
-  	     	v_num_subtotal_cargos_responsabilidad_hombres = v_num_direccion_general_o_maximo_cargo_hombres +
-													  	     	v_num_puestos_directivos_como_gerencias_hombres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel4_hombres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel3_hombres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel2_hombres +
-													  	     	v_num_otras_jefaturas_o_mandos_intermedios_nivel1_hombres;  	
-  	     	$('#num_subtotal_cargos_responsabilidad_hombres').val( v_num_subtotal_cargos_responsabilidad_hombres);
-  	     	
-  	     	// Otros cargos de responsabilidad mujeres
-  	     	var v_num_subtotal_resto_plantilla_mujeres = 0;
-  	     	var v_num_total_de_la_plantilla_mujeres = 0;
-  	     	var v_num_puestos_tecnicos_mujeres  = parseFloat($('#num_puestos_tecnicos_mujeres').val());
-  	     	var v_num_puestos_administrativos_mujeres  = parseFloat($('#num_puestos_administrativos_mujeres').val());
-  	     	var v_num_puestos_auxiliares_mujeres  = parseFloat($('#num_puestos_auxiliares_mujeres').val());
-  	     	var v_num_puestos_operarios_mujeres  = parseFloat($('#num_puestos_operarios_mujeres').val());
-  	     	var v_num_puestos_a_mujeres  = parseFloat($('#num_puestos_a_mujeres').val());
-  	     	var v_num_puestos_b_mujeres  = parseFloat($('#num_puestos_b_mujeres').val());
-  	     	var v_num_puestos_c_mujeres  = parseFloat($('#num_puestos_c_mujeres').val());
-  	     	var v_num_puestos_d_mujeres  = parseFloat($('#num_puestos_d_mujeres').val());
-  	     	
-  	     	
-  	     	if (isNaN(v_num_puestos_tecnicos_mujeres)) { v_num_puestos_tecnicos_mujeres = 0; }
-  	     	if (isNaN(v_num_puestos_administrativos_mujeres)) { v_num_puestos_administrativos_mujeres = 0; }
-  	     	if (isNaN(v_num_puestos_auxiliares_mujeres)) { v_num_puestos_auxiliares_mujeres = 0; }
-  	     	if (isNaN(v_num_puestos_operarios_mujeres)) { v_num_puestos_operarios_mujeres = 0; }
-  	     	
-		if (isNaN(v_num_puestos_a_mujeres)) { v_num_puestos_a_mujeres = 0; }			
-		if (isNaN(v_num_puestos_b_mujeres)) { v_num_puestos_b_mujeres = 0; }
-		if (isNaN(v_num_puestos_c_mujeres)) { v_num_puestos_c_mujeres = 0; }
-		if (isNaN(v_num_puestos_d_mujeres)) { v_num_puestos_d_mujeres = 0; }   	     	
-  	     	
-  	     	v_num_subtotal_resto_plantilla_mujeres = v_num_puestos_tecnicos_mujeres +
-											  	     	v_num_puestos_administrativos_mujeres +
-											  	     	v_num_puestos_auxiliares_mujeres +
-											  	     	v_num_puestos_operarios_mujeres +
-											  	     	v_num_puestos_a_mujeres +
-											  	     	v_num_puestos_b_mujeres +
-											  	     	v_num_puestos_c_mujeres +
-											  	     	v_num_puestos_d_mujeres;
-  	     	
-  	     	v_num_total_de_la_plantilla_mujeres = v_num_subtotal_resto_plantilla_mujeres + v_num_subtotal_cargos_responsabilidad_mujeres;
-  	     	
-		$('#num_subtotal_resto_plantilla_mujeres').val( v_num_subtotal_resto_plantilla_mujeres);
-		$('#num_total_de_la_plantilla_mujeres').val( v_num_total_de_la_plantilla_mujeres);
-  	
-		// Otros cargos de responsabilidad hombres
-  	     	var v_num_subtotal_resto_plantilla_hombres = 0;
-  	     	var v_num_total_de_la_plantilla_hombres = 0;
-  	     	var v_num_puestos_tecnicos_hombres  = parseFloat($('#num_puestos_tecnicos_hombres').val());
-  	     	var v_num_puestos_administrativos_hombres  = parseFloat($('#num_puestos_administrativos_hombres').val());
-  	     	var v_num_puestos_auxiliares_hombres  = parseFloat($('#num_puestos_auxiliares_hombres').val());
-  	     	var v_num_puestos_operarios_hombres  = parseFloat($('#num_puestos_operarios_hombres').val());
-  	     	var v_num_puestos_a_hombres  = parseFloat($('#num_puestos_a_hombres').val());
-  	     	var v_num_puestos_b_hombres  = parseFloat($('#num_puestos_b_hombres').val());
-  	     	var v_num_puestos_c_hombres  = parseFloat($('#num_puestos_c_hombres').val());
-  	     	var v_num_puestos_d_hombres  = parseFloat($('#num_puestos_d_hombres').val());
-  	     	
-  	     	
-  	     	if (isNaN(v_num_puestos_tecnicos_hombres)) { v_num_puestos_tecnicos_hombres = 0; }
-  	     	if (isNaN(v_num_puestos_administrativos_hombres)) { v_num_puestos_administrativos_hombres = 0; }
-  	     	if (isNaN(v_num_puestos_auxiliares_hombres)) { v_num_puestos_auxiliares_hombres = 0; }
-  	     	if (isNaN(v_num_puestos_operarios_hombres)) { v_num_puestos_operarios_hombres = 0; }
-  	     	
-		if (isNaN(v_num_puestos_a_hombres)) { v_num_puestos_a_hombres = 0; }			
-		if (isNaN(v_num_puestos_b_hombres)) { v_num_puestos_b_hombres = 0; }
-		if (isNaN(v_num_puestos_c_hombres)) { v_num_puestos_c_hombres = 0; }
-		if (isNaN(v_num_puestos_d_hombres)) { v_num_puestos_d_hombres = 0; }  	     	
-  	     	
-  	     	v_num_subtotal_resto_plantilla_hombres = v_num_puestos_tecnicos_hombres +
-											  	     	v_num_puestos_administrativos_hombres +
-											  	     	v_num_puestos_auxiliares_hombres +
-											  	     	v_num_puestos_operarios_hombres +
-											  	     	v_num_puestos_a_hombres +
-											  	     	v_num_puestos_b_hombres +
-											  	     	v_num_puestos_c_hombres +
-											  	     	v_num_puestos_d_hombres;
-  	     	
-  	     	v_num_total_de_la_plantilla_hombres = v_num_subtotal_resto_plantilla_hombres + v_num_subtotal_cargos_responsabilidad_hombres;
-  	     	
-			$('#num_subtotal_resto_plantilla_hombres').val( v_num_subtotal_resto_plantilla_hombres);
-			$('#num_total_de_la_plantilla_hombres').val( v_num_total_de_la_plantilla_hombres);
+        $("#add_row").click(function(){
+			$('#dynamic_row').append("<div id=\"row" + i + "\"  class=\"row form-group\"><div class=\"col-xs-6 col-md-8\"><input maxlength=\"45\" type=\"text\" class=\"form-control\" name=\"__table1_dyn_row_" + i + "\"  placeholder=\"Ingrese otro tipo de puesto\"  value=\"\"></div><div class=\"col-xs-3 col-md-2\"><input type=\"text\"  class=\"form-control\" id=\"num_mujeres_table1_dyn_row_" + i + "\" name=\"num_mujeres_table1_dyn_row_" + i + "\" placeholder=\"\"  value=\"\"></div><div class=\"col-xs-3 col-md-2\"><input type=\"text\" class=\"form-control\" id=\"num_hombres_table1_dyn_row_" + i + "\" name=\"num_hombres_table1_dyn_row_" + i + "\" placeholder=\"\"  value=\"\"></div></div>");		
+			i++; 
 			
-			// Departamentos mujeres
-			var v_num_dept_total_mujeres = 0;
-			var v_num_dept_administracion_mujeres  = parseFloat($('#num_dept_administracion_mujeres').val());
-			var v_num_dept_comercial_y_ventas_mujeres  = parseFloat($('#num_dept_comercial_y_ventas_mujeres').val());
-			var v_num_dept_logistica_mujeres  = parseFloat($('#num_dept_logistica_mujeres').val());
-			var v_num_dept_produccion_mujeres  = parseFloat($('#num_dept_produccion_mujeres').val());
-			var v_num_dept_financiero_mujeres  = parseFloat($('#num_dept_financiero_mujeres').val());
-			var v_num_dept_recursos_humanos_mujeres  = parseFloat($('#num_dept_recursos_humanos_mujeres').val());
-			var v_num_dept_a_mujeres  = parseFloat($('#num_dept_a_mujeres').val());
-			var v_num_dept_b_mujeres  = parseFloat($('#num_dept_b_mujeres').val());
-			var v_num_dept_c_mujeres  = parseFloat($('#num_dept_c_mujeres').val());
-			var v_num_dept_d_mujeres  = parseFloat($('#num_dept_d_mujeres').val());
-			var v_num_dept_e_mujeres  = parseFloat($('#num_dept_e_mujeres').val());
-			
-			if (isNaN(v_num_dept_administracion_mujeres)) { v_num_dept_administracion_mujeres = 0; }
-			if (isNaN(v_num_dept_comercial_y_ventas_mujeres)) { v_num_dept_comercial_y_ventas_mujeres = 0; }
-			if (isNaN(v_num_dept_logistica_mujeres)) { v_num_dept_logistica_mujeres = 0; }
-			if (isNaN(v_num_dept_produccion_mujeres)) { v_num_dept_produccion_mujeres = 0; }
-			if (isNaN(v_num_dept_financiero_mujeres)) { v_num_dept_financiero_mujeres = 0; }
-			if (isNaN(v_num_dept_recursos_humanos_mujeres)) { v_num_dept_recursos_humanos_mujeres = 0; }
-			
-			if (isNaN(v_num_dept_a_mujeres)) { v_num_dept_a_mujeres = 0; }			
-			if (isNaN(v_num_dept_b_mujeres)) { v_num_dept_b_mujeres = 0; }
-			if (isNaN(v_num_dept_c_mujeres)) { v_num_dept_c_mujeres = 0; }
-			if (isNaN(v_num_dept_d_mujeres)) { v_num_dept_d_mujeres = 0; }
-			if (isNaN(v_num_dept_e_mujeres)) { v_num_dept_e_mujeres = 0; }			
-			
-			v_num_dept_total_mujeres = v_num_dept_administracion_mujeres +
-										v_num_dept_comercial_y_ventas_mujeres +
-										v_num_dept_logistica_mujeres +
-										v_num_dept_produccion_mujeres +
-										v_num_dept_financiero_mujeres +
-										v_num_dept_recursos_humanos_mujeres +
-										v_num_dept_a_mujeres +
-										v_num_dept_b_mujeres +
-										v_num_dept_c_mujeres +
-										v_num_dept_d_mujeres +
-										v_num_dept_e_mujeres;
-			
-			$('#num_dept_total_mujeres').val( v_num_dept_total_mujeres);
-			
-			// Departamentos hombres
-			var v_num_dept_total_hombres = 0;
-			var v_num_dept_administracion_hombres  = parseFloat($('#num_dept_administracion_hombres').val());
-			var v_num_dept_comercial_y_ventas_hombres  = parseFloat($('#num_dept_comercial_y_ventas_hombres').val());
-			var v_num_dept_logistica_hombres  = parseFloat($('#num_dept_logistica_hombres').val());
-			var v_num_dept_produccion_hombres  = parseFloat($('#num_dept_produccion_hombres').val());
-			var v_num_dept_financiero_hombres  = parseFloat($('#num_dept_financiero_hombres').val());
-			var v_num_dept_recursos_humanos_hombres  = parseFloat($('#num_dept_recursos_humanos_hombres').val());
-			var v_num_dept_a_hombres  = parseFloat($('#num_dept_a_hombres').val());
-			var v_num_dept_b_hombres  = parseFloat($('#num_dept_b_hombres').val());
-			var v_num_dept_c_hombres  = parseFloat($('#num_dept_c_hombres').val());
-			var v_num_dept_d_hombres  = parseFloat($('#num_dept_d_hombres').val());
-			var v_num_dept_e_hombres  = parseFloat($('#num_dept_e_hombres').val());
-			
-			
-			if (isNaN(v_num_dept_administracion_hombres)) { v_num_dept_administracion_hombres = 0; }
-			if (isNaN(v_num_dept_comercial_y_ventas_hombres)) { v_num_dept_comercial_y_ventas_hombres = 0; }
-			if (isNaN(v_num_dept_logistica_hombres)) { v_num_dept_logistica_hombres = 0; }
-			if (isNaN(v_num_dept_produccion_hombres)) { v_num_dept_produccion_hombres = 0; }
-			if (isNaN(v_num_dept_financiero_hombres)) { v_num_dept_financiero_hombres = 0; }
-			if (isNaN(v_num_dept_recursos_humanos_hombres)) { v_num_dept_recursos_humanos_hombres = 0; }
-			
-			if (isNaN(v_num_dept_a_hombres)) { v_num_dept_a_hombres = 0; }			
-			if (isNaN(v_num_dept_b_hombres)) { v_num_dept_b_hombres = 0; }
-			if (isNaN(v_num_dept_c_hombres)) { v_num_dept_c_hombres = 0; }
-			if (isNaN(v_num_dept_d_hombres)) { v_num_dept_d_hombres = 0; }
-			if (isNaN(v_num_dept_e_hombres)) { v_num_dept_e_hombres = 0; }
-			
-			v_num_dept_total_hombres = v_num_dept_administracion_hombres +
-										v_num_dept_comercial_y_ventas_hombres +
-										v_num_dept_logistica_hombres +
-										v_num_dept_produccion_hombres +
-										v_num_dept_financiero_hombres +
-										v_num_dept_recursos_humanos_hombres +
-										v_num_dept_a_hombres +
-										v_num_dept_b_hombres +
-										v_num_dept_c_hombres +
-										v_num_dept_d_hombres +
-										v_num_dept_e_hombres;
-			
-			$('#num_dept_total_hombres').val( v_num_dept_total_hombres);
-  	     	
-			// Does the "Total de la Plantilla" match between table1 and table 2 mujeres
-			if (v_num_dept_total_mujeres == v_num_total_de_la_plantilla_mujeres) {
-				$('#coinicide_con_tabla1_mujeres').val('SÍ');	
-			} else {
-				$('#coinicide_con_tabla1_mujeres').val('NO');
-			}
-  	     	
-			// Does the "Total de la Plantilla" match between table1 and table 2 hombres
-			if (v_num_dept_total_hombres == v_num_total_de_la_plantilla_hombres) {
-				$('#coinicide_con_tabla1_hombres').val('SÍ');
+	        if (i>1) {
+				$('.btn').removeClass('disabled');
+	        	$('.btn').addClass('active');
+	        } 
+     	});
+        
+        $("#delete_row").click(function(){
+            if(i>1){
 				
-			} else {
-				$('#coinicide_con_tabla1_hombres').val('NO');
-			}  	     	
-  	     	
-  	     	
-  	     	// Table 4 Tipo de Contrato Jornada subtotals and totals mujerers
-  	     	var v_num_subtotal_jornada_completa_mujeres = 0;
-  	     	var v_num_subtotal_jornada_partial_mujeres = 0;
-  	     	var v_num_total_jornada_contracto_mujeres = 0;
-  	     	var v_num_jornada_completa_contrato_indefinido_mujeres  = parseFloat($('#num_jornada_completa_contrato_indefinido_mujeres').val());
-  	     	var v_num_jornada_completa_contrato_temporal_mujeres  = parseFloat($('#num_jornada_completa_contrato_temporal_mujeres').val());
-  	     	var v_num_jornada_partial_contrato_indefinido_mujeres  = parseFloat($('#num_jornada_partial_contrato_indefinido_mujeres').val());
-  	     	var v_num_jornada_partial_contrato_temporal_mujeres  = parseFloat($('#num_jornada_partial_contrato_temporal_mujeres').val());
-  	     	
-  	     	if (isNaN(v_num_jornada_completa_contrato_indefinido_mujeres)) { v_num_jornada_completa_contrato_indefinido_mujeres = 0; }
-  	     	if (isNaN(v_num_jornada_completa_contrato_temporal_mujeres)) { v_num_jornada_completa_contrato_temporal_mujeres = 0; }
-  	     	if (isNaN(v_num_jornada_partial_contrato_indefinido_mujeres)) { v_num_jornada_partial_contrato_indefinido_mujeres = 0; }
-  	     	if (isNaN(v_num_jornada_partial_contrato_temporal_mujeres)) { v_num_jornada_partial_contrato_temporal_mujeres = 0; }
-  	     	
-  	     	v_num_subtotal_jornada_completa_mujeres = v_num_jornada_completa_contrato_indefinido_mujeres + v_num_jornada_completa_contrato_temporal_mujeres;
-  	     	v_num_subtotal_jornada_partial_mujeres = v_num_jornada_partial_contrato_indefinido_mujeres + v_num_jornada_partial_contrato_temporal_mujeres;
-  	     	v_num_total_jornada_contracto_mujeres = v_num_subtotal_jornada_completa_mujeres + v_num_subtotal_jornada_partial_mujeres;
-  	     	
-  	     	$('#num_subtotal_jornada_completa_mujeres').val( v_num_subtotal_jornada_completa_mujeres);
-  	     	$('#num_subtotal_jornada_partial_mujeres').val( v_num_subtotal_jornada_partial_mujeres);
-  	     	$('#num_total_jornada_contracto_mujeres').val( v_num_total_jornada_contracto_mujeres);
-  	     	
-  	     	
-		// Does table1 MATCH table 4 mujeres
-		if (v_num_total_jornada_contracto_mujeres == <% if (session.getAttribute("temp_admin_organization_num_total_de_la_plantilla_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_total_de_la_plantilla_mujeres").toString() %><% } %>) {
-			$('#tabla4_coinicide_con_tabla1_mujeres').val('SÍ');	
-		} else {
-			$('#tabla4_coinicide_con_tabla1_mujeres').val('NO');
-		}
+				var b = parseFloat($('#num_mujeres_table1_dyn_row_' + (i-1)).val());
+				if (isNaN(b)) { b = 0; }
+
+				var bb = parseFloat($('#num_hombres_table1_dyn_row_' + (i-1)).val());
+				if (isNaN(bb)) { bb = 0; }
+				
+            	$("#row"+(i-1)).remove();
+            	i--;
+									
+				if (i<2) {
+					$("#delete_row").removeClass('active');
+					$("#delete_row").addClass('disabled');
+				}
+				
+				var c = parseFloat($('#num_subtotal_resto_plantilla_mujeres').val()) - parseFloat(b);
+				var d = parseFloat($('#num_total_de_la_plantilla_mujeres').val()) - parseFloat(b);
+				
+				$('#num_subtotal_resto_plantilla_mujeres').val(c);
+				$('#num_total_de_la_plantilla_mujeres').val(d);
+				
+				var cc = parseFloat($('#num_subtotal_resto_plantilla_hombres').val()) - parseFloat(bb);
+				var dd = parseFloat($('#num_total_de_la_plantilla_hombres').val()) - parseFloat(bb);
+				
+				$('#num_subtotal_resto_plantilla_hombres').val(cc);
+				$('#num_total_de_la_plantilla_hombres').val(dd);
+				
+            }
+        });  		
+  		
+
+        $("#empresa_plantilla_element8").click(function(){
+        	
+        	var x = document.getElementById("empresa_plantilla_element8").checked;
+        	
+        	if (x) {        		
+        		// document.getElementById("num_direccion_general_o_maximo_cargo_mujeres").value = "0";
+        		// document.getElementById("num_direccion_general_o_maximo_cargo_hombres").value = "0";
+        		
+        		document.getElementById("num_direccion_general_o_maximo_cargo_mujeres").disabled = true;
+        		document.getElementById("num_direccion_general_o_maximo_cargo_hombres").disabled = true;
+        		updateTableFields();
+        	} else {
+        		document.getElementById("num_direccion_general_o_maximo_cargo_mujeres").disabled = false;
+        		document.getElementById("num_direccion_general_o_maximo_cargo_hombres").disabled = false;
+        		// location.reload(true);
+        	}
 			
-  	     	// Table 4 Tipo de Contrato Jornada subtotals and totals hombres
-  	     	var v_num_subtotal_jornada_completa_hombres = 0;
-  	     	var v_num_subtotal_jornada_partial_hombres = 0;
-  	     	var v_num_total_jornada_contracto_hombres = 0;
-  	     	var v_num_jornada_completa_contrato_indefinido_hombres  = parseFloat($('#num_jornada_completa_contrato_indefinido_hombres').val());
-  	     	var v_num_jornada_completa_contrato_temporal_hombres  = parseFloat($('#num_jornada_completa_contrato_temporal_hombres').val());
-  	     	var v_num_jornada_partial_contrato_indefinido_hombres  = parseFloat($('#num_jornada_partial_contrato_indefinido_hombres').val());
-  	     	var v_num_jornada_partial_contrato_temporal_hombres  = parseFloat($('#num_jornada_partial_contrato_temporal_hombres').val());
-  	     	
-  	     	if (isNaN(v_num_jornada_completa_contrato_indefinido_hombres)) { v_num_jornada_completa_contrato_indefinido_hombres = 0; }
-  	     	if (isNaN(v_num_jornada_completa_contrato_temporal_hombres)) { v_num_jornada_completa_contrato_temporal_hombres = 0; }
-  	     	if (isNaN(v_num_jornada_partial_contrato_indefinido_hombres)) { v_num_jornada_partial_contrato_indefinido_hombres = 0; }
-  	     	if (isNaN(v_num_jornada_partial_contrato_temporal_hombres)) { v_num_jornada_partial_contrato_temporal_hombres = 0; }
-  	     	
-  	     	v_num_subtotal_jornada_completa_hombres = v_num_jornada_completa_contrato_indefinido_hombres + v_num_jornada_completa_contrato_temporal_hombres;
-  	     	v_num_subtotal_jornada_partial_hombres = v_num_jornada_partial_contrato_indefinido_hombres + v_num_jornada_partial_contrato_temporal_hombres;
-  	     	v_num_total_jornada_contracto_hombres = v_num_subtotal_jornada_completa_hombres + v_num_subtotal_jornada_partial_hombres;
-  	     	
-  	     	$('#num_subtotal_jornada_completa_hombres').val( v_num_subtotal_jornada_completa_hombres);
-  	     	$('#num_subtotal_jornada_partial_hombres').val( v_num_subtotal_jornada_partial_hombres);
-  	     	$('#num_total_jornada_contracto_hombres').val( v_num_total_jornada_contracto_hombres);
-  	     	
-  	     	
-			// Does table1 MATCH table 4 hombres
-			if (v_num_total_jornada_contracto_hombres == <% if (session.getAttribute("temp_admin_organization_num_total_de_la_plantilla_hombres") != null) { %><%= session.getAttribute("temp_admin_organization_num_total_de_la_plantilla_hombres").toString() %><% } %>) {
-				$('#tabla4_coinicide_con_tabla1_hombres').val('SÍ');	
-			} else {
-				$('#tabla4_coinicide_con_tabla1_hombres').val('NO');
-			}  	     	
+     	});   
+ 
+        
+        $("#empresa_plantilla_element9").click(function(){
+        	
+        	var x = document.getElementById("empresa_plantilla_element9").checked;
+        	
+        	if (x) {        		
+        		document.getElementById("num_puestos_directivos_como_gerencias_mujeres").disabled = true;
+        		document.getElementById("num_puestos_directivos_como_gerencias_hombres").disabled = true;
+        		updateTableFields();
+        	} else {
+        		document.getElementById("num_puestos_directivos_como_gerencias_mujeres").disabled = false;
+        		document.getElementById("num_puestos_directivos_como_gerencias_hombres").disabled = false;
+        	}
+			
+     	});         
+        
+        
+        $("#empresa_plantilla_element11").click(function(){
+        	
+        	var x = document.getElementById("empresa_plantilla_element11").checked;
+        	
+        	if (x) {        		
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel4_mujeres").disabled = true;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel4_hombres").disabled = true;
+        		updateTableFields();
+        	} else {
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel4_mujeres").disabled = false;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel4_hombres").disabled = false;
+        	}
+			
+     	});     
+        
+        $("#empresa_plantilla_element13").click(function(){
+        	
+        	var x = document.getElementById("empresa_plantilla_element13").checked;
+        	
+        	if (x) {        		
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel3_mujeres").disabled = true;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel3_hombres").disabled = true;
+        		updateTableFields();
+        	} else {
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel3_mujeres").disabled = false;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel3_hombres").disabled = false;
+        	}
+			
+     	}); 
+        
+        $("#empresa_plantilla_element15").click(function(){
+        	
+        	var x = document.getElementById("empresa_plantilla_element15").checked;
+        	
+        	if (x) {        		
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel2_mujeres").disabled = true;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel2_hombres").disabled = true;
+        		updateTableFields();
+        	} else {
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel2_mujeres").disabled = false;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel2_hombres").disabled = false;
+        	}
+			
+     	}); 
+        
+        $("#empresa_plantilla_element17").click(function(){
+        	
+        	var x = document.getElementById("empresa_plantilla_element17").checked;
+        	
+        	if (x) {        		
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel1_mujeres").disabled = true;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel1_hombres").disabled = true;
+        		updateTableFields();
+        	} else {
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel1_mujeres").disabled = false;
+        		document.getElementById("num_otras_jefaturas_o_mandos_intermedios_nivel1_hombres").disabled = false;
+        	}
+			
+     	}); 
+        
+        var k=1;
+        
+
+        $("#add_row2").click(function(){
+			$('#dynamic_row2').append("<div id=\"row" + k + "\"  class=\"row form-group\"><div class=\"col-xs-6 col-md-8\"><input maxlength=\"45\" type=\"text\" class=\"form-control\" name=\"__table2_dyn_row_" + k + "\"  placeholder=\"Ingrese otro tipo de puesto\"  value=\"\"></div><div class=\"col-xs-3 col-md-2\"><input type=\"text\"  class=\"form-control\" id=\"num_mujeres_table2_dyn_row_" + k + "\" name=\"num_mujeres_table2_dyn_row_" + k + "\" placeholder=\"\"  value=\"\"></div><div class=\"col-xs-3 col-md-2\"><input type=\"text\" class=\"form-control\" id=\"num_hombres_table2_dyn_row_" + k + "\" name=\"num_hombres_table2_dyn_row_" + k + "\" placeholder=\"\"  value=\"\"></div></div>");		
+			k++; 
+			
+	        if (k>1) {
+				$('.btn').removeClass('disabled');
+	        	$('.btn').addClass('active');
+	        } 
+     	});
+        
+        $("#delete_row2").click(function(){
+            if(k>1){
+				
+				var b2 = parseFloat($('#num_mujeres_table2_dyn_row_' + (k-1)).val());
+				if (isNaN(b2)) { b2 = 0; }
+
+				var bb2 = parseFloat($('#num_hombres_table2_dyn_row_' + (k-1)).val());
+				if (isNaN(bb2)) { bb2 = 0; }
+				
+            	$("#row"+(k-1)).remove();
+            	k--;
+									
+				if (k<2) {
+					$("#delete_row2").removeClass('active');
+					$("#delete_row2").addClass('disabled');
+				}
+				
+				var d = parseFloat($('#num_dept_total_mujeres').val()) - parseFloat(b2);
+				$('#num_dept_total_mujeres').val(d);
+				
+				var dd2 = parseFloat($('#num_dept_total_hombres').val()) - parseFloat(bb2);		
+				$('#num_dept_total_hombres').val(dd2);
+				
+            }
+        });
+        
+        
+        
+        
+  		$('input').change(function(e)  {
+  			updateTableFields();
   	    });
   		
 		// Numeric only control handler
@@ -428,7 +389,7 @@
 		};  		
   		
 		
-		// Check and make sure these fields are numberic
+		// Check and make sure these fields are numeric
 		$("#num_de_personas_trabajadores").ForceNumericOnly();
 		$("#num_direccion_general_o_maximo_cargo_mujeres").ForceNumericOnly();
 		$("#num_puestos_directivos_como_gerencias_mujeres").ForceNumericOnly();
@@ -647,6 +608,7 @@
 	<script src="/RGraph/libraries/RGraph.pie.js" ></script>
 	<!--[if lt IE 9]><script src="/RGraph/excanvas/excanvas.js"></script><![endif]-->	
 
+
 <script language="Javascript">
  
 	function confirmEnviar() {
@@ -655,7 +617,7 @@
 		
 		return confirm("Are you sure you want to continue");
 		
-		7*
+		/*
 		if (answer==true)
 		  {
 		    return true;

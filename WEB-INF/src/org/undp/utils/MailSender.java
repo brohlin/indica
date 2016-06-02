@@ -8,8 +8,10 @@ import javax.mail.internet.*;
 public class MailSender {
 	String 	message="",
 			subject="",
-			smtpServer = "mail.ruandunduma120.org",
-			authAddress="brohlin@ruandunduma120.org",
+			// smtpServer = "mail.ruandunduma120.org",
+			// authAddress="brohlin@ruandunduma120.org",
+			smtpServer = "mail.americalatinagenera.org",
+			authAddress="indica@americalatinagenera.org",			
 			authPassword = "OverHead13",
 			smtpPort =  "25",
 			siteName="";

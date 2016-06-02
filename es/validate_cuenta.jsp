@@ -40,7 +40,12 @@
 	x = Database.callProc("p_upd_user", parameters);
 
 	if (x>0) {
-		response.sendRedirect("/indica/es/main.jsp?target=gestionar_cuentas");
+		
+		if (session.getAttribute("temp_user_role_nm") != null && session.getAttribute("temp_user_role_nm").equals("Admin")) {
+			response.sendRedirect("/indica/es/main.jsp?target=gestionar_cuentas");
+		} else {
+			response.sendRedirect("/indica/es/main.jsp?target=inicio");
+		}
 	} else {
 		response.sendRedirect("/indica/es/main.jsp?target=error");
 	}

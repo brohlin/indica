@@ -15,7 +15,7 @@
 <section role="dialog" class="borde-superior fondo-gris">
 	<header>
 		<div class="well">
-			<h1 class="text-center text-white">ENVIAR ENCUESTAS</h1>
+			<h1 class="text-center text-white"><fmt:message key="enviar_encuesta.element1" /></h1>
 		</div>
 		<div class="well-2 bc-purple">
 			<h3 class="text-center text-white">&nbsp;</h3>
@@ -28,14 +28,14 @@
 			<input type="hidden" value="<%= session.getAttribute("temp_user_organization_id").toString() %>" name="organization_id">
 
 			<div class="form-group">
-				<label for="inputPrimerNombre">Emails para invitar</label>
-				<br>Proporcionar una lista de emails separados por comas.
+				<label for="inputPrimerNombre"><fmt:message key="enviar_encuesta.element2" /></label>
+				<br><fmt:message key="enviar_encuesta.element3" />
 				<div class="col-sm-9 input-group">
-					<textarea name="email" rows="20" cols="50" maxlength="1000" placeholder="Proporcionar una lista de emails separados por comas."></textarea>
+					<textarea name="email" rows="20" cols="50" maxlength="1000" placeholder="<fmt:message key="enviar_encuesta.element4" />"></textarea>
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-info btn-block separador-top">Enviar Invitaciones</button>
+			<button type="submit" class="btn btn-info btn-block separador-top"><fmt:message key="enviar_encuesta.element5" /></button>
 		</form>
 	</fieldset>
 </div>

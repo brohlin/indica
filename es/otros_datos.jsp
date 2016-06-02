@@ -18,11 +18,11 @@
 				formatter: 
 	            function() {
 	                if (this.y == 1){
-	                   return  '<b>'+ this.x + '</b>' + '<br/>' + "Nunca"
+	                   return  '<b>'+ this.x + '</b>' + '<br/>' + '<fmt:message key="otros_datos.element1" />'
 	                } else if (this.y == 3){
-	                    return '<b>'+ this.x + '</b>' + '<br/>' + "Siempre"
+	                    return '<b>'+ this.x + '</b>' + '<br/>' + '<fmt:message key="otros_datos.element2" />'
 	                }  else if (this.y == 2){
-	                    return '<b>'+ this.x + '</b>' + '<br/>' + "Algunas veces"
+	                    return '<b>'+ this.x + '</b>' + '<br/>' + '<fmt:message key="otros_datos.element3" />'
 	                };
 				} ,
 
@@ -48,36 +48,36 @@
 				gridLineWidth: 0,
 				alternateGridColor: null,
 				plotBands: [{ 
-				// Nunca equivale 1
+				// <fmt:message key="otros_datos.element1" /> equivale 1
 				from:1.4,
 				to: 1.5,
 
 				color: '#ba0e00',
 				label: {
-					text: 'Nunca',
+					text: '<fmt:message key="otros_datos.element1" />',
 					y:15,
 					
 					style: {
 						color: 'black'
 					}
 				}
-			}, { // Algunas veces equivale a 2
+			}, { // <fmt:message key="otros_datos.element3" /> equivale a 2
 				from: 2.4,
 				to: 2.5,
 				color: '#f8c200',
 				label: {
-					text: 'Algunas veces',
+					text: '<fmt:message key="otros_datos.element3" />',
 					y:15,
 					style: {
 						color: 'black'
 					}
 				}
-			},{ // Siempre equivale a 3
+			},{ // <fmt:message key="otros_datos.element2" /> equivale a 3
 				from: 3.4,
 				to: 3.5,
 				color: '#9abc4d',
 				label: {
-					text: 'Siempre',
+					text: '<fmt:message key="otros_datos.element2" />',
 					y:15,
 					style: {
 						color: 'black'
@@ -101,7 +101,7 @@ var chart_1 = new Highcharts.Chart({
 		renderTo:'gr-otros-1',
 	},
 	xAxis:{
-		categories:['Pregunta 1', 'Pregunta 2', 'Pregunta 3', 'Pregunta 4']
+		categories:['<fmt:message key="otros_datos.element4" /> 1', '<fmt:message key="otros_datos.element4" /> 2', '<fmt:message key="otros_datos.element4" /> 3', '<fmt:message key="otros_datos.element4" /> 4']
 	},
 	series: [{
 		data: [<% if (session.getAttribute("temp_admin_organization_q1_lkup").equals("89")) { %>3<% } else if (session.getAttribute("temp_admin_organization_q1_lkup").equals("90")) { %>2<% } else if (session.getAttribute("temp_admin_organization_q1_lkup").equals("91")) { %>1<% } %>,<% if (session.getAttribute("temp_admin_organization_q2_lkup").equals("89")) { %>3<% } else if (session.getAttribute("temp_admin_organization_q2_lkup").equals("90")) { %>2<% } else if (session.getAttribute("temp_admin_organization_q2_lkup").equals("91")) { %>1<% } %>,<% if (session.getAttribute("temp_admin_organization_q3_lkup").equals("89")) { %>3<% } else if (session.getAttribute("temp_admin_organization_q3_lkup").equals("90")) { %>2<% } else if (session.getAttribute("temp_admin_organization_q3_lkup").equals("91")) { %>1<% } %>,<% if (session.getAttribute("temp_admin_organization_q43_lkup").equals("89")) { %>3<% } else if (session.getAttribute("temp_admin_organization_q43_lkup").equals("90")) { %>2<% } else if (session.getAttribute("temp_admin_organization_q43_lkup").equals("91")) { %>1<% } %>],

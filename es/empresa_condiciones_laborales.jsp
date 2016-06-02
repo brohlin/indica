@@ -1,5 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ page language="java" import="java.sql.*" %>
+<%@ page import="org.undp.database.*" %>
+<%@ page import="org.undp.utils.*" %>
+<%@ page import="org.undp.utils.arrays.*" %>
+<%@ page import="org.undp.log.*" %>
+<%@ page import="java.util.Enumeration" %>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="org.undp.i18n.text" />
+
+
+<%
+	DynStringArray parameters = new DynStringArray();
+	DbResults db = null;
+
+	
+	if (session.getAttribute("temp_admin_organization_id") != null) { 
+		parameters.add(session.getAttribute("temp_admin_organization_id").toString());
+		parameters.add("table1");
+	} 
+
+	db = Database.callProcResults("p_get_organization_dynamic_rows_table5", parameters);
+
+%>
 				<form role="form" action="validate_empresa_condiciones_laborales.jsp" method="post" class="form-plantilla">
 					<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> name="id" value="<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>" type="hidden">
 				
@@ -8,32 +36,32 @@
 							<div class="col-centered icono-tabla-fondo">
 								<a class="icono-pos4"></a>
 							</div>
-							<h2 class="text-gray ">Tabla No. 4</h2>
-							<h3 class="text-orange reset-margin" >PLANTILLA / TIPO DE CONTRATO / JORNADA</h3>
+							<h2 class="text-gray "><fmt:message key="empresa_condiciones_laborales.element1" /></h2>
+							<h3 class="text-orange reset-margin" ><fmt:message key="empresa_condiciones_laborales.element2" /></h3>
 						</div>
 						<div class="table-responsive">
 							<table class="table">
 							<tbody> 
 								<tr>
 									<th class="col-xs-4  " >
-										<h6><label class="label label-subtitulo">Jornada</label></h6>
+										<h6><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element3" /></label></h6>
 									</th>
 									<th class="col-xs-4 ">
-										<h6><label class="label label-subtitulo">Contrato</label></h6>
+										<h6><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element4" /></label></h6>
 									</th>
 									<th class="col-xs-2 ">
-										<h6><label class="label label-subtitulo">Mujeres</label></h6>
+										<h6><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element5" /></label></h6>
 									</th>
 									<th class="col-xs-2 ">
-										<h6><label class="label label-subtitulo">Hombres</label></h6>
+										<h6><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element6" /></label></h6>
 									</th>	
 								</tr>
 								<tr>
 									<th rowspan="3">
-										<label class="titulo-input" >Completa</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element7" /></label>
 									</th>
 									<td >
-										<label class="titulo-input" >Indefinido</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element8" /></label>
 									</td>
 									<td >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_jornada_completa_contrato_indefinido_mujeres" name="num_jornada_completa_contrato_indefinido_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_jornada_completa_contrato_indefinido_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_jornada_completa_contrato_indefinido_mujeres").toString() %><% } %>">
@@ -45,7 +73,7 @@
 								<tr>
 
 									<td >
-										<label class="titulo-input" >Temporal</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element9" /></label>
 									</td>
 									<td >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_jornada_completa_contrato_temporal_mujeres" name="num_jornada_completa_contrato_temporal_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_jornada_completa_contrato_temporal_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_jornada_completa_contrato_temporal_mujeres").toString() %><% } %>">
@@ -57,7 +85,7 @@
 								<tr>
 
 									<td >
-										<label class="titulo-input" >Subtotal </label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element10" /> </label>
 									</td>
 									<td >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_subtotal_jornada_completa_mujeres" name="num_subtotal_jornada_completa_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_subtotal_jornada_completa_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_subtotal_jornada_completa_mujeres").toString() %><% } %>" readonly>
@@ -69,10 +97,10 @@
 								<!-- fila 2 -->
 								<tr>
 									<th rowspan="3">
-										<label class="titulo-input" >Parcial</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element11" /></label>
 									</th>
 									<td >
-										<label class="titulo-input" >Indefinido</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element12" /></label>
 									</td>
 									<td >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_jornada_partial_contrato_indefinido_mujeres" name="num_jornada_partial_contrato_indefinido_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_jornada_partial_contrato_indefinido_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_jornada_partial_contrato_indefinido_mujeres").toString() %><% } %>">
@@ -84,7 +112,7 @@
 								<tr>
 
 									<td >
-										<label class="titulo-input" >Temporal</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element13" /></label>
 									</td>
 									<td >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_jornada_partial_contrato_temporal_mujeres" name="num_jornada_partial_contrato_temporal_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_jornada_partial_contrato_temporal_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_jornada_partial_contrato_temporal_mujeres").toString() %><% } %>">
@@ -95,7 +123,7 @@
 								</tr>
 								<tr>
 									<td>
-										<label class="titulo-input" >Subtotal</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element14" /></label>
 									</td>
 									<td >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_subtotal_jornada_partial_mujeres" name="num_subtotal_jornada_partial_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_subtotal_jornada_partial_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_subtotal_jornada_partial_mujeres").toString() %><% } %>" readonly>
@@ -108,7 +136,7 @@
 									
 									<td  colspan="2">
 
-										<label class="titulo-input" >TOTAL</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element15" /></label>
 									</td>
 									<td >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_total_jornada_contracto_mujeres" name="num_total_jornada_contracto_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_total_jornada_contracto_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_total_jornada_contracto_mujeres").toString() %><% } %>" readonly>
@@ -120,7 +148,7 @@
 								</tr>
 								<tr class="fila-coincide " > 
 									<td  colspan="2">
-										<label class="titulo-input" >Coincide con Tabla No. 1</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element16" /></label>
 									</td>
 									<td  >
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="tabla4_coinicide_con_tabla1_mujeres" name="tabla4_coinicide_con_tabla1_mujeres" value="<% if (session.getAttribute("temp_admin_organization_tabla4_coinicide_con_tabla1_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_tabla4_coinicide_con_tabla1_mujeres").toString() %><% } %>" readonly>																										
@@ -139,32 +167,32 @@
 							<div class="col-centered icono-tabla-fondo">
 								<a class="icono-pos5"></a>
 							</div>
-							<h2 class="text-gray ">Tabla No. 5</h2>
-							<h3 class="text-orange reset-margin" >POLÍTICA SALARIAL</h3></div>
+							<h2 class="text-gray "><fmt:message key="empresa_condiciones_laborales.element17" /></h2>
+							<h3 class="text-orange reset-margin" ><fmt:message key="empresa_condiciones_laborales.element18" /></h3></div>
 							<div class="table">
 								<div class="row">
 									<div class="col-xs-6 col-md-8 padding-label">
 										<h6>
-												<label class="label label-subtitulo ">Salario medio bruto del último año, en USD<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="Calcular el salario medio bruto de último ejercicio, incluyendo también los complementos y el salario variable, y sumando además la retribución en especie (salario bruto)"  class="fa fa-question-circle"></a>
+												<label class="label label-subtitulo "><fmt:message key="empresa_condiciones_laborales.element19" /><a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element20" />"  class="fa fa-question-circle"></a>
 												</label>
 										</h6>
 									</div>
 									<div class="col-xs-3 col-md-2 padding-label ">
 										<h6>
-											<label class="label label-subtitulo">Mujeres
+											<label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element21" />
 											</label>
 										</h6>
 									</div>
 									<div class="col-xs-3 col-md-2 padding-label">
 										<h6>
-											<label class="label label-subtitulo">Hombres
+											<label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element22" />
 											</label>
 										</h6>
 									</div>	
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8 ">
-										<label class="titulo-input" >Dirección general o máximo cargo</label>
+										<label class="titulo-input" ><fmt:message key="empresa_condiciones_laborales.element23" /></label>
 									</div>
 									<div class="col-xs-3 col-md-2 ">
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="salario_direccion_general_o_maximo_cargo_mujeres" name="salario_direccion_general_o_maximo_cargo_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_salario_direccion_general_o_maximo_cargo_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_salario_direccion_general_o_maximo_cargo_mujeres").toString() %><% } %>">
@@ -175,8 +203,8 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<label class="titulo-input">Puestos directivos como gerencias
-											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="A cargo del dpto. financiero, comercial y ventas, RRHH, producción, etc"  class="fa fa-question-circle"></a>
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element24" />
+											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element25" />"  class="fa fa-question-circle"></a>
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
@@ -188,8 +216,8 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8 col-lg-8">
-										<label class="titulo-input">Otras jefaturas o mandos intermedios. Nivel 4
-											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="Personas dependientes de los puestos directivos y que tienen a su cargo equipos de personas. A más nivel, más responsabilidad" class="fa fa-question-circle"></a>
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element26" />
+											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element27" />" class="fa fa-question-circle"></a>
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2 col-lg-2">
@@ -201,8 +229,8 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<label class="titulo-input">Otras jefaturas o mandos intermedios. Nivel 3
-											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="Personas dependientes de los puestos directivos y que tienen a su cargo equipos de personas. A más nivel, más responsabilidad" class="fa fa-question-circle"></a>
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element28" />
+											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element29" />" class="fa fa-question-circle"></a>
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
@@ -214,8 +242,8 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<label class="titulo-input">Otras jefaturas o mandos intermedios. Nivel 2
-											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="Personas dependientes de los puestos directivos y que tienen a su cargo equipos de personas. A más nivel, más responsabilidad" class="fa fa-question-circle"></a>
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element30" />
+											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element31" />" class="fa fa-question-circle"></a>
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
@@ -227,8 +255,8 @@
 								</div>
 								<div class="row form-group">
 										<div class="col-xs-6 col-md-8">
-											<label class="titulo-input">Otras jefaturas o mandos intermedios. Nivel 1
-												<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="Personas dependientes de los puestos directivos y que tienen a su cargo equipos de personas. A más nivel, más responsabilidad" class="fa fa-question-circle"></a>
+											<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element32" />
+												<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element33" />" class="fa fa-question-circle"></a>
 											</label>
 										</div>
 										<div class="col-xs-3 col-md-2">
@@ -240,7 +268,7 @@
 									</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<label class="titulo-input">Puestos técnicos
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element34" />
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
@@ -252,7 +280,7 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<label class="titulo-input">Puestos administrativos
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element35" />
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
@@ -264,7 +292,7 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<label class="titulo-input">Puestos auxiliares
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element36" />
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
@@ -276,7 +304,7 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<label class="titulo-input">Puestos operativos
+										<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element37" />
 										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
@@ -288,7 +316,7 @@
 								</div>
 								<div class="row form-group">
 									<div class="col-xs-6 col-md-8">
-										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="puestos_a" name="puestos_a" placeholder="Ingrese otros tipos de puestos"  value="<% if (session.getAttribute("temp_admin_organization_puestos_a") != null) { %><%= session.getAttribute("temp_admin_organization_puestos_a").toString() %><% } %>" readonly>
+										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="puestos_a" name="puestos_a" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_puestos_a") != null) { %><%= session.getAttribute("temp_admin_organization_puestos_a").toString() %><% } %>" readonly>
 									</div>
 									<div class="col-xs-3 col-md-2">
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="salario_puestos_a_mujeres" name="salario_puestos_a_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_salario_puestos_a_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_salario_puestos_a_mujeres").toString() %><% } %>">
@@ -330,6 +358,9 @@
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="salario_puestos_d_hombres" name="salario_puestos_d_hombres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_salario_puestos_d_hombres") != null) { %><%= session.getAttribute("temp_admin_organization_salario_puestos_d_hombres").toString() %><% } %>">
 									</div>	
 								</div>
+								
+								<%= db.generateHtml() %>
+								
 							</div> <!-- fin de table -->
 					</fieldset>
 					<fieldset class="fieldset-borde ">
@@ -337,8 +368,8 @@
 							<div class="col-centered icono-tabla-fondo">
 								<a class="icono-pos6"></a>
 							</div>
-							<h2 class="text-gray ">Tabla No. 6</h2>
-							<h3 class="text-orange reset-margin" >MEDIDAS DE CONCILIACIÓN CON RESPONSABILIDAD</h3>
+							<h2 class="text-gray "><fmt:message key="empresa_condiciones_laborales.element38" /></h2>
+							<h3 class="text-orange reset-margin" ><fmt:message key="empresa_condiciones_laborales.element39" /></h3>
 						</div>
 							<div class="table-responsive">
 								<table class="table">
@@ -347,32 +378,32 @@
 												<th class="col-xs-4">
 												</th>
 												<th class="col-xs-4" colspan="2">
-													<h6 class="reset-margin"><label class="label label-subtitulo">No. de personas en situación de acogerse</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element40" /></label></h6>
 												</th>
 												<th class="col-xs-4" colspan="2">
-													<h6 class="reset-margin"><label class="label label-subtitulo">No. de personas que efectivamente se acogen</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element41" /></label></h6>
 												</th>
 											</tr>
 											<tr>
 												<th class="col-xs-4" >
-													<h6 class="reset-margin"><label class="label label-subtitulo">Medidas de conciliación</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element42" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Mujeres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element43" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Hombres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element44" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Mujeres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element45" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Hombres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element46" /></label></h6>
 												</th>		
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Licencia de paternidad (incluye en caso de adopción y acogida)</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element47" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" name="rotacion-jperdidas-nulo" placeholder="-" disabled>
@@ -389,7 +420,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Licencia de maternidad/parentalidad</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element48" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_licencia_de_maternidad_en_sit_de_acogerse" name="num_licencia_de_maternidad_en_sit_de_acogerse" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_licencia_de_maternidad_en_sit_de_acogerse") != null) { %><%= session.getAttribute("temp_admin_organization_num_licencia_de_maternidad_en_sit_de_acogerse").toString() %><% } %>">
@@ -406,7 +437,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Licencia de lactancia</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element49" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_licencia_de_lactancia_en_sit_de_acogerse_mujeres" name="num_licencia_de_lactancia_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_licencia_de_lactancia_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_licencia_de_lactancia_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -423,7 +454,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Reducción de jornada por guarda legal de personas a cargo</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element50" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_reduc_jornada_guardar_en_sit_de_acogerse_mujeres" name="num_reduc_jornada_guardar_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_reduc_jornada_guardar_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_reduc_jornada_guardar_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -440,7 +471,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Excedencia por cuidado de personas a cargo</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element51" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_excedencia_por_cuidado_en_sit_de_acogerse_mujeres" name="num_excedencia_por_cuidado_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_excedencia_por_cuidado_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_excedencia_por_cuidado_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -464,8 +495,8 @@
 							<div class="col-centered icono-tabla-fondo">
 								<a class="icono-pos7"></a>
 							</div>
-							<h2 class="text-gray ">Tabla No. 7</h2>
-							<h3 class="text-orange reset-margin" >FLEXIBILIDAD DE TIEMPO Y ESPACIO DE TRABAJO</h3>
+							<h2 class="text-gray "><fmt:message key="empresa_condiciones_laborales.element52" /></h2>
+							<h3 class="text-orange reset-margin" ><fmt:message key="empresa_condiciones_laborales.element53" /></h3>
 						</div>
 							<div class="table-responsive">
 								<table class="table">
@@ -474,34 +505,34 @@
 												<th class="col-xs-4">
 												</th>
 												<th class="col-xs-4" colspan="2">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Nª de personas que pueden acogerse en la empresa 
-													<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="Disponibles para un número concreto de plazas."  class="fa fa-question-circle"></a>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element54" /> 
+													<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element55" />"  class="fa fa-question-circle"></a>
 															</label></h6>
 												</th>
 												<th class="col-xs-4" colspan="2">
-													<h6 class="reset-margin"><label class="label label-subtitulo">No. de personas que efectivamente se acogen</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element56" /></label></h6>
 												</th>
 											</tr>
 											<tr>
 												<th class="col-xs-4" >
-													<h6 class="reset-margin"><label class="label label-subtitulo">Medida</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element57" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Mujeres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element58" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Hombres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element59" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Mujeres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element60" /></label></h6>
 												</th>
 												<th class="col-xs-2 ">
-													<h6 class="reset-margin"><label class="label label-subtitulo">Hombres</label></h6>
+													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element61" /></label></h6>
 												</th>		
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Flexibilidad de entrada y salida</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element62" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_flex_entrada_salida_en_sit_de_acogerse_mujeres" name="num_flex_entrada_salida_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_flex_entrada_salida_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_flex_entrada_salida_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -518,7 +549,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Flexibilidad de horario negociada</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element63" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_flex_horario_en_sit_de_acogerse_mujeres" name="num_flex_horario_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_flex_horario_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_flex_horario_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -535,7 +566,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Reducción de jornada por motivos personales</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element64" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_reduc_jornada_mot_pers_en_sit_de_acogerse_mujeres" name="num_reduc_jornada_mot_pers_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_reduc_jornada_mot_pers_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_reduc_jornada_mot_pers_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -552,7 +583,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Excedencia remunerada por motivos personales</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element65" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_excedencia_remunerada_mot_pers_en_sit_de_acogerse_mujeres" name="num_excedencia_remunerada_mot_pers_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_excedencia_remunerada_mot_pers_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_excedencia_remunerada_mot_pers_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -569,7 +600,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Excedencia no remunerada por motivos personales</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element66" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_excedencia_no_remunerada_mot_pers_en_sit_de_acogerse_mujeres" name="num_excedencia_no_remunerada_mot_pers_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_excedencia_no_remunerada_mot_pers_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_excedencia_no_remunerada_mot_pers_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -586,7 +617,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Teletrabajo</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element67" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_teletrabajo_en_sit_de_acogerse_mujeres" name="num_teletrabajo_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_teletrabajo_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_teletrabajo_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -603,7 +634,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Acercamiento al lugar de residencia</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element68" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_acerc_lugar_residencia_en_sit_de_acogerse_mujeres" name="num_acerc_lugar_residencia_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_acerc_lugar_residencia_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_acerc_lugar_residencia_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -620,7 +651,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Guardería en el ámbito de la empresa/organización</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element69" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_guaderia_ambito_en_sit_de_acogerse_mujeres" name="num_guaderia_ambito_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_guaderia_ambito_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_guaderia_ambito_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -637,7 +668,7 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input">Ayudas para la contratación de  servicio para guardería</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element70" /></label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_ayuda_contrat_guaderia_en_sit_de_acogerse_mujeres" name="num_ayuda_contrat_guaderia_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_ayuda_contrat_guaderia_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_ayuda_contrat_guaderia_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -661,8 +692,8 @@
 							<div class="col-centered icono-tabla-fondo">
 								<a class="icono-pos8"></a>
 							</div>
-							<h2 class="text-gray ">Tabla No. 8</h2>
-							<h3 class="text-orange reset-margin" >PREVENCION Y TRATAMIENTO DEL ACOSOS SEXUAL O ACOSO POR RAZÓN DE SEXO</h3>
+							<h2 class="text-gray "><fmt:message key="empresa_condiciones_laborales.element71" /></h2>
+							<h3 class="text-orange reset-margin" ><fmt:message key="empresa_condiciones_laborales.element72" /></h3>
 						</div>
 							<div class="table-responsive">
 								<table class="table tabla-fija">
@@ -671,15 +702,15 @@
 												<td  >
 												</td>
 												<td >
-													<h6><label class="label label-subtitulo">Mujeres</label></h6>
+													<h6><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element73" /></label></h6>
 												</td>
 												<td >
-													<h6><label class="label label-subtitulo">Hombres</label></h6>
+													<h6><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element74" /></label></h6>
 												</td>
 											</tr>
 											<tr>
 												<td class="" >
-													<label class="titulo-input">Número de quejas recibidas anualmente por acoso sexual o por razón de sexo en el lugar de trabajo</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element75" /></label>
 												</td>
 												<td class="">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_quejas_recibidas_acoso_sexual_mujeres" name="num_quejas_recibidas_acoso_sexual_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_quejas_recibidas_acoso_sexual_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_quejas_recibidas_acoso_sexual_mujeres").toString() %><% } %>">
@@ -690,7 +721,7 @@
 											</tr>
 											<tr>
 												<td class="" >
-													<label class="titulo-input">Número de quejas que han sido atendidas y resueltas</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element76" /></label>
 												</td>
 												<td class="">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_quejas_atendidas_acoso_sexual_mujeres" name="num_quejas_atendidas_acoso_sexual_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_quejas_atendidas_acoso_sexual_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_quejas_atendidas_acoso_sexual_mujeres").toString() %><% } %>">
@@ -701,7 +732,7 @@
 											</tr>
 											<tr>
 												<td class="" >
-													<label class="titulo-input">Atención específica a mujeres que han sufrido acoso sexual o acoso por razón de sexo en procesos de reclutamiento y selección</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element77" /></label>
 												</td>
 												<td class="">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_atenc_acoso_sexual_procesos_de_reclut_seleccion_mujeres" name="num_atenc_acoso_sexual_procesos_de_reclut_seleccion_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_atenc_acoso_sexual_procesos_de_reclut_seleccion_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_atenc_acoso_sexual_procesos_de_reclut_seleccion_mujeres").toString() %><% } %>">
@@ -712,7 +743,7 @@
 											</tr>
 											<tr>
 												<td class="" >
-													<label class="titulo-input">Atención específica a mujeres que han sufrido acoso sexual o acoso por razón de sexo en procesos de promoción o movilidad</label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element78" /></label>
 												</td>
 												<td class="">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_atenc_acoso_sexual_procesos_de_promocion_movilidad_mujeres" name="num_atenc_acoso_sexual_procesos_de_promocion_movilidad_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_atenc_acoso_sexual_procesos_de_promocion_movilidad_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_atenc_acoso_sexual_procesos_de_promocion_movilidad_mujeres").toString() %><% } %>">
@@ -731,7 +762,7 @@
 		// do nothing
 	}  else {
 %>
-					<button type="submit" class="btn btn-info btn-block separador-top">GRABAR Y CONTINUAR</button>
+					<button type="submit" class="btn btn-info btn-block separador-top"><fmt:message key="empresa_condiciones_laborales.element79" /></button>
 <%
 	}
 %>

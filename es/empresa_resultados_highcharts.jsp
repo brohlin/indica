@@ -1,4 +1,18 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ page language="java" import="java.sql.*" %>
+<%@ page import="org.undp.database.*" %>
+<%@ page import="org.undp.utils.*" %>
+<%@ page import="org.undp.utils.arrays.*" %>
+<%@ page import="org.undp.log.*" %>
+<%@ page import="java.util.Enumeration" %>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="org.undp.i18n.text" />
 
 <%
 	String un = (String) session.getAttribute("temp_user_id");
@@ -12,12 +26,6 @@
 	
 		System.out.println("in else statement");
 %>
-
-<%@ page language="java" import="java.sql.*" %>
-<%@ page import="org.undp.database.*" %>
-<%@ page import="org.undp.utils.*" %>
-<%@ page import="org.undp.utils.arrays.*" %>
-<%@ page import="org.undp.log.*" %>
 
 
 <!-- %= session.getAttribute("temp_user_organization_id").toString() % -->
@@ -2158,14 +2166,14 @@
 		<header>
 			<div class="bc-orange text-white padding-small borde-inferior">
 				<div class="container">
-					<h3 class="text-white">Datos de la empresa / organización: <%= session.getAttribute("temp_empresa_resultados_nm").toString() %> </h3>
+					<h3 class="text-white"><fmt:message key="empresa_resultados_highcharts.element1" />: <%= session.getAttribute("temp_empresa_resultados_nm").toString() %> </h3>
 					 
-					<h1 class="text-white">RESULTADOS</h1>
+					<h1 class="text-white"><fmt:message key="empresa_resultados_highcharts.element2" /></h1>
 				</div>
 			</div>
 			<div class="bc-gray-2d text-white padding-small borde-inferior">
 				<div class="container">
-					<h4><i class="fa fa-external-link-square text-white"></i> <a class="a-white" href="/indica/es/main.jsp?target=resultados_otros_datos"> Siga este	enlace para ver los resultados del formulario de valoración de la empresa</a></h4>
+					<h4><i class="fa fa-external-link-square text-white"></i> <a class="a-white" href="/indica/es/main.jsp?target=resultados_otros_datos"> <fmt:message key="empresa_resultados_highcharts.element3" /></a></h4>
 				</div>
 			</div>
 		</header>
@@ -2179,11 +2187,11 @@
 					<%
 						if (session.getAttribute("temp_empresa_resultados_completed").toString().equals("N")) {
 					%>
-							Aún no hemos recibido el autodiagnóstico de la empesa
+							<fmt:message key="empresa_resultados_highcharts.element4" />
 					<%
 						} else if (session.getAttribute("temp_empresa_resultados_pct_complete_empresa").toString().equals("100") && session.getAttribute("temp_empresa_resultados_completed").toString().equals("Y")) {
 					%>						
-							El autodianóstico fue recibido exitosamente el día <%= session.getAttribute("temp_empresa_resultados_last_mod_tmstmp").toString() %> 
+							<fmt:message key="empresa_resultados_highcharts.element5" /> <%= session.getAttribute("temp_empresa_resultados_last_mod_tmstmp").toString() %> 
 					<%
 						}
 
@@ -2191,26 +2199,26 @@
 					</h4>	
 				</div>
 				<ul>  
-					<li>Caracterización básica - 
+					<li><fmt:message key="empresa_resultados_highcharts.element6" /> - 
 						 <%= session.getAttribute("temp_empresa_resultados_pct_complete_empresa_cb").toString() %>  
 					</li>
-					<li>Plantilla - 
+					<li><fmt:message key="empresa_resultados_highcharts.element7" /> - 
 						 <%= session.getAttribute("temp_empresa_resultados_pct_complete_empresa_plantilla").toString() %>  
 					</li>
-					<li>Condiciones laborales - 
+					<li><fmt:message key="empresa_resultados_highcharts.element8" /> - 
 						 <%= session.getAttribute("temp_empresa_resultados_pct_complete_empresa_cl").toString() %> 
 					</li>
-					<li>Gestión del personal - 
+					<li><fmt:message key="empresa_resultados_highcharts.element9" /> - 
 						 <%= session.getAttribute("temp_empresa_resultados_pct_complete_empresa_gestion_del_personal").toString() %>
 					</li>
-					<li>Otros datos - 
+					<li><fmt:message key="empresa_resultados_highcharts.element10" /> - 
 						 <%= session.getAttribute("temp_empresa_resultados_pct_complete_empresa_otros_datos").toString() %> 
 					</li>
 				</ul>
 			</div>
 		</div> <!-- fin de cabezote gris -->
 	<div class="container resultados">
-		<h6 class="text-center separador-top separador-bottom">A continuación encontrará el resumen de los indicadores.</h6>
+		<h6 class="text-center separador-top separador-bottom"><fmt:message key="empresa_resultados_highcharts.element11" /></h6>
 		<!-- INICIA PANEL AMBITOS -->
 		<div class="col-xs-12">
 			<div class="panel-heading">
@@ -2219,29 +2227,29 @@
 						<div class="pilar-borde pilar-borde-violeta-acordeon">
 						</div>
 					</div>
-					<h2>ÁMBITOS GENERALES</h2>
+					<h2><fmt:message key="empresa_resultados_highcharts.element12" /></h2>
 				</div>
 			</div>
 			<div id="contenido-ambitos" >
 				<div class="padding-small">
 					<div class="row bloque">
-						<h1 class="super-letra">GE</h1>
-						<p class="bloque-centrado">Comprende, por un lado, el conjunto de información relacionada con la tipología de empresas u organizaciones en función de distintas variables (las más prioritarias son país, tipo de organización, sector de actividad, tamaño). Por otro lado, información sobre comunicación interna, externa y productividad en empresas u organizaciones (ausentismo y rotación).</p>
+						<h1 class="super-letra"><fmt:message key="empresa_resultados_highcharts.element13" /></h1>
+						<p class="bloque-centrado"><fmt:message key="empresa_resultados_highcharts.element14" /></p>
 					</div>
-					<h3 class="separador-top text-center">INDICADORES DESGLOSADOS</h3>
+					<h3 class="separador-top text-center"><fmt:message key="empresa_resultados_highcharts.element15" /></h3>
 					<section>
 						<div role="tabpanel" class="text-center">
 							<!-- Nav tabs -->
 							<div class="blockD">
 								<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-ge1" aria-controls="tab-ge1" role="tab" data-toggle="tab">GE1</a></li>
-									<li role="presentation"><a href="#tab-ge2" aria-controls="tab-ge2" role="tab" data-toggle="tab">GE2</a></li>
-									<li role="presentation"><a href="#tab-ge3" aria-controls="tab-ge3" role="tab" data-toggle="tab">GE3</a></li>
-									<li role="presentation"><a href="#tab-ge4" aria-controls="tab-ge4" role="tab" data-toggle="tab">GE4</a></li>
-									<li role="presentation"><a href="#tab-ge5" aria-controls="tab-ge5" role="tab" data-toggle="tab">GE5</a></li>
-									<li role="presentation"><a href="#tab-ge6" aria-controls="tab-ge6" role="tab" data-toggle="tab">GE6</a></li>
-									<li role="presentation"><a href="#tab-ge7" aria-controls="tab-ge7" role="tab" data-toggle="tab">GE7</a></li>
-									<li role="presentation"><a href="#tab-ge8" aria-controls="tab-ge8" role="tab" data-toggle="tab">GE8</a></li>
+									<li role="presentation" class="active"><a href="#tab-ge1" aria-controls="tab-ge1" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element16" /></a></li>
+									<li role="presentation"><a href="#tab-ge2" aria-controls="tab-ge2" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element17" /></a></li>
+									<li role="presentation"><a href="#tab-ge3" aria-controls="tab-ge3" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element18" /></a></li>
+									<li role="presentation"><a href="#tab-ge4" aria-controls="tab-ge4" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element19" /></a></li>
+									<li role="presentation"><a href="#tab-ge5" aria-controls="tab-ge5" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element20" /></a></li>
+									<li role="presentation"><a href="#tab-ge6" aria-controls="tab-ge6" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element21" /></a></li>
+									<li role="presentation"><a href="#tab-ge7" aria-controls="tab-ge7" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element22" /></a></li>
+									<li role="presentation"><a href="#tab-ge8" aria-controls="tab-ge8" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element23" /></a></li>
 								</ul>
 							</div>
 							<!-- Tab panes -->
@@ -2251,8 +2259,8 @@
 									<div role="tabpanel" class="tab-pane active" id="tab-ge1">
 										<!-- !!!!!! GE 1 !!!!!!! --> 
 										<div class="col-xs-12  panel panel-heading" >
-											<h4 class=" col-xs-12">Tasa de <span class="text-orange">ausentismo total</span> en la empresa / organización</h4>    
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Medir los  posibles impactos positivos en la productividad gracias a la igualdad de género, reflejados en la igualación de los índices de ausentismo laboral de mujeres y hombres.</div>
+											<h4 class=" col-xs-12">Tasa de <span class="text-orange"><fmt:message key="empresa_resultados_highcharts.element24" /></h4>    
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element25" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= ge1 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= ge1_color %>_mini.png">
@@ -2272,8 +2280,8 @@
 									<!-- !!!!!! GE2 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane " id="tab-ge2">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Equilibrio en las <span class="text-orange">tasas de ausentismo</span> de mujeres y hombres</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Observar los cambios en la productividad en relación con la reducción de ausentismo laboral de mujeres y hombres.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element26" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element27" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= ge2 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa"  src="/indica/assets/images/<%= ge2_color %>_mini.png">
@@ -2291,9 +2299,9 @@
 									<!-- !!!!!! GE3 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-ge3">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Equilibrio en las <span class="text-orange">tasas de cese de actividad</span> de la empresa/organización de las mujeres y los hombres (índice de rotación)</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Dar seguimiento a posibles impactos positivos en la productividad gracias a la igualdad de género, reflejados en la igualación de los índices de rotación (por cese) mujeres y hombres.</div>
-											<h4 class=" col-xs-12"><span class="badge"><%= ge3 %><img class="indicador-calificacion" alt="Evaluación positiva o negativa" <img src="/indica/assets/images/<%= ge3_color %>_mini.png">
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element28" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element29" /></div>
+											<h4 class=" col-xs-12"><span class="badge"><%= ge3 %><img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= ge3_color %>_mini.png">
 											</span></h4>
 										</div>
 										<div class="col-xs-12 col-sm-6">
@@ -2307,8 +2315,8 @@
 									<!-- !!!!!! GE4 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-ge4">
 										<div class="panel panel-heading col-xs-12 " >
-											<h4 class=" col-xs-12 ">Uso de <span class="text-orange">comunicación a favor de la igualdad</span> y no discriminación entre mujeres y hombres (comunicación incluyente)</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Conocer si la comunicación interna y externa promueve la igualdad de género.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element30" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element31" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= ge4 %> %
 												<img class="indicador-calificacion" alt="Evaluación positiva o negativa" img src="/indica/assets/images/<%= ge4_color %>_mini.png">
@@ -2327,8 +2335,8 @@
 									<!-- !!!!!! GE5 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-ge5">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Valoración / percepción de la plantilla sobre si la <span class="text-orange">comunicación interna</span></b> contempla criterios de igualdad y no discriminación por razón de sexo</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de valoración de las personas con respecto a cómo consideran la medida en que las empresas u organizaciones contribuye a la igualdad de género en la comunicación interna de las empresas u organizaciones.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element32" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element33" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= ge5 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" img src="/indica/assets/images/<%= ge5_color %>_mini.png">
@@ -2345,8 +2353,8 @@
 									<!-- !!!!!! GE6 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-ge6">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si la <span class="text-orange">comunicación interna</span> contempla criterios de igualdad y no discriminación por razón de sexo</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de equilibrio en la valoración/percepción de la mujeres y hombres sobre si la comunicación interna contempla criterios de igualdad y no discriminación por razón de sexo</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element34" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element35" /></div>
 											<h4 class=" col-xs-12 ">
 												<small class="badge"><%= ge6 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= ge6_color %>_mini.png">
@@ -2362,8 +2370,8 @@
 									<!-- !!!!!! GE7 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-ge7">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class="col-xs-12">Valoración/percepción de la plantilla sobre si la <span class="text-orange">comunicación externa</span> contempla criterios de igualdad y no discriminación por razón de sexo.</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Determinar el grado de valoración de las personas con respecto a cómo consideran la medida en que las empresas u organizaciones contribuye a la igualdad de género en la comunicación interna de las empresas u organizaciones.</div>
+											<h4 class="col-xs-12"><fmt:message key="empresa_resultados_highcharts.element36" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element37" /></div>
 											<h4 class="col-xs-12">
 												<span class="badge"><%= ge7 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= ge7_color %>_mini.png"> 
@@ -2379,8 +2387,8 @@
 									<!-- !!!!!! GE8 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-ge8">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si la <span class="text-orange">comunicación externa</span> contempla criterios de igualdad y no discriminación por razón de sexo.</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Cuantificar el grado de grado de equilibrio en la valoración/percepción de la mujeres y hombres sobre si la comunicación externa contempla criterios de igualdad y no discriminación por razón de sexo.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element38" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element39" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= ge8 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= ge8_color %>_mini.png"> 
@@ -2399,7 +2407,7 @@
 						</div> <!-- fin de tabpanel -->
 					</section>	
 
-					<h4 class="separador-top"> RESUMEN DE LOS INDICADORES</h4>
+					<h4 class="separador-top"> <fmt:message key="empresa_resultados_highcharts.element40" /></h4>
 					<div class="col-xs-12 separador-bottom">
 						<div id="gr-resumen-ge-1" class="grafica-resumen col-xs-12 col-sm-6" ></div> 
 						<div id="gr-resumen-ge-2" class="grafica-resumen col-xs-12 col-sm-6"></div>
@@ -2413,9 +2421,9 @@
 					<div class="col-xs-12 separador-bottom ">
 						<div class="blockD ">
 							<ul class="col-xs-8 list-inline centeredD marco-gris col-centered">
-								<li class="barra barra-verde text-white col-xs-12 col-sm-4 ">Valor positivo</li>
-								<li class="barra barra-amarilla col-xs-12 col-sm-4">Valor intermedio</li>
-								<li class="barra barra-roja text-white col-xs-12 col-sm-4">Valor negativo</li>
+								<li class="barra barra-verde text-white col-xs-12 col-sm-4 "><fmt:message key="empresa_resultados_highcharts.element41" /></li>
+								<li class="barra barra-amarilla col-xs-12 col-sm-4"><fmt:message key="empresa_resultados_highcharts.element42" /></li>
+								<li class="barra barra-roja text-white col-xs-12 col-sm-4"><fmt:message key="empresa_resultados_highcharts.element43" /></li>
 							</ul>
 						</div>
 					</div>
@@ -2430,31 +2438,31 @@
 						<div class="pilar-borde pilar-borde-gris-acordeon">
 						</div>
 					</div>
-					<h2>DESCRIPCIÓN DEL PERSONAL</h2>
+					<h2><fmt:message key="empresa_resultados_highcharts.element44" /></h2>
 				</div>
 			</div>
 			<div id="contenido-personal" >
 				<div class="padding-small">
 					<div class="row bloque">
-						<h1 class="super-letra">CP</h1>
-						<p class="bloque-centrado">Integra la información básica orientada a fotografiar la realidad de las personals de las empresas u organizaciones desde la perspectiva de la presencia/ausencia de las mujeres en relación con la de los hombres respecto a determinadas variables de descripción (*cargos de responsabilidad/otros puestos de personal; *departamentos que ocupan; integrantes en el Consejo de dirección).</p>
+						<h1 class="super-letra"><fmt:message key="empresa_resultados_highcharts.element45" /></h1>
+						<p class="bloque-centrado"><fmt:message key="empresa_resultados_highcharts.element46" /></p>
 					</div>
-					<h3 class="separador-top text-center">INDICADORES DESGLOSADOS</h3>
+					<h3 class="separador-top text-center"><fmt:message key="empresa_resultados_highcharts.element47" /></h3>
 					<section>
 						<div role="tabpanel" class="text-center">
 							<!-- Nav tabs -->
 							<div class="blockD">
 								<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-cp1" aria-controls="tab-cp1" role="tab" data-toggle="tab">CP1</a></li>
-									<li role="presentation"><a href="#tab-cp2" aria-controls="tab-cp2" role="tab" data-toggle="tab">CP2</a></li>
-									<li role="presentation"><a href="#tab-cp3" aria-controls="tab-cp3" role="tab" data-toggle="tab">CP3</a></li>
-									<li role="presentation"><a href="#tab-cp4" aria-controls="tab-cp4" role="tab" data-toggle="tab">CP4</a></li>
-									<li role="presentation"><a href="#tab-cp5" aria-controls="tab-cp5" role="tab" data-toggle="tab">CP5</a></li>
-									<li role="presentation"><a href="#tab-cp6" aria-controls="tab-cp6" role="tab" data-toggle="tab">CP6</a></li>
-									<li role="presentation"><a href="#tab-cp7" aria-controls="tab-cp7" role="tab" data-toggle="tab">CP7</a></li>
-									<li role="presentation"><a href="#tab-cp8" aria-controls="tab-cp8" role="tab" data-toggle="tab">CP8</a></li>
-									<li role="presentation"><a href="#tab-cp9" aria-controls="tab-cp9" role="tab" data-toggle="tab">CP9</a></li>
-									<li role="presentation"><a href="#tab-cp10" aria-controls="tab-cp10" role="tab" data-toggle="tab">CP10</a></li>
+									<li role="presentation" class="active"><a href="#tab-cp1" aria-controls="tab-cp1" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element48" /></a></li>
+									<li role="presentation"><a href="#tab-cp2" aria-controls="tab-cp2" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element49" /></a></li>
+									<li role="presentation"><a href="#tab-cp3" aria-controls="tab-cp3" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element50" /></a></li>
+									<li role="presentation"><a href="#tab-cp4" aria-controls="tab-cp4" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element51" /></a></li>
+									<li role="presentation"><a href="#tab-cp5" aria-controls="tab-cp5" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element52" /></a></li>
+									<li role="presentation"><a href="#tab-cp6" aria-controls="tab-cp6" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element53" /></a></li>
+									<li role="presentation"><a href="#tab-cp7" aria-controls="tab-cp7" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element54" /></a></li>
+									<li role="presentation"><a href="#tab-cp8" aria-controls="tab-cp8" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element55" /></a></li>
+									<li role="presentation"><a href="#tab-cp9" aria-controls="tab-cp9" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element56" /></a></li>
+									<li role="presentation"><a href="#tab-cp10" aria-controls="tab-cp10" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element57" /></a></li>
 								</ul>
 							</div>
 							<!-- Tab panes -->
@@ -2463,8 +2471,8 @@
 									<!-- !!!!!! cp1 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane active" id="tab-cp1">
 										<div class="col-xs-12  panel panel-heading" >
-											<h4 class=" col-xs-12">Equilibrio de <span class="text-orange">presencia femenina y masculina</span> en la plantilla.</h4>    
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Cuantificar la participación de las mujeres y los hombres en el conjunto del personal</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element58" /></h4>    
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element59" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cp1 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp1_color %>_mini.png"> 
@@ -2483,8 +2491,8 @@
 									<!-- !!!!!! cp2 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane " id="tab-cp2">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Presencia equilibrada de mujeres y hombres en cada tipo de puesto de la empresa/organización <span class="text-orange">(ausencia de segregación horizontal)</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Establecer el grado en que las empresas u organizaciones cuentan con presencia equilibrada y no segregada horizontalmente en el conjunto en cada uno de los niveles funcionales (mínimo: cargos de responsabilidad, puestos técnicos, administrativos, auxiliares y operarios)</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element60" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element61" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cp2 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp2_color %>_mini.png">
@@ -2501,8 +2509,8 @@
 									<!-- !!!!!! cp3 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cp3">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Presencia equilibrada de mujeres en cada uno de los cargos de responsabilidad <span class="text-orange">(índice de segregación en los cargos de responsabilidad)</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Determinar el grado en que las empresas u organizaciones cuentan con presencia equilibrada y no segregada verticalmente en el conjunto de cargos de responsabilidad (índice de segregación vertical)</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element62" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element63" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cp3 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp3_color %>_mini.png"> 
@@ -2518,8 +2526,8 @@
 									</div><!-- !!!!!! cp4 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cp4">
 										<div class="panel panel-heading col-xs-12 " >
-											<h4 class=" col-xs-12 ">Brecha en la presencia de mujeres y hombres <span class="text-orange">en los cargos de responsabilidad</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span> Establecer cuál es la brecha en la presencia de mujeres y hombres en los cargos de responsabilidad</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element64" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element65" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cp4 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp4_color %>_mini.png"> 
@@ -2536,8 +2544,8 @@
 									<!-- !!!!!! cp5 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cp5">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Brecha en la presencia de mujeres y hombres <span class="text-orange">en los consejos de dirección</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Observar si existe brecha de género en la presencia de mujeres y hombres en los consejos de dirección/administración/juntas directivas.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element66" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element67" /></div>
 											<h4 class=" col-xs-12"><span class="badge"><%= cp5 %> %
 												<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp5_color %>_mini.png">
 											</span>
@@ -2553,8 +2561,8 @@
 									<!-- !!!!!! cp6 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-cp6">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Tasa relativa de éxito <span class="text-orange">para ocupar cargos de responsabilidad</span> (mujeres/hombres)</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Conocer si existen brechas de género entre los cargos de responsabilidad y otros puestos ( este indicador podría servir también para valorar si existe brecha de género).</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element68" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element69" /></div>
 											<h4 class=" col-xs-12 ">
 												<span class="badge"><%= cp6 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp6_color %>_mini.png">
@@ -2571,8 +2579,8 @@
 									<!-- !!!!!! cp7 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cp7">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class="col-xs-12">Equilibrio entre la tasa relativa de presencia de las mujeres con contrato indefinido y de los hombres con contrato indefinido <span class="text-orange">(Equidad en la contratación indefinida)</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Medir el grado en que se cuenta con equidad en relación a la contratación indefinida o mismo nivel de estabilidad o igualdad de oportunidades para mujeres y hombres en la contratación indefinida.</div>
+											<h4 class="col-xs-12"><fmt:message key="empresa_resultados_highcharts.element70" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element71" /></div>
 											<h4 class="col-xs-12">
 												<span class="badge"><%= cp7 %> 
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp7_color %>_mini.png">
@@ -2588,8 +2596,8 @@
 									<!-- !!!!!! cp8 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cp8">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Brecha de contratación indefinida <span class="text-orange">(Equidad en la contratación indefinida)</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Observar si existe brecha de género en la presencia de mujeres y hombres en los puestos de contratación indefinida</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element72" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element73" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cp8 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp8_color %>_mini.png"> 
@@ -2607,8 +2615,8 @@
 									<!-- !!!!!! cp9 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-cp9">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Equilibrio entre la tasa relativa de presencia de las mujeres con contrato a tiempo completo y de los hombres con contrato a tiempo completo <span class="text-orange">(Equidad en la contratación a tiempo completo)</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Establecer el grado en que se cuenta con equidad en relación a la jornada de trabajo Misma tipología de jornada o Igualdad de oportunidades para mujeres y hombres la jornada de trabajo.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element74" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element75" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cp9 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp9_color %>_mini.png"> 
@@ -2625,8 +2633,8 @@
 									<!-- !!!!!! cp10 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cp10">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Brecha de contratación a tiempo completo <span class="text-orange">(Equidad en la contratación a tiempo completo)</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Observar si existe brecha de género en la presencia de mujeres y hombres en los puestos de contratación a tiempo completo</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element76" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element77" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cp10 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cp10_color %>_mini.png"> 
@@ -2644,7 +2652,7 @@
 						</div> <!-- fin de tabpanel -->
 					</section>  
 
-					<h4 class="separador-top"> RESUMEN DE LOS INDICADORES</h4>
+					<h4 class="separador-top"> <fmt:message key="empresa_resultados_highcharts.element78" /></h4>
 					<div class="col-xs-12 separador-bottom">
 						<div id="gr-resumen-cp1" class="grafica-resumen col-xs-12 col-sm-6" ></div> 
 						<div id="gr-resumen-cp2" class="grafica-resumen col-xs-12 col-sm-6"></div>
@@ -2677,26 +2685,26 @@
 						<div class="pilar-borde pilar-borde-violeta-acordeon">
 						</div>
 					</div>
-					<h2>RECLUTAMIENTO, SELECCIÓN Y CONTRATACIÓN</h2>
+					<h2><fmt:message key="empresa_resultados_highcharts.element79" /></h2>
 				</div>
 			</div>
 			<div id="contenido-rsc" >
 				<div class="padding-small">
 					<div class="row bloque">
-						<h1 class="super-letra">RS</h1>
-						<p class="bloque-centrado">Agrupa información que posibilita la evaluación de los procesos de reclutamiento y selección y de contratación de las empresas u organizaciones con una perspectiva de género, valorando si se aplican de tal manera que no producen brechas de género.</p>
+						<h1 class="super-letra"><fmt:message key="empresa_resultados_highcharts.element80" /></h1>
+						<p class="bloque-centrado"><fmt:message key="empresa_resultados_highcharts.element81" /></p>
 					</div>
-					<h3 class="separador-top text-center">INDICADORES DESGLOSADOS</h3>
+					<h3 class="separador-top text-center"><fmt:message key="empresa_resultados_highcharts.element82" /></h3>
 					<section>
 						<div role="tabpanel" class="text-center">
 							<!-- Nav tabs -->
 							<div class="blockD">
 								<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-rs1" aria-controls="tab-rs1" role="tab" data-toggle="tab">RS1</a></li>
-									<li role="presentation"><a href="#tab-rs2" aria-controls="tab-rs2" role="tab" data-toggle="tab">RS2</a></li>
-									<li role="presentation"><a href="#tab-rs3" aria-controls="tab-rs3" role="tab" data-toggle="tab">RS3</a></li>
-									<li role="presentation"><a href="#tab-rs4" aria-controls="tab-rs4" role="tab" data-toggle="tab">RS4</a></li>
-									<li role="presentation"><a href="#tab-rs5" aria-controls="tab-rs5" role="tab" data-toggle="tab">RS5</a></li>
+									<li role="presentation" class="active"><a href="#tab-rs1" aria-controls="tab-rs1" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element83" /></a></li>
+									<li role="presentation"><a href="#tab-rs2" aria-controls="tab-rs2" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element84" /></a></li>
+									<li role="presentation"><a href="#tab-rs3" aria-controls="tab-rs3" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element85" /></a></li>
+									<li role="presentation"><a href="#tab-rs4" aria-controls="tab-rs4" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element86" /></a></li>
+									<li role="presentation"><a href="#tab-rs5" aria-controls="tab-rs5" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element87" /></a></li>
 								</ul>
 							</div>
 							<!-- Tab panes -->							
@@ -2705,11 +2713,11 @@
 									<!-- !!!!!! rs1 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane active" id="tab-rs1">
 										<div class="col-xs-12  panel panel-heading" >
-											<h4 class=" col-xs-12">Equilibrio de presencia femenina y masculina al tomar en consideración <span class="text-orange">candidaturas o postulaciones </span>en procesos de reclutamiento y selección.</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Establecer el grado en que se cuenta o se toma en consideración la presencia equilibrada de mujeres y hombres en las candidaturas o postulaciones que han formado parte de procesos de Reclutamiento y selección</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element88" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element89" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= rs1 %> %
-													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" <img src="/indica/assets/images/<%= rs1_color %>_mini.png"> 
+													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= rs1_color %>_mini.png"> 
 											</span>
 										</h4>
 										</div>
@@ -2725,8 +2733,8 @@
 									<!-- !!!!!! rs2 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane " id="tab-rs2">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Equilibrio entre las <span class="text-orange">oportunidades de éxito de contratación de las mujeres y hombres</span> participantes en procesos de selección y contratación</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Visibilizar el grado de éxito de las mujeres candidatas para obtener una contratación y compararla con el grado de éxito de los hombres candidatos para obtener una contratación</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element90" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element91" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= rs2 %> 
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= rs2_color %>_mini.png">
@@ -2742,8 +2750,8 @@
 									<!-- !!!!!! rs3 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-rs3">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Ausencia/Presencia de la perspectiva de género y a favor de la igualdad en los procesos de <span class="text-orange">reclutamiento, selección y de contratación</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Conocer si los procesos de reclutamiento y selección y de contratación promueven la igualdad de género y la no discriminación por razón de sexo</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element92" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element93" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= rs3 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= rs3_color %>_mini.png"> 
@@ -2760,8 +2768,8 @@
 									<!-- !!!!!! rs4 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-rs4">
 										<div class="panel panel-heading col-xs-12 " >
-											<h4 class=" col-xs-12 ">Valoración/percepción de la mujeres y hombres sobre si los <span class="text-orange">procesos de selección y contratación</span> contemplan criterios de igualdad y no discriminación por razón de sexo.</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de valoración de las personas con respecto a si los procesos de reclutamiento y selección y de contratación son incluyentes y velan por la igualdad de oportunidades entre mujeres y hombres</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element94" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element95" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= rs4 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= rs4_color %>_mini.png">
@@ -2777,8 +2785,8 @@
 									<!-- !!!!!! rs5 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-rs5">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Equilibrio en la valoración/percepción de la mujeres y hombres sobre si los <span class="text-orange">procesos de selección y contratación</span> contemplan criterios de igualdad y no discriminación por razón de sexo.</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Medir los  posibles impactos positivos en la productividad gracias a la igualdad de género, reflejados en la igualación de los índices de ausentismo laboral de mujeres y hombres </div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element96" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element97" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= rs5 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= rs5_color %>_mini.png">
@@ -2797,7 +2805,7 @@
 						</div> <!-- fin de tabpanel -->
 					</section>  
 
-					<h4 class="separador-top"> RESUMEN DE LOS INDICADORES</h4>
+					<h4 class="separador-top"> <fmt:message key="empresa_resultados_highcharts.element98" /></h4>
 					<div class="col-xs-12 separador-bottom">
 						<div id="gr-resumen-rs1" class="grafica-resumen col-xs-12 col-sm-6" ></div> 
 						<div id="gr-resumen-rs2" class="grafica-resumen col-xs-12 col-sm-6"></div>
@@ -2826,30 +2834,30 @@
 						<div class="pilar-borde pilar-borde-gris-acordeon">
 						</div>
 					</div>
-					<h2>DESARROLLO PROFESIONAL Y DESEMPEÑO</h2>
+					<h2><fmt:message key="empresa_resultados_highcharts.element99" /></h2>
 				</div>
 			</div>
 			<div id="contenido-desarrollo-profesional" >
 				<div class="padding-small">
 					<div class="row bloque">
-						<h1 class="super-letra">DP</h1>
-						<p class="bloque-centrado">Ofrece información sobre si los procesos de promoción profesional de las empresas u organizaciones se realizan en igualdad de condiciones para mujeres y hombres o, si por el contrario, tienen sesgos de género que podrían favorecer a un sexo en detrimento del otro. También comprende información para valorar si participan mujeres y hombres por igual en la formación continua que ofrecen las empresas u organizaciones (formación interna y externa). Fundamental para la promoción y el desarrollo profesional.</p>
+						<h1 class="super-letra"><fmt:message key="empresa_resultados_highcharts.element100" /></h1>
+						<p class="bloque-centrado"><fmt:message key="empresa_resultados_highcharts.element101" /></p>
 					</div>
-					<h3 class="separador-top text-center">INDICADORES DESGLOSADOS</h3>
+					<h3 class="separador-top text-center"><fmt:message key="empresa_resultados_highcharts.element102" /></h3>
 					<section>
 						<div role="tabpanel" class="text-center">
 							<!-- Nav tabs -->
 							<div class="blockD">
 								<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-dp1" aria-controls="tab-dp1" role="tab" data-toggle="tab">DP1</a></li>
-									<li role="presentation"><a href="#tab-dp2" aria-controls="tab-dp2" role="tab" data-toggle="tab">DP2</a></li>
-									<li role="presentation"><a href="#tab-dp3" aria-controls="tab-dp3" role="tab" data-toggle="tab">DP3</a></li>
-									<li role="presentation"><a href="#tab-dp4" aria-controls="tab-dp4" role="tab" data-toggle="tab">DP4</a></li>
-									<li role="presentation"><a href="#tab-dp5" aria-controls="tab-dp5" role="tab" data-toggle="tab">DP5</a></li>
-									<li role="presentation"><a href="#tab-dp6" aria-controls="tab-dp6" role="tab" data-toggle="tab">DP6</a></li>
-									<li role="presentation"><a href="#tab-dp7" aria-controls="tab-dp7" role="tab" data-toggle="tab">DP7</a></li>
-									<li role="presentation"><a href="#tab-dp8" aria-controls="tab-dp8" role="tab" data-toggle="tab">DP8</a></li>
-									<li role="presentation"><a href="#tab-dp9" aria-controls="tab-dp9" role="tab" data-toggle="tab">DP9</a></li>
+									<li role="presentation" class="active"><a href="#tab-dp1" aria-controls="tab-dp1" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element103" /></a></li>
+									<li role="presentation"><a href="#tab-dp2" aria-controls="tab-dp2" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element104" /></a></li>
+									<li role="presentation"><a href="#tab-dp3" aria-controls="tab-dp3" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element105" /></a></li>
+									<li role="presentation"><a href="#tab-dp4" aria-controls="tab-dp4" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element106" /></a></li>
+									<li role="presentation"><a href="#tab-dp5" aria-controls="tab-dp5" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element107" /></a></li>
+									<li role="presentation"><a href="#tab-dp6" aria-controls="tab-dp6" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element108" /></a></li>
+									<li role="presentation"><a href="#tab-dp7" aria-controls="tab-dp7" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element109" /></a></li>
+									<li role="presentation"><a href="#tab-dp8" aria-controls="tab-dp8" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element110" /></a></li>
+									<li role="presentation"><a href="#tab-dp9" aria-controls="tab-dp9" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element111" /></a></li>
 								</ul>
 							</div>
 							<!-- Tab panes -->
@@ -2859,8 +2867,8 @@
 									<div role="tabpanel" class="tab-pane active" id="tab-dp1">
 										<!-- !!!!!! dp1 !!!!!!! --> 
 										<div class="col-xs-12  panel panel-heading" >
-											<h4 class=" col-xs-12">Equilibrio de presencia femenina y masculina al tomar en consideración candidaturas o postulaciones en <span class="text-orange">procesos de promoción</span></h4>    
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Establecer el grado en que se cuenta o se toma en consideración la presencia equilibrada de mujeres y hombres en las candidaturas o postulaciones que han formado parte de procesos de promoción.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element112" /></span></h4>    
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element113" /></div>
 											<h4 class=" col-xs-12"><span class="badge"><%= dp1 %> %
 												<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp1_color %>_mini.png">
 											</span></h4>
@@ -2877,8 +2885,8 @@
 									<!-- !!!!!! dp2 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane " id="tab-dp2">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Equilibrio entre las oportunidades para promocionarse u obtener un ascenso de las mujeres y hombres participantes en los <span class="text-orange">procesos de promoción</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Visibilizar el grado de éxito de las mujeres candidatas para obtener una contratación y compararla con el grado de éxito de los hombres candidatos para obtener una promoción.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element114" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element115" /></div>
 											<h4 class=" col-xs-12"><span class="badge"><%= dp2 %>
 												<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp2_color %>_mini.png">
 											</span></h4>
@@ -2894,8 +2902,8 @@
 									<!-- !!!!!! dp3 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-dp3">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Ausencia/presencia de la perspectiva de género y a favor de la igualdad en los <span class="text-orange">procesos de promoción</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Conocer si los procesos de promoción promueven la igualdad de género y la no discriminación por razón de sexo</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element116" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element117" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= dp3 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp3_color %>_mini.png">
@@ -2912,8 +2920,8 @@
 									<!-- !!!!!! dp4 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-dp4">
 										<div class="panel panel-heading col-xs-12 " >
-											<h4 class=" col-xs-12 ">Valoración/percepción de la mujeres y hombres sobre si los <span class="text-orange">procesos de promoción</span> contemplan criterios de igualdad y no discriminación por razón de sexo</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de valoración de las personas con respecto a si los procesos de promoción son incluyentes y velan por la igualdad de oportunidades entre mujeres y hombres.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element118" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element119" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= dp4 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp4_color %>_mini.png"> 
@@ -2930,8 +2938,8 @@
 									<!-- !!!!!! dp5 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-dp5">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Grado de equilibrio en la valoración/percepción de la mujeres y hombres sobre si los <span class="text-orange">procesos de promoción </span>contemplan criterios de igualdad y no discriminación por razón de sexo</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Conocer el grado de equilibrio en la valoración/percepción de las mujeres y hombres sobre si los procesos de promoción son incluyentes y respetan la igualdad.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element120" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element121" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= dp5 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp5_color %>_mini.png"> 
@@ -2948,8 +2956,8 @@
 									<div role="tabpanel" class="tab-pane" id="tab-dp6">
 										<!-- !!!!!! dp6 !!!!!!! --> 
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Equidad en el <span class="text-orange">número de horas de capacitación</span> que dedican las mujeres y el número de horas de capacitación que dedican los hombres</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Observar si la participación de las mujeres y los hombres en las acciones formativas (horas de capacitación) es equitativa</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element122" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element123" /></div>
 											<h4 class=" col-xs-12 "><small class="badge"><%= dp6 %><img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp6_color %>_mini.png"> 
 											</small></h4>
 										</div>
@@ -2963,8 +2971,8 @@
 									<!-- !!!!!! dp7 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-dp7">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class="col-xs-12">Ausencia/presencia de la perspectiva de género y a favor de la igualdad en los <span class="text-orange">procesos de capacitación o formación interna</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de valoración de las personas con respecto a si las políticas de desarrollo profesional del personal (promoción y capacitación) son incluyentes y velan por la igualdad de oportunidades entre mujeres y hombres</div>
+											<h4 class="col-xs-12"><fmt:message key="empresa_resultados_highcharts.element124" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element125" /></div>
 											<h4 class="col-xs-12">
 												<span class="badge"><%= dp7 %> %
 												<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp7_color %>_mini.png"> 
@@ -2980,8 +2988,8 @@
 									<!-- !!!!!! dp8 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-dp8">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Valoración/percepción de la mujeres y hombres sobre si los <span class="text-orange">procesos de capacitación o formación interna</span> contemplan criterios de igualdad y no discriminación por razón de sexo</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de valoración de las personas con respecto a si las políticas de capacitación son incluyentes y velan por la igualdad de oportunidades entre mujeres y hombres.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element126" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element127" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= dp8 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp8_color %>_mini.png"> 
@@ -2997,8 +3005,8 @@
 									<!-- !!!!!! dp9 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-dp9">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Equilibrio en la valoración/percepción de la mujeres y hombres sobre si los <span class="text-orange">procesos de capacitación o formación interna</span> contemplan criterios de igualdad y no discriminación por razón de sexo.</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de valoración de las personas con respecto a si las políticas de formación interna son incluyentes y velan por la igualdad de oportunidades entre mujeres y hombres.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element128" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element129" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= dp9 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= dp9_color %>_mini.png">
@@ -3018,7 +3026,7 @@
 
 					</section>  
 
-					<h4 class="separador-top"> RESUMEN DE LOS INDICADORES</h4>
+					<h4 class="separador-top"> <fmt:message key="empresa_resultados_highcharts.element130" /></h4>
 					<div class="col-xs-12 separador-bottom">
 						<div id="gr-resumen-dp1" class="grafica-resumen col-xs-12 col-sm-6" ></div> 
 						<div id="gr-resumen-dp2" class="grafica-resumen col-xs-12 col-sm-6"></div>
@@ -3050,27 +3058,27 @@
 						<div class="pilar-borde pilar-borde-violeta-acordeon">
 						</div>
 					</div>
-					<h2>REMUNERACIÓN</h2>
+					<h2><fmt:message key="empresa_resultados_highcharts.element131" /></h2>
 				</div>
 			</div>
 			<div id="contenido-remuneracion" >
 				<div class="padding-small">
 					<div class="row bloque">
-						<h1 class="super-letra">R</h1>
-						<p class="bloque-centrado">Compila información que permite valorar si las remuneraciones que reciben mujeres y hombres de las empresas u organizaciones reciben salarios equitativos.</p>
+						<h1 class="super-letra"><fmt:message key="empresa_resultados_highcharts.element132" /></h1>
+						<p class="bloque-centrado"><fmt:message key="empresa_resultados_highcharts.element133" /></p>
 					</div>
-					<h3 class="separador-top text-center">INDICADORES DESGLOSADOS</h3>
+					<h3 class="separador-top text-center"><fmt:message key="empresa_resultados_highcharts.element134" /></h3>
 					<section>
 						<div role="tabpanel" class="text-center">
 							<!-- Nav tabs -->
 							<div class="blockD">
 								<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-r1" aria-controls="tab-r1" role="tab" data-toggle="tab">R1</a></li>
-									<li role="presentation"><a href="#tab-r2" aria-controls="tab-r2" role="tab" data-toggle="tab">R2</a></li>
-									<li role="presentation"><a href="#tab-r3" aria-controls="tab-r3" role="tab" data-toggle="tab">R3</a></li>
-									<li role="presentation"><a href="#tab-r4" aria-controls="tab-r4" role="tab" data-toggle="tab">R4</a></li>
-									<li role="presentation"><a href="#tab-r5" aria-controls="tab-r5" role="tab" data-toggle="tab">R5</a></li>
-									<li role="presentation"><a href="#tab-r6" aria-controls="tab-r6" role="tab" data-toggle="tab">R6</a></li>
+									<li role="presentation" class="active"><a href="#tab-r1" aria-controls="tab-r1" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element135" /></a></li>
+									<li role="presentation"><a href="#tab-r2" aria-controls="tab-r2" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element136" /></a></li>
+									<li role="presentation"><a href="#tab-r3" aria-controls="tab-r3" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element137" /></a></li>
+									<li role="presentation"><a href="#tab-r4" aria-controls="tab-r4" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element138" /></a></li>
+									<li role="presentation"><a href="#tab-r5" aria-controls="tab-r5" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element139" /></a></li>
+									<li role="presentation"><a href="#tab-r6" aria-controls="tab-r6" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element140" /></a></li>
 								</ul>
 							</div>
 							<!-- Tab panes -->
@@ -3079,8 +3087,8 @@
 									<!-- !!!!!! r1 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane active" id="tab-r1">
 										<div class="col-xs-12  panel panel-heading" >
-											<h4 class=" col-xs-12">Brecha <span class="text-orange">salarial</span> en el conjunto del personal</h4>    
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Establecer el grado en que las políticas salariales, de compensación y de incentivos están libres de discriminación por razón de sexo.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element141" /></h4>    
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element142" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= r1 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= r1_color %>_mini.png"> 
@@ -3099,8 +3107,8 @@
 									<!-- !!!!!! r2 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane " id="tab-r2">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Brecha salarial en los <span class="text-orange">cargos de responsabilidad</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Establecer el grado en que las políticas salariales, de compensación y de incentivos dirigidas a personas en cargos de responsabilidad están libres de discriminación por razón de sexo.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element143" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element144" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= r2 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= r2_color %>_mini.png"> 
@@ -3119,8 +3127,8 @@
 									<!-- !!!!!! r3 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-r3">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Brecha salarial en el conjunto de puestos <span class="text-orange">distintos a los cargos de responsabilidad</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Establecer el grado en que las políticas salariales, de compensación y de incentivos dirigidas a personas en cargos de responsabilidad están libres de discriminación por razón de sexo.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element145" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element146" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= r3 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= r3_color %>_mini.png"> 
@@ -3137,8 +3145,8 @@
 									<!-- !!!!!! r4 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-r4">
 										<div class="panel panel-heading col-xs-12 " >
-											<h4 class=" col-xs-12 ">Ausencia/presencia de la perspectiva de género y a favor de la igualdad en la <span class="text-orange">política salarial</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Establecer el grado en que las políticas salariales, de compensación y de incentivos están libres de discriminación por razón de sexo.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element147" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element148" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= r4 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= r4_color %>_mini.png">
@@ -3155,8 +3163,8 @@
 									<!-- !!!!!! r5 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-r5">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Valoración/percepción de la mujeres y hombres sobre si la <span class="text-orange">política salarial <span class="text-orange">de la empresa u organización es equitativa y se hace desde criterios de igualdad de mujeres y hombres</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span> Medir el grado de valoración de las personas con respecto a si la política salarial es equitativa y vela por la igualdad de oportunidades entre mujeres y hombres.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element149" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element150" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= r5 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= r5_color %>_mini.png">
@@ -3173,8 +3181,8 @@
 									<!-- !!!!!! r6 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-r6">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Grado de equilibrio en la valoración/percepción de la mujeres y hombres sobre si la <span class="text-orange">política salarial </span>de la empresa u organización es equitativa y se hace desde criterios de igualdad de mujeres y hombres</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de equilibrio en valoración de las personas con respecto a si la política salarial es equitativa y vela por la igualdad de oportunidades entre mujeres y hombres.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element151" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element152" /></div>
 											<h4 class=" col-xs-12 ">
 												<span class="badge"><%= r6 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= r6_color %>_mini.png"> 
@@ -3193,7 +3201,7 @@
 
 					</section>  
 
-					<h4 class="separador-top"> RESUMEN DE LOS INDICADORES</h4>
+					<h4 class="separador-top"> <fmt:message key="empresa_resultados_highcharts.element153" /></h4>
 					<div class="col-xs-12 separador-bottom">
 						<div id="gr-resumen-r1" class="grafica-resumen col-xs-12 col-sm-6" ></div> 
 						<div id="gr-resumen-r2" class="grafica-resumen col-xs-12 col-sm-6"></div>
@@ -3222,27 +3230,27 @@
 						<div class="pilar-borde pilar-borde-gris-acordeon">
 						</div>
 					</div>
-					<h2>PREVENCIÓN DEL ACOSO EN EL AMBIENTE LABORAL</h2>
+					<h2><fmt:message key="empresa_resultados_highcharts.element154" /></h2>
 				</div>
 			</div>
 			<div id="contenido-pa" >
 				<div class="padding-small">
 					<div class="row bloque">
-						<h1 class="super-letra">PA</h1>
-						<p class="bloque-centrado">Es el componente que compila datos necesarios para medir la existencia/no de medidas para prevenir casos de acoso sexual y laboral (sexual y por razón de sexo), el ratio de casos que se producen y se denuncian así como impacto en la atención y solución de las mismas.</p>
+						<h1 class="super-letra"><fmt:message key="empresa_resultados_highcharts.element155" /></h1>
+						<p class="bloque-centrado"><fmt:message key="empresa_resultados_highcharts.element156" /></p>
 					</div>
-					<h3 class="separador-top text-center">INDICADORES DESGLOSADOS</h3>
+					<h3 class="separador-top text-center"><fmt:message key="empresa_resultados_highcharts.element157" /></h3>
 					<section>
 						<div role="tabpanel" class="text-center">
 							<!-- Nav tabs -->
 							<div class="blockD">
 								<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-pv1" aria-controls="tab-pv1" role="tab" data-toggle="tab">PA1</a></li>
-									<li role="presentation"><a href="#tab-pv2" aria-controls="tab-pv2" role="tab" data-toggle="tab">PA2</a></li>
-									<li role="presentation"><a href="#tab-pv3" aria-controls="tab-pv3" role="tab" data-toggle="tab">PA3</a></li>
-									<li role="presentation"><a href="#tab-pv4" aria-controls="tab-pv4" role="tab" data-toggle="tab">PA4</a></li>
-									<li role="presentation"><a href="#tab-pv5" aria-controls="tab-pv5" role="tab" data-toggle="tab">PA5</a></li>
-									<li role="presentation"><a href="#tab-pv6" aria-controls="tab-pv6" role="tab" data-toggle="tab">PA6</a></li>
+									<li role="presentation" class="active"><a href="#tab-pv1" aria-controls="tab-pv1" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element158" /></a></li>
+									<li role="presentation"><a href="#tab-pv2" aria-controls="tab-pv2" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element159" /></a></li>
+									<li role="presentation"><a href="#tab-pv3" aria-controls="tab-pv3" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element160" /></a></li>
+									<li role="presentation"><a href="#tab-pv4" aria-controls="tab-pv4" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element161" /></a></li>
+									<li role="presentation"><a href="#tab-pv5" aria-controls="tab-pv5" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element162" /></a></li>
+									<li role="presentation"><a href="#tab-pv6" aria-controls="tab-pv6" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element163" /></a></li>
 								</ul>
 							</div>
 							<!-- Tab panes -->
@@ -3252,8 +3260,8 @@
 									<div role="tabpanel" class="tab-pane active" id="tab-pv1">
 										<!-- !!!!!! pv1 !!!!!!! --> 
 										<div class="col-xs-12  panel panel-heading" >
-											<h4 class=" col-xs-12">Grado de equilibrio entre las <span class="text-orange">acciones adoptadas</span> (sanciones y/u otras soluciones positivas) en relación al número de casos sobre acoso denunciados</h4>    
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Conocer el número de quejas y denuncias recibidas anualmente y desagregadas por sexo y verificar en qué medida son atendidos todos los casos de quejas y/o denuncias de acoso.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element164" /></h4>    
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element165" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= pv1 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= pv1_color %>_mini.png"> 
@@ -3271,8 +3279,8 @@
 									<!-- !!!!!! pv2 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane " id="tab-pv2">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Ausencia/presencia de la perspectiva de género y a favor de la igualdad en las <span class="text-orange">políticas para la prevención y tratamiento del acoso sexual</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Corroborar que las empresas u organizaciones cuentan con una política explícita, definida y difundida sobre prevención, sanción y eliminación del acoso sexual</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element166" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element167" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= pv2 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= pv2_color %>_mini.png"> 
@@ -3288,8 +3296,8 @@
 									<!-- !!!!!! pv3 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-pv3">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Valoración/percepción de la mujeres y hombres sobre si <span class="text-orange">el mecanismo y/o protocolo de prevención y actuación en caso de acoso</span> es eficaz</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de valoración de las personas acerca de si la política de actuación contra el acoso sexual o por razones de sexo es efectiva para Prevenir, solucionar y sancionar los casos de acoso sexual y por razón de sexo detectados.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element168" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element169" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= pv3 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= pv3_color %>_mini.png">
@@ -3306,8 +3314,8 @@
 									<!-- !!!!!! pv4 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-pv4">
 										<div class="panel panel-heading col-xs-12 " >
-											<h4 class=" col-xs-12 ">Grado de equilibrio en la valoración/percepción de la mujeres y hombres sobre si <span class="text-orange">el mecanismo y/o protocolo de prevención y actuación en caso de acoso</span> es eficaz</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO:</b></span>Medir el grado de equilibrio de valoración de las personas acerca de si la política de actuación contra el acoso sexual o por razones de sexo es efectiva para prevenir, solucionar y sancionar los casos de acoso sexual y por razón de sexo detectados, según sexo del personal.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element170" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element171" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= pv4 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= pv4_color %>_mini.png"> 
@@ -3324,8 +3332,8 @@
 									<!-- !!!!!! pv5 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-pv5">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Valoración/percepción de la mujeres y hombres sobre si <span class="text-orange">conocen la existencia del mecanismo y/o protocolo</span> de prevención y actuación en caso de acoso sexual y si lo consideran de fácil acceso</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Verificar con los trabajadores/as el grado de conocimiento y accesibilidad al mecanismo de las empresas u organizaciones para prevenir y actuar en contra del acoso sexual o por razones de sexo en las empresas u organizaciones.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element172" />/h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element173" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= pv5 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= pv5_color %>_mini.png"> 
@@ -3341,8 +3349,8 @@
 									<!-- !!!!!! pv6 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-pv6">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12">Grado de equilibrio en la valoración/percepción de la mujeres y hombres sobre si <span class="text-orange">conocen la existencia del mecanismo y/o protocolo</span> de prevención y actuación en caso de acoso sexual y si lo consideran de fácil acceso</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Verificar con los trabajadores/as el grado de conocimiento y accesibilidad al mecanismo de las empresas u organizaciones para prevenir y actuar en contra del acoso sexual o por razones de sexo en las empresas u organizaciones según sexo del personal.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element174" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element175" /></div>
 											<h4 class=" col-xs-12 ">
 												<span class="badge"><%= pv6 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= pv6_color %>_mini.png">
@@ -3362,7 +3370,7 @@
 
 					</section>  
 
-					<h4 class="separador-top"> RESUMEN DE LOS INDICADORES</h4>
+					<h4 class="separador-top"> <fmt:message key="empresa_resultados_highcharts.element176" /></h4>
 					<div class="col-xs-12 separador-bottom">
 						<div id="gr-resumen-pv1" class="grafica-resumen col-xs-12 col-sm-6" ></div> 
 						<div id="gr-resumen-pv2" class="grafica-resumen col-xs-12 col-sm-6"></div>
@@ -3391,29 +3399,29 @@
 						<div class="pilar-borde pilar-borde-violeta-acordeon">
 						</div>
 					</div>
-					<h2>CONCILIACIÓN DE LA VIDA FAMILIAR, LABORAL Y SOCIAL</h2>
+					<h2><fmt:message key="empresa_resultados_highcharts.element177" /></h2>
 				</div>
 			</div>
 			<div id="contenido-cfls" >
 				<div class="padding-small">
 					<div class="row bloque">
-						<h1 class="super-letra">CFLS</h1>
-						<p class="bloque-centrado">Articula información que hace referencia las brechas o igualdad de género que promueve la política de conciliación y corresponsabilidad de las empresas u organizaciones.</p>
+						<h1 class="super-letra"><fmt:message key="empresa_resultados_highcharts.element178" /></h1>
+						<p class="bloque-centrado"><fmt:message key="empresa_resultados_highcharts.element179" /></p>
 					</div>
-					<h3 class="separador-top text-center">INDICADORES DESGLOSADOS</h3>
+					<h3 class="separador-top text-center"><fmt:message key="empresa_resultados_highcharts.element180" /></h3>
 					<section>
 						<div role="tabpanel" class="text-center">
 							<!-- Nav tabs -->
 							<div class="blockD">
 								<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-									<li role="presentation" class="active"><a href="#tab-cfls1" aria-controls="tab-cfls1" role="tab" data-toggle="tab">CFLS1</a></li>
-									<li role="presentation"><a href="#tab-cfls2" aria-controls="tab-cfls2" role="tab" data-toggle="tab">CFLS2</a></li>
-									<li role="presentation"><a href="#tab-cfls3" aria-controls="tab-cfls3" role="tab" data-toggle="tab">CFLS3</a></li>
-									<li role="presentation"><a href="#tab-cfls4" aria-controls="tab-cfls4" role="tab" data-toggle="tab">CFLS4</a></li>
-									<li role="presentation"><a href="#tab-cfls5" aria-controls="tab-cfls5" role="tab" data-toggle="tab">CFLS5</a></li>
-									<li role="presentation"><a href="#tab-cfls6" aria-controls="tab-cfls6" role="tab" data-toggle="tab">CFLS6</a></li>
-									<li role="presentation"><a href="#tab-cfls7" aria-controls="tab-cfls7" role="tab" data-toggle="tab">CFLS7</a></li>
-									<li role="presentation"><a href="#tab-cfls8" aria-controls="tab-cfls8" role="tab" data-toggle="tab">CFLS8</a></li>
+									<li role="presentation" class="active"><a href="#tab-cfls1" aria-controls="tab-cfls1" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element181" /></a></li>
+									<li role="presentation"><a href="#tab-cfls2" aria-controls="tab-cfls2" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element182" /></a></li>
+									<li role="presentation"><a href="#tab-cfls3" aria-controls="tab-cfls3" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element183" /></a></li>
+									<li role="presentation"><a href="#tab-cfls4" aria-controls="tab-cfls4" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element184" /></a></li>
+									<li role="presentation"><a href="#tab-cfls5" aria-controls="tab-cfls5" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element185" /></a></li>
+									<li role="presentation"><a href="#tab-cfls6" aria-controls="tab-cfls6" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element186" /></a></li>
+									<li role="presentation"><a href="#tab-cfls7" aria-controls="tab-cfls7" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element187" /></a></li>
+									<li role="presentation"><a href="#tab-cfls8" aria-controls="tab-cfls8" role="tab" data-toggle="tab"><fmt:message key="empresa_resultados_highcharts.element188" /></a></li>
 								</ul>
 							</div>
 							<!-- Tab panes -->
@@ -3423,8 +3431,8 @@
 									<div role="tabpanel" class="tab-pane active" id="tab-cfls1">
 										<!-- !!!!!! cfls1 !!!!!!! --> 
 										<div class="col-xs-12  panel panel-heading" >
-											<h4 class=" col-xs-12">Tasa de acogimiento de hombres a la medida: <span class="text-orange">Licencia de paternidad</span> (sólo licencias de paternidad de hombres e incluye licencias en casos de adopción y acogida)</h4>    
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado en que los hombres se acogen a las medidas de conciliación específicas (permisos de paternidad).</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element189" /></h4>    
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element190" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cfls1 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls1_color %>_mini.png">
@@ -3444,8 +3452,8 @@
 									<!-- !!!!!! cfls2 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane " id="tab-cfls2">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Tasa relativa de acogimiento mujeres/hombres a una <span class="text-orange">medida de conciliación concreta</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Observar el grado en que los hombres y mujeres se acogen a las medidas de conciliación específicas (remuneradas y no remuneradas).</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element191" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element192" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cfls2 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls2_color %>_mini.png">
@@ -3462,8 +3470,8 @@
 									<!-- !!!!!! cfls3 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cfls3">
 										<div class="col-xs-12 panel panel-heading " >
-											<h4 class=" col-xs-12">Tasa relativa de acogimiento mujeres/hombres a una medida de <span class="text-orange">flexibilidad de tiempo y espacio de trabajo</span></h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Detectar el grado en que los hombres y mujeres se acogen a las medidas de conciliación específicas  de flexibilidad del tiempo y el espacio.</div>
+											<h4 class=" col-xs-12"><fmt:message key="empresa_resultados_highcharts.element193" /></span></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element194" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cfls3 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls3_color %>_mini.png"> 
@@ -3480,8 +3488,8 @@
 									<!-- !!!!!! cfls4 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-cfls4">
 										<div class="panel panel-heading col-xs-12 " >
-											<h4 class=" col-xs-12 ">Inclusión de la perspectiva de género y a favor de la igualdad en las políticas para la <span class="text-orange">conciliación de la vida familiar, laboral y social</span> con corresponsabilidad</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Corroborar que las empresas u organizaciones cuentan con políticas y medidas de conciliación con enfoque o perspectiva de género</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element195" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element196" /></div>
 											<h4 class="col-xs-12">
 												<span class="badge"><%= cfls4 %>
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls4_color %>_mini.png"> 
@@ -3498,8 +3506,8 @@
 									<!-- !!!!!! cfls5 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-cfls5">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12 ">Valoración/percepción de la mujeres y hombres sobre si la política en favor de la <span class="text-orange">conciliación de la vida familiar, laboral y social</span> con corresponsabilidad de la empresa es equitativa y se hace desde criterios de igualdad de mujeres y hombres</h4>
-											<div class="col-xs-12"><span class="text-purple"><b>OBJETIVO: </b></span>Medir el grado de equilibrio de valoración de las personas acerca de si la política de conciliación de la vida familiar, personal y profesional es equitativa.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element197" /></h4>
+											<div class="col-xs-12"><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element198" /></div>
 											<h4 class=" col-xs-12">
 												<span class="badge"><%= cfls5 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls5_color %>_mini.png"> 
@@ -3515,8 +3523,8 @@
 									<!-- !!!!!! cfls6 !!!!!!! -->
 									<div role="tabpanel" class="tab-pane" id="tab-cfls6">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12 ">Equilibrio en la valoración de mujeres y hombres sobre si consideran que:<span class="text-orange">la política en favor de  la conciliación de la vida familiar, laboral y social con corresponsabilidad de la empresa es equitativa</span>y se hace desde criterios de igualdad de mujeres y hombres</h4>
-											<div class="col-xs-12 "><span class="text-purple"><b>OBJETIVO: </b></span>Verificar con los trabajadores/as el grado de conocimiento y accesibilidad las políticas de conciliación de la empresa.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element199" /></h4>
+											<div class="col-xs-12 "><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element200" /></div>
 											<h4 class=" col-xs-12 ">
 												<small class="badge"><%= cfls6 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls6_color %>_mini.png"> 
@@ -3533,8 +3541,8 @@
 									<!-- !!!!!! cfls7 !!!!!!! --> 
 									<div role="tabpanel" class="tab-pane" id="tab-cfls7">
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12 ">Valoración/percepción de la mujeres y hombres sobre sobre si <span class="text-orange">conocen la existencia del las medidas de conciliación</span> que  facilita la empresa la empresa/organización y las consideran de fácil acceso</h4>
-											<div class="col-xs-12 "><span class="text-purple"><b>OBJETIVO: </b></span>Determinar el grado de valoración/percepción de la mujeres y hombres sobre si conocen la existencia de las medidas de conciliación  que  facilita la empresa la empresa/organización y las consideran de fácil acceso.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element201" /></h4>
+											<div class="col-xs-12 "><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element202" /></div>
 											<h4 class=" col-xs-12 ">
 												<small class="badge"><%= cfls7 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls7_color %>_mini.png"> 
@@ -3552,8 +3560,8 @@
 									<div role="tabpanel" class="tab-pane" id="tab-cfls8">
 										
 										<div class="panel panel-heading col-xs-12" >
-											<h4 class=" col-xs-12 ">Equilibrio en la valoración/percepción de la mujeres y hombres sobre sobre si <span class="text-orange">conocen la existencia dellas medidas de conciliación</span> en la empresa/organización y si son de fácil acceso</h4>
-											<div class="col-xs-12 "><span class="text-purple"><b>OBJETIVO: </b></span>Precisar el grado de equilibrio en la valoración/percepción de la mujeres y hombres sobre  si conocen la existencia de las medidas de conciliación en la empresa/organización y si son de fácil acceso.</div>
+											<h4 class=" col-xs-12 "><fmt:message key="empresa_resultados_highcharts.element203" /></h4>
+											<div class="col-xs-12 "><span class="text-purple"><b><fmt:message key="empresa_resultados_highcharts.element204" /></div>
 											<h4 class=" col-xs-12 ">
 												<small class="badge"><%= cfls8 %> %
 													<img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/<%= cfls8_color %>_mini.png"> 
@@ -3573,7 +3581,7 @@
 
 					</section>  
 
-					<h4 class="separador-top"> RESUMEN DE LOS INDICADORES</h4>
+					<h4 class="separador-top"> <fmt:message key="empresa_resultados_highcharts.element205" /></h4>
 					<div class="col-xs-12 separador-bottom">
 						<div id="gr-resumen-cfls1" class="grafica-resumen col-xs-12 col-sm-6" ></div> 
 						<div id="gr-resumen-cfls2" class="grafica-resumen col-xs-12 col-sm-6"></div>

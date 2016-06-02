@@ -1,14 +1,21 @@
+// Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
+// Jad home page: http://www.kpdus.com/jad.html
+// Decompiler options: packimports(3) 
+// Source File Name:   DbResults.java
+
 package org.undp.utils;
 
-import org.undp.utils.arrays.DynObjectArray;
-import org.undp.utils.arrays.DynStringArray;
-import org.undp.utils.*;
 import java.io.PrintStream;
 import java.io.Serializable;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.*;
+import org.undp.utils.arrays.DynObjectArray;
+import org.undp.utils.arrays.DynStringArray;
+
+// Referenced classes of package org.undp.utils:
+//            DbResultsRow, StrUtils, DbResultsComparator, DbResultsIterator
 
 public class DbResults
     implements Serializable
@@ -22,7 +29,6 @@ public class DbResults
         vRows = aRows;
         vColIdx = aColIdx;
     }
-
 
     public DbResults()
     {
@@ -163,7 +169,7 @@ public class DbResults
 
     public final int getCellAsInt(int aRow, String aCol)
     {
-        return Integer.parseInt(((DbResultsRow) vRows.get(aRow)).get(getColByName(aCol)));
+        return Integer.parseInt(((DbResultsRow)vRows.get(aRow)).get(getColByName(aCol)));
     }
 
     public final double getCellAsDouble(int aRow, String aCol)
@@ -183,7 +189,7 @@ public class DbResults
         if(vColIdx.containsKey(sName))
             return ((Integer)vColIdx.get(sName)).intValue();
         else
-        	throw new IllegalArgumentException("DbResults: Unknown Column Name [" + aName + "]");
+            throw new IllegalArgumentException((new StringBuilder("DbResults: Unknown Column Name [")).append(aName).append("]").toString());
     }
 
     public final String getValue(int aCol)
@@ -307,24 +313,22 @@ public class DbResults
             do
             {
                 sOut.append("<tr>");
-                for(int x = 0; x < vCols.size(); x++) {
-                	// sValue = getValue(x);
-                    // sOut.append("<td").append(">").append(getValue(x)).append("</td>");
+                for(int x = 0; x < vCols.size(); x++)
+                {
                     sOut.append("<td");
-
-                    try {
-	                	if (StrUtils.isNumeric(getValue(x))) {
-	                		sOut.append(" align=\"right\"");
-	                	} else {
-	                		sOut.append(" align=\"left\"");
-	                	}
-                    } catch(NullPointerException npe) {
-                    	// do nothing here
+                    try
+                    {
+                        if(StrUtils.isNumeric(getValue(x)))
+                            sOut.append(" align=\"right\"");
+                        else
+                            sOut.append(" align=\"left\"");
                     }
+                    catch(NullPointerException nullpointerexception) { }
                     sOut.append(">");
-                	sOut.append(getValue(x));
-                	sOut.append("</td>");
+                    sOut.append(getValue(x));
+                    sOut.append("</td>");
                 }
+
                 sOut.append("</tr>");
                 moveNext();
             } while(!EOF());
@@ -332,8 +336,6 @@ public class DbResults
         sOut.append("</table>");
         return sOut.toString();
     }
-
-
 
     public final DbResults sort(int aCrit[])
     {
@@ -424,25 +426,21 @@ public class DbResults
             moveFirst();
             do
             {
-                sOut.append("<tr class=" + vRowClass + ">");
-                for(int x = 0; x < vCols.size(); x++) {
-	            	// sValue = getValue(x);
-	                // sOut.append("<td class=\"datatablecellcalign\">").append(getValue(x)).append("</td>");
-	                sOut.append("<td ");
-
-	                try {
-	                	if (StrUtils.isNumeric(getValue(x))) {
-	                		sOut.append(" align=\"right\"");
-	                	} else {
-	                		sOut.append(" align=\"left\"");
-	                	}
-	                } catch (NullPointerException  npe) {
-	                	// do nothing here
-	                }
-
-	                sOut.append(">");
-	            	sOut.append(getValue(x));
-	            	sOut.append("</td>");
+                sOut.append((new StringBuilder("<tr class=")).append(vRowClass).append(">").toString());
+                for(int x = 0; x < vCols.size(); x++)
+                {
+                    sOut.append("<td ");
+                    try
+                    {
+                        if(StrUtils.isNumeric(getValue(x)))
+                            sOut.append(" align=\"right\"");
+                        else
+                            sOut.append(" align=\"left\"");
+                    }
+                    catch(NullPointerException nullpointerexception) { }
+                    sOut.append(">");
+                    sOut.append(getValue(x));
+                    sOut.append("</td>");
                 }
 
                 sOut.append("</tr>");
@@ -458,8 +456,259 @@ public class DbResults
         return sOut.toString();
     }
 
+    public final String generateHtmlTableCss2()
+    {
+        StringBuffer sOut = new StringBuffer(4096);
+        StringBuffer sMetrics = new StringBuffer(4096);
+        String sTempMetricName = "";
+        sOut.append("<table  class=\"table table-hover separador-top separador-bottom\" >").append("<tr>");
+        String sCols = Integer.toString(vCols.size() - 4);
+        for(int x = 0; x < vCols.size(); x++)
+            sOut.append("<th>").append(vCols.get(x)).append("</th>");
 
+        for(int y = 4; y < vCols.size(); y++)
+        {
+            sTempMetricName = vCols.get(y).toLowerCase();
+            sMetrics.append("<th><button onclick=\"draw_").append(sTempMetricName).append("()\">").append(sTempMetricName.toUpperCase()).append("</button></th>");
+        }
 
+        sOut.append("</tr>");
+        if(hasRows())
+        {
+            moveFirst();
+            do
+            {
+                sOut.append("<tr>");
+                for(int x = 0; x < vCols.size(); x++)
+                {
+                    sOut.append("<td>");
+                    sOut.append(getValue(x));
+                    sOut.append("</td>");
+                }
+
+                sOut.append("</tr>");
+                moveNext();
+            } while(!EOF());
+        }
+        sOut.append("</table>");
+        return sOut.toString();
+    }
+
+    public final String generateJsLineGraph(String aFunctionName, String aChartName, String aCanvas, int aType)
+    {
+        int size = 0;
+        String data = "";
+        String key = "";
+        String tooltips = "";
+        boolean isDirty = false;
+        String previous_country = "";
+        String stack_colors = "";
+        String stack_values = "";
+        String ymax = "";
+        String ymin = "";
+        StringBuffer sOut = new StringBuffer(4096);
+        StringBuffer sOutNoData = new StringBuffer(4096);
+        switch(aType)
+        {
+        case 1: // '\001'
+            stack_colors = "['red','yellow','green','yellow','red']";
+            stack_values = "[[25,10,30,10,25]]";
+            ymax = "100";
+            ymin = "0";
+            break;
+
+        case 2: // '\002'
+            stack_colors = "['red','yellow','green','yellow','red']";
+            stack_values = "[[.5,.5,.83,.17,.5]]";
+            ymax = "2.5";
+            ymin = "0";
+            break;
+
+        case 3: // '\003'
+            stack_colors = "['red','yellow','green']";
+            stack_values = "[[10,20,20]]";
+            ymax = "50";
+            ymin = "0";
+            break;
+
+        case 4: // '\004'
+            stack_colors = "['green','yellow','red']";
+            stack_values = "[[35,35,30]]";
+            ymax = "100";
+            ymin = "0";
+            break;
+
+        case 5: // '\005'
+            stack_colors = "['green','yellow','red']";
+            stack_values = "[[4,4,2]]";
+            ymax = "10";
+            ymin = "0";
+            break;
+
+        case 6: // '\006'
+            stack_colors = "['green','yellow','red']";
+            stack_values = "[[35,15,50]]";
+            ymax = "100";
+            ymin = "0";
+            break;
+
+        case 7: // '\007'
+            stack_colors = "['red','yellow','green']";
+            stack_values = "[[2.5,5,2.5]]";
+            ymax = "10";
+            ymin = "0";
+            break;
+        }
+        for(; size < getRowCount(); size++)
+        {
+            if(getRow(size).get(0).equals(previous_country))
+            {
+                if(!getRow(size).get(4).equals("--"))
+                    if(data.equals(""))
+                    {
+                        data = (new StringBuilder(String.valueOf(data))).append("[[").append(getRow(size).get(4)).toString();
+                        tooltips = (new StringBuilder(String.valueOf(tooltips))).append("['").append(getRow(size).get(1)).append("'").toString();
+                        key = (new StringBuilder(String.valueOf(key))).append("['").append(getRow(size).get(0)).append("'").toString();
+                        isDirty = true;
+                    } else
+                    {
+                        data = (new StringBuilder(String.valueOf(data))).append(",").append(getRow(size).get(4)).toString();
+                        tooltips = (new StringBuilder(String.valueOf(tooltips))).append(",'").append(getRow(size).get(1)).append("'").toString();
+                    }
+            } else
+            if(size == 0)
+            {
+                if(!getRow(size).get(4).equals("--"))
+                {
+                    data = (new StringBuilder(String.valueOf(data))).append("[[").append(getRow(size).get(4)).toString();
+                    tooltips = (new StringBuilder(String.valueOf(tooltips))).append("['").append(getRow(size).get(1)).append("'").toString();
+                    key = (new StringBuilder(String.valueOf(key))).append("['").append(getRow(size).get(0)).append("'").toString();
+                    isDirty = true;
+                }
+            } else
+            if(!getRow(size).get(4).equals("--"))
+                if(isDirty)
+                {
+                    data = (new StringBuilder(String.valueOf(data))).append("],[").append(getRow(size).get(4)).toString();
+                    tooltips = (new StringBuilder(String.valueOf(tooltips))).append(",'").append(getRow(size).get(1)).append("'").toString();
+                    key = (new StringBuilder(String.valueOf(key))).append(",'").append(getRow(size).get(0)).append("'").toString();
+                } else
+                {
+                    data = (new StringBuilder(String.valueOf(data))).append("[[").append(getRow(size).get(4)).toString();
+                    tooltips = (new StringBuilder(String.valueOf(tooltips))).append("['").append(getRow(size).get(1)).append("'").toString();
+                    key = (new StringBuilder(String.valueOf(key))).append("['").append(getRow(size).get(0)).append("'").toString();
+                    isDirty = true;
+                }
+            previous_country = getRow(size).get(0);
+        }
+
+        data = (new StringBuilder(String.valueOf(data))).append("]]").toString();
+        key = (new StringBuilder(String.valueOf(key))).append("]").toString();
+        tooltips = (new StringBuilder(String.valueOf(tooltips))).append("]").toString();
+        sOut.append("// data = ").append(data);
+        sOut.append("\n");
+        sOut.append("// key = ").append(key);
+        sOut.append("\n");
+        sOut.append("// tooltips = ").append(tooltips);
+        sOut.append("\n");
+        sOut.append("\n");
+        sOut.append("function ").append(aFunctionName).append("() { ");
+        sOut.append("\n");
+        sOut.append("\n");
+        sOut.append("\n");
+        sOut.append("var bar2 = new RGraph.Bar('").append(aCanvas).append("', ").append(stack_values).append("); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('grouping', 'stacked'); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('labels.above', false); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('hmargin',300); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('strokestyle', 'white'); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('ymax',").append(ymax).append("); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('colors', ").append(stack_colors).append("); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('shadow', false); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('gutter.left', 150); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('noyaxis', true); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('noxaxis', true); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('chart.background.grid', false); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('chart.noaxes', true); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('chart.ylabels', false); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('chart.xlabels', false); ");
+        sOut.append("\n");
+        sOut.append("bar2.Set('chart.ylabels.inside', false); ");
+        sOut.append("\n");
+        sOut.append("bar2.Draw(); ");
+        sOut.append("\n");
+        sOut.append("\n");
+        sOut.append("var line = new RGraph.Line('").append(aCanvas).append("',").append(data).append("); ");
+        sOut.append("\n");
+        sOut.append("line.Set('title', '").append(aChartName).append("'); ");
+        sOut.append("\n");
+        sOut.append("line.Set('background.grid.autofit.numhlines', 20); ");
+        sOut.append("\n");
+        sOut.append("line.Set('key',").append(key).append("); ");
+        sOut.append("\n");
+        sOut.append("line.Set('gutter.right', 150); ");
+        sOut.append("\n");
+        sOut.append("line.Set('gutter.left', 150); ");
+        sOut.append("\n");
+        sOut.append("line.Set('scale.decimals', 2); ");
+        sOut.append("\n");
+        sOut.append("line.Set('tickmarks', myTick); ");
+        sOut.append("\n");
+        sOut.append("line.Set('tooltips',").append(tooltips).append("); ");
+        sOut.append("\n");
+        sOut.append("line.Set('chart.xlabels', true); ");
+        sOut.append("\n");
+        sOut.append("line.Set('numyticks', 20); ");
+        sOut.append("\n");
+        sOut.append("line.Set('chart.ymax',").append(ymax).append("); ");
+        sOut.append("\n");
+        sOut.append("line.Set('chart.ymin',").append(ymin).append("); ");
+        sOut.append("\n");
+        sOut.append("line.Set('key.position', 'graph'); ");
+        sOut.append("\n");
+        sOut.append("line.Set('key.position.gutter.boxed', true); ");
+        sOut.append("\n");
+        sOut.append("line.Set('key.position.x',700); ");
+        sOut.append("\n");
+        sOut.append("line.Set('key.position.y',75); ");
+        sOut.append("\n");
+        sOut.append("line.Set('key.interactive', true); ");
+        sOut.append("\n");
+        sOut.append("line.Draw();\t ");
+        sOut.append("\n");
+        sOut.append("\n");
+        sOut.append("function myTick (obj, data, value, index, x, y, color, prevX, prevY) ");
+        sOut.append("{ ");
+        sOut.append("var ctx = obj.canvas.getContext(\"2d\"); ");
+        sOut.append("ctx.fillStyle = \"white\"; ");
+        sOut.append("ctx.beginPath(); ");
+        sOut.append("ctx.arc(x, y, 3, 0, Math.PI*2, true); ");
+        sOut.append("ctx.closePath(); ");
+        sOut.append("ctx.stroke(); ");
+        sOut.append("ctx.fill(); ");
+        sOut.append("} ");
+        sOut.append("} ");
+        sOutNoData.append("function ");
+        sOutNoData.append(aFunctionName);
+        sOutNoData.append("() { remove_").append(aChartName.toLowerCase()).append("(); }");
+        if(data.equals("]]"))
+            return sOutNoData.toString();
+        else
+            return sOut.toString();
+    }
 
     public final String generateHtmlTableCss(int aRows)
     {
@@ -478,25 +727,21 @@ public class DbResults
             do
             {
                 vCounter++;
-                sOut.append("<tr class=" + vRowClass + ">");
-                for(int x = 0; x < vCols.size(); x++) {
-                    // sOut.append("<td class=\"datatablecellcalign\">").append(getValue(x)).append("</td>");
-	            	// sValue = getValue(x);
-	                sOut.append("<td");
-
-	                try {
-		            	if (StrUtils.isNumeric(getValue(x))) {
-		            		sOut.append(" align=\"right\"");
-		            	} else {
-		            		sOut.append(" align=\"left\"");
-		            	}
-	                } catch (NullPointerException npe) {
-	                	// do nothing here
-	                }
-
-	                sOut.append(">");
-	            	sOut.append(getValue(x));
-	            	sOut.append("</td>");
+                sOut.append((new StringBuilder("<tr class=")).append(vRowClass).append(">").toString());
+                for(int x = 0; x < vCols.size(); x++)
+                {
+                    sOut.append("<td");
+                    try
+                    {
+                        if(StrUtils.isNumeric(getValue(x)))
+                            sOut.append(" align=\"right\"");
+                        else
+                            sOut.append(" align=\"left\"");
+                    }
+                    catch(NullPointerException nullpointerexception) { }
+                    sOut.append(">");
+                    sOut.append(getValue(x));
+                    sOut.append("</td>");
                 }
 
                 sOut.append("</tr>");
@@ -544,30 +789,46 @@ public class DbResults
 
     }
 
+    public final String generateSelectOptions()
+    {
+        int vCounter = 0;
+        String sValue = "";
+        StringBuffer sOut = new StringBuffer(4096);
+        if(hasRows())
+        {
+            moveFirst();
+            do
+            {
+                vCounter++;
+                for(int x = 0; x < vCols.size(); x++)
+                    sOut.append(getValue(x));
 
-	public final String generateSelectOptions()
-	{
-		int vCounter = 0;
-		String sValue = "";
-		StringBuffer sOut = new StringBuffer(4096);
-
-		if(hasRows())
-		{
-			moveFirst();
-			do
-			{
-				vCounter++;
-				for(int x = 0; x < vCols.size(); x++) {
-					sOut.append(getValue(x));
-				}
-
-				moveNext();
-			} while(!EOF());
-		}
-
+                moveNext();
+            } while(!EOF());
+        }
         return sOut.toString();
-	}
+    }
 
+    public final String generateHtml()
+    {
+        int vCounter = 0;
+        String sValue = "";
+        StringBuffer sOut = new StringBuffer(4096);
+        if(hasRows())
+        {
+            moveFirst();
+            do
+            {
+                vCounter++;
+                for(int x = 0; x < vCols.size(); x++)
+                    sOut.append(getValue(x));
+
+                moveNext();
+            } while(!EOF());
+        }
+        return sOut.toString();
+    }
+    
     public static final int cSortAsString = 0;
     public static final int cSortAsInt = 1;
     public static final int cSortAsDouble = 2;

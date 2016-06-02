@@ -15,6 +15,7 @@ session.setAttribute("temp_user_skype_handle",null);
 session.setAttribute("temp_user_organization_id",null);
 session.setAttribute("temp_user_organization_nm",null);
 session.setAttribute("temp_user_accept_terms",null);
+session.setAttribute("temp_user_organization_completed",null);
 
 session.setAttribute("temp_admin_user_id",null);
 session.setAttribute("temp_admin_user_user_status_id",null);

@@ -81,7 +81,7 @@
 <section role="dialog" class="borde-superior fondo-gris">
 	<header>
 		<div class="well">
-			<h1 class="text-center text-white">RESULTADOS</h1>
+			<h1 class="text-center text-white"><fmt:message key="pais_resultados.element1" /></h1>
 		</div>
 		<div class="well-2 bc-purple">
 			<h3 class="text-center text-white"><%= pais %></h3>
@@ -116,9 +116,9 @@
 	
 	<table  cellspacing="40" align="center">
 		<tr>
-			<th nowrap>País</th>
+			<th nowrap><fmt:message key="pais_resultados.element2" /></th>
 			<th nowrap>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-			<th nowrap>Valuación</th>
+			<th nowrap><fmt:message key="pais_resultados.element3" /></th>
 			<th nowrap>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 			<th nowrap align="center">GE1</th>
 			<th nowrap>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>

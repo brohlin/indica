@@ -24,8 +24,8 @@
 	<header>
 			<div class="bc-gray-2d text-white padding-small borde-inferior">
 				<div class="container">
-					<h3 class="text-white">Administración general</h3>
-					<h1 class="text-white">CREAR CUENTA</h1>
+					<h3 class="text-white"><fmt:message key="cuenta_nueva.label.element1" /></h3>
+					<h1 class="text-white"><fmt:message key="cuenta_nueva.label.element2" /></h1>
 				</div>
 			</div>
 		</header>
@@ -36,7 +36,7 @@
 <% 
 	if ((p_message != null) && (p_message.equals("user_email_already_exists"))) {
 %>
-		<h5>Una cuenta con el email de <font face="arial,helvetica,sanserif" color="red"><%= mEmail %></font> ya existe.</h5>			
+		<h5><fmt:message key="cuenta_nueva.label.element3" /> <font face="arial,helvetica,sanserif" color="red"><%= mEmail %></font> <fmt:message key="cuenta_nueva.label.element4" /></h5>			
 <%
 	}
 %>	
@@ -45,80 +45,80 @@
 			<input type="hidden" value="" name="skype_handle">
 
 			<div class="form-group">
-				<label for="inputPrimerNombre">Primer nombre</label>
+				<label for="inputPrimerNombre"><fmt:message key="cuenta_nueva.label.element5" /></label>
 				<div class="col-sm-9 input-group">
-					<input maxlength="25" type="text" class="form-control" id="inputPrimerNombre" placeholder="Primer Nombre" name="first_nm"  value="">
+					<input maxlength="25" type="text" class="form-control" id="inputPrimerNombre" placeholder="" name="first_nm"  value=""  required="required">
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="inputApellido">Apellido</label>
+				<label for="inputApellido"><fmt:message key="cuenta_nueva.label.element6" /></label>
 				<div class="col-sm-9 input-group">
-					<input maxlength="25" type="text" class="form-control" id="inputApellido" placeholder="Apellido" name="last_nm"  value="">
+					<input maxlength="25" type="text" class="form-control" id="inputApellido" placeholder="" name="last_nm"  value=""  required="required">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="inputEmail">Email</label>
+				<label for="inputEmail"><fmt:message key="cuenta_nueva.label.element7" /></label>
 				<div class="col-sm-9 input-group">
-					<input maxlength="45" type="email" class="form-control" id="inputApellido" placeholder="Email" name="email"  value="">
+					<input maxlength="45" type="email" class="form-control" id="inputApellido" placeholder="" name="email"  value=""  required="required">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="user_status">Estatus</label>
-    			<select name="user_status"  class="form-control"> 
-    				<option disabled selected>Seleccione una opción</option>
+				<label for="user_status"><fmt:message key="cuenta_nueva.label.element8" /></label>
+    			<select name="user_status"  class="form-control"  required="required"> 
+    				<option disabled selected><fmt:message key="cuenta_nueva.label.element16" /></option>
 					<%= db_p_get_user_status_options.generateSelectOptions() %>
 				</select>
 			</div>
 
 			<div class="form-group">
-				<label for="role">Rol</label>
-    			<select name="role"  class="form-control">
-    				<option disabled selected>Seleccione una opción</option>
+				<label for="role"><fmt:message key="cuenta_nueva.label.element9" /></label>
+    			<select name="role"  class="form-control"  required="required">
+    				<option disabled selected><fmt:message key="cuenta_nueva.label.element16" /></option>
 					<%= db_p_get_role_options.generateSelectOptions() %>
 				</select>
 			</div>		
 
 			<div class="form-group">
-				<label for="organization">Empresa</label>
-    			<select name="organization"  class="form-control"> 
+				<label for="organization"><fmt:message key="cuenta_nueva.label.element10" /></label>
+    			<select name="organization"  class="form-control" required="required"> 
     				<option disabled selected>Seleccione una opción</option>
 					<%= db_p_get_organization_options.generateSelectOptions() %>
 				</select>
 			</div>	
 
 			<div class="form-group">
-				<label for="inputPosition">Posición/Título</label>
+				<label for="inputPosition"><fmt:message key="cuenta_nueva.label.element11" /></label>
 				<div class="col-sm-9 input-group">
-					<input maxlength="45" type="text" class="form-control" id="inputPosition" placeholder="Posición/Título" name="position_title"  value="">
+					<input maxlength="45" type="text" class="form-control" id="inputPosition" placeholder="" name="position_title"  value="" required="required">
 				</div>
 			</div>
 
 
 			<div class="form-group">
-				<label for="inputTel_nbr">Teléfono</label>
+				<label for="inputTel_nbr"><fmt:message key="cuenta_nueva.label.element12" /></label>
 				<div class="col-sm-9 input-group">
-					<input maxlength="20" type="text" class="form-control" id="inputTel_nbr" placeholder="Teléfono" name="tel_nbr"  value="">
+					<input maxlength="20" type="text" class="form-control" id="inputTel_nbr" placeholder="" name="tel_nbr"  value="">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="inputPassword">Contrase&ntilde;a</label>
+				<label for="inputPassword"><fmt:message key="cuenta_nueva.label.element13" /></label>
 				<div class="col-sm-9 input-group">
-						<input maxlength="45" type="password" class="form-control" id="inputPassword" placeholder="Contrase&ntilde;a" name="pwd" value="">
+						<input maxlength="45" type="password" class="form-control" id="inputPassword" placeholder="" name="pwd" value="" required="required">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="inputConfirmPassword">Confirmar Contrase&ntilde;a</label>
+				<label for="inputConfirmPassword"><fmt:message key="cuenta_nueva.label.element14" /></label>
 				<div class="col-sm-9 input-group">
-						<input maxlength="45" type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirmar Contrase&ntilde;a" name="confirm_pwd" value="">
+						<input maxlength="45" type="password" class="form-control" id="inputConfirmPassword" placeholder="" name="confirm_pwd" value="" required="required">
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-info btn-block separador-top">GRABAR</button>
+			<button type="submit" class="btn btn-info btn-block separador-top"><fmt:message key="cuenta_nueva.label.element15" /></button>
 		</form>
 	</fieldset>
 </div>

@@ -6,11 +6,13 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/mail-1.4.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.32/lib/mysql-connector-java-5.1.22-bin.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.32/lib/annotations-api.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.32/lib/el-api.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.32/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.32/lib/jasper.jar"/>
-	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.32/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.63/lib/itext-2.0.7.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

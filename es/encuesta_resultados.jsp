@@ -82,7 +82,7 @@
 			var pie1 = new RGraph.Pie('cvs1', [<%= mEncuestas_complete %>,<%= mEncuestas_not_complete %>]);
 			// pie1.Set('chart.tooltips', ['Sí','No']);
 			pie1.Set('chart.labels', ['Sí','No']);
-			pie1.Set('chart.title','Total <%= mEncuestas_total %> Encuestas\n # Completadas');
+			pie1.Set('chart.title','Total <%= mEncuestas_total %> <fmt:message key="encuesta_resultados.element1" />\n # <fmt:message key="encuesta_resultados.element2" />');
 			pie1.Set('chart.units.pre', '');
 			pie1.Set('chart.units.post', '');
 			pie1.Set('chart.labels.above', true);

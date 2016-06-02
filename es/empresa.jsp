@@ -13,12 +13,12 @@
 
 <%	
 	DynStringArray parameters = new DynStringArray();
-	DbResults db_p_get_pais_de_ubicacion_lkup = null;
-	DbResults db_p_get_naturaleza_juridica_lkup = null;
-	DbResults db_p_get_sector_de_actividad_lkup = null;
-	DbResults db_p_get_mercado_lkup = null;
-	DbResults db_p_get_num_de_personas_trabajadores = null;
-	DbResults db_p_get_facturacion_anual_lkup = null;
+	// DbResults db_p_get_pais_de_ubicacion_lkup = null;
+	// DbResults db_p_get_naturaleza_juridica_lkup = null;
+	// DbResults db_p_get_sector_de_actividad_lkup = null;
+	// DbResults db_p_get_mercado_lkup = null;
+	// DbResults db_p_get_num_de_personas_trabajadores = null;
+	// DbResults db_p_get_facturacion_anual_lkup = null;
 	DbResults db = null;
 	int size = 0;
 	
@@ -26,13 +26,12 @@
 		
 		parameters.add(p_organization_id);
 		db = Database.callProcResults("p_get_admin_organization", parameters); 
-		db_p_get_pais_de_ubicacion_lkup = Database.callProcResults("p_get_existing_pais_de_ubicacion_lkup", parameters);
-		db_p_get_naturaleza_juridica_lkup = Database.callProcResults("p_get_existing_naturaleza_juridica_lkup", parameters);
-		
-		db_p_get_sector_de_actividad_lkup = Database.callProcResults("p_get_existing_sector_de_actividad_lkup", parameters);
-		db_p_get_mercado_lkup = Database.callProcResults("p_get_existing_mercado_lkup", parameters);
-		db_p_get_num_de_personas_trabajadores = Database.callProcResults("p_get_existing_num_de_personas_trabajadores", parameters);
-		db_p_get_facturacion_anual_lkup = Database.callProcResults("p_get_existing_facturacion_anual_lkup", parameters);
+		// db_p_get_pais_de_ubicacion_lkup = Database.callProcResults("p_get_existing_pais_de_ubicacion_lkup", parameters);
+		// db_p_get_naturaleza_juridica_lkup = Database.callProcResults("p_get_existing_naturaleza_juridica_lkup", parameters);
+		// db_p_get_sector_de_actividad_lkup = Database.callProcResults("p_get_existing_sector_de_actividad_lkup", parameters);
+		// db_p_get_mercado_lkup = Database.callProcResults("p_get_existing_mercado_lkup", parameters);
+		// db_p_get_num_de_personas_trabajadores = Database.callProcResults("p_get_existing_num_de_personas_trabajadores", parameters);
+		// db_p_get_facturacion_anual_lkup = Database.callProcResults("p_get_existing_facturacion_anual_lkup", parameters);
 
 		while(size<db.getRowCount())
 		{
@@ -335,12 +334,14 @@
 			session.setAttribute("temp_admin_organization_q56_lkup",db.getRow(size).get(295));
 			session.setAttribute("temp_admin_organization_q57_lkup",db.getRow(size).get(296));
 			session.setAttribute("temp_admin_organization_q58_lkup",db.getRow(size).get(297));
-			session.setAttribute("temp_admin_organization_q59_lkup",db.getRow(size).get(298));						
+			session.setAttribute("temp_admin_organization_q59_lkup",db.getRow(size).get(298));	
+			session.setAttribute("temp_admin_organization_resultados_informe",db.getRow(size).get(299));	
+			session.setAttribute("temp_admin_organization_resultados_encuesta",db.getRow(size).get(300));
 			size++;
 		}	
 	} else {
-		db_p_get_pais_de_ubicacion_lkup = Database.callProcResults("p_get_pais_de_ubicacion_lkup", parameters);
-		db_p_get_naturaleza_juridica_lkup = Database.callProcResults("p_get_naturaleza_juridica_lkup", parameters);	
+		// db_p_get_pais_de_ubicacion_lkup = Database.callProcResults("p_get_pais_de_ubicacion_lkup", parameters);
+		// db_p_get_naturaleza_juridica_lkup = Database.callProcResults("p_get_naturaleza_juridica_lkup", parameters);	
 	}
 	
 	
@@ -349,72 +350,82 @@
 	<section role="dialog" class="borde-superior fondo-gris">
 		<header>
 			<div class="well">
-				<h1 class="text-center text-white">AUTO-DIAGN&Oacute;STICO</h1>
+				<h1 class="text-center text-white"><fmt:message key="empresa.label.element1" /></h1>
 			</div>
 			<div class="well-2 bc-purple">
 
 <%
 	if (p_section.equals("caracterizacion_basica")) {
 %>
-				<h3 class="text-center text-white">Caracterización básica de la empresa / organización</h3>
+				<h3 class="text-center text-white"><fmt:message key="empresa.label.element2" /></h3>
 <%
 	} else if (p_section.equals("plantilla")) {
 %>
-				<h3 class="text-center text-white">Plantilla</h3>
+				<h3 class="text-center text-white"><fmt:message key="empresa.label.element3" /></h3>
 <%
 	} else if (p_section.equals("condiciones_laborales")) {
 %>
-				<h3 class="text-center text-white">Condiciones Laborales</h3>
+				<h3 class="text-center text-white"><fmt:message key="empresa.label.element4" /></h3>
 <%
 	} else if (p_section.equals("gestion_del_personal")) {
 %>
-				<h3 class="text-center text-white">Gestión del Personal</h3>
+				<h3 class="text-center text-white"><fmt:message key="empresa.label.element5" /></h3>
 <%
 	} else if (p_section.equals("otros_datos")) {
 %>
-				<h3 class="text-center text-white">Otros Datos</h3>
+				<h3 class="text-center text-white"><fmt:message key="empresa.label.element6" /></h3>
 <%
-	} 
+	} else if (p_section.equals("empresa_fin")) {
+		%>
+		<h3 class="text-center text-white">&nbsp;</h3>
+<%
+} 
 %>
 
 			</div>
+			
+		<%@include file="./table_fields.jsp" %>
+		
 		</header>
 		<div class="container">
 			<nav class="col-xs-12 col-lg-3 separador-top navegacion2 side-menu" role="navigation">
 					
 					<ul class="nav nav-stacked text-center">
 						<li class="titulo-input"><b><% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_nm").toString() %><% } %></b></li>
-						<li <% if (p_section.equals("caracterizacion_basica")) { %>  class="active-item" <% } %>><a  href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=caracterizacion_basica">CARACTERIZACIÓN BÁSICA - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cb").toString() %></a></li>
-						<li <% if (p_section.equals("plantilla")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=plantilla">PLANTILLA - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_plantilla").toString() %></a></li>
-						<li <% if (p_section.equals("condiciones_laborales")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=condiciones_laborales">CONDICIONES LABORALES - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cl").toString() %></a></li>
-						<li <% if (p_section.equals("gestion_del_personal")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=gestion_del_personal">GESTIÓN DEL PERSONAL - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_gestion_del_personal").toString() %></a></li>
-						<li <% if (p_section.equals("otros_datos")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=otros_datos">OTROS DATOS - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_otros_datos").toString() %></a></li>
+						<li <% if (p_section.equals("caracterizacion_basica")) { %>  class="active-item" <% } %>><a  href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=caracterizacion_basica"><fmt:message key="empresa.label.element7" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cb").toString() %></a></li>
+						<li <% if (p_section.equals("plantilla")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=plantilla"><fmt:message key="empresa.label.element8" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_plantilla").toString() %></a></li>
+						<li <% if (p_section.equals("condiciones_laborales")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=condiciones_laborales"><fmt:message key="empresa.label.element9" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cl").toString() %></a></li>
+						<li <% if (p_section.equals("gestion_del_personal")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=gestion_del_personal"><fmt:message key="empresa.label.element10" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_gestion_del_personal").toString() %></a></li>
+						<li <% if (p_section.equals("otros_datos")) { %>  class="active-item" <% } %>><a href="/indica/es/main.jsp?target=empresa&organization_id=<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>&section=otros_datos"><fmt:message key="empresa.label.element11" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_otros_datos").toString() %></a></li>
 <%
 	if ( session.getAttribute("temp_admin_organization_completed").toString().equals("N")) {
 %>
 						<li>
 							<form role="form" action="validate_empresa_completed.jsp" method="post" class="form-plantilla" name="empresa_completed">
 								<input name="id" value="<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>" type="hidden">
-								<input name="completed" value="Y" type="hidden">				
+								<input name="completed" value="Y" type="hidden">		
+								<input name="language" value="${language}" type="hidden">		
 								<button type="submit" class="btn btn-info btn-block separador-top" 
 	<%
 		if ( !session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa").toString().equals("100") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa") ) {
 	%>
-			onclick="return confirm('¿Está seguro que quiere enviar el auto-diagnóstico? No está 100% completo y usted no será capaz de actualizar el auto-diagnóstico, una vez que se ha presentado. \n\nSeleccione OK para enviar el auto-diagnóstico. \n\nSeleccione Cancel para regresar.')"
+			onclick="return confirm('<fmt:message key="empresa.label.element12" />')"
 	<%
 		} else if ( session.getAttribute("temp_user_role_nm").toString().equals("Empresa") ) {
 	%>
-			onclick="return confirm('¿Está seguro que quiere enviar el auto-diagnóstico? Usted no será capaz de actualizar el auto-diagnóstico, una vez que se ha presentado. \n\nSeleccione OK para enviar el auto-diagnóstico. \n\nSeleccione Cancel para regresar.')"
+			onclick="return confirm('<fmt:message key="empresa.label.element13" />')"
 	<%
 		}
 	%>			
-								>ENVIAR AUTO-DIAGNÓSTICO COMPLETO</button>
+								><fmt:message key="empresa.label.element14" /></button>
 							</form>
 						</li>
 <%
 	} else if ( session.getAttribute("temp_admin_organization_completed").toString().equals("Y") ) {
 %>						
-						<li>Ya hemos recibido su auto-diagnóstico enviado el <%= session.getAttribute("temp_admin_organization_last_mod_tmstmp").toString() %> </li>
+						<li><fmt:message key="empresa.label.element15" /> <%= session.getAttribute("temp_admin_organization_last_mod_tmstmp").toString() %> </li>
+						<li><a href="/indica/ViewPDF?file=resultados_informe&organization_id=<%= session.getAttribute("temp_admin_organization_id").toString() %>" target="_blank"><img alt="PDF" src="/indica/assets/images/download.jpg" width="50" height="50"></a> <fmt:message key="empresa.label.element16" /></li>
+						<li><a href="/indica/ViewPDF?file=resultados_encuesta&organization_id=<%= session.getAttribute("temp_admin_organization_id").toString() %>" target="_blank"><img alt="PDF" src="/indica/assets/images/download.jpg" width="50" height="50"></a> <fmt:message key="empresa.label.element17" /></li>
 <%
 	}
 %>	
@@ -422,14 +433,15 @@
 <%
 	if (session.getAttribute("temp_user_role_nm").toString().equals("Admin") && session.getAttribute("temp_admin_organization_completed").toString().equals("Y")) {
 %>
+						
+						<li><a href="/indica/es/main.jsp?target=empresa_resultados_highcharts&organization_id=<%= session.getAttribute("temp_admin_organization_id").toString() %>"><fmt:message key="empresa.label.element18" /></a></li>
 						<li>
 							<form role="form" action="validate_empresa_reset_completed.jsp" method="post" class="form-plantilla" name="empresa_reset_completed">
 								<input name="id" value="<% if (session.getAttribute("temp_admin_organization_id") != null) { %><%= session.getAttribute("temp_admin_organization_id").toString() %><% } %>" type="hidden">
 								<input name="completed" value="N" type="hidden">				
-								<button type="submit" class="btn btn-info btn-block separador-top">RESET AUTO-DIAGNÓSTICO COMPLETO</button>
+								<button type="submit" class="btn btn-info btn-block separador-top"><fmt:message key="empresa.label.element19" /></button>
 							</form>
 						</li>
-						<li><a href="/indica/es/main.jsp?target=empresa_resultados_highcharts&organization_id=<%= session.getAttribute("temp_admin_organization_id").toString() %>">RESULTADOS</a></li>
 <%
 	}
 %>
@@ -439,7 +451,8 @@
 <%
 	if (p_section.equals("caracterizacion_basica")) {
 %>
-		<%@include file="empresa_caracterizacion_basica.jsp"%>
+		<!-- %@include file="empresa_caracterizacion_basica.jsp"% -->
+		<jsp:include page="empresa_caracterizacion_basica.jsp" flush="true" />
 <%
 	} else if (p_section.equals("plantilla")) {
 %>
@@ -457,10 +470,9 @@
 %>
  		<jsp:include page="empresa_otros_datos.jsp" flush="true" />
 <%
-	} else if (p_section.equals("fin")) {
+	} else if (p_section.equals("empresa_fin")) {
 %>
-		FIN
-		<%@include file="./bajo_construccion.jsp" %>
+		<%@include file="./empresa_fin.jsp" %>
 <%
 	}
 %>

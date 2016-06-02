@@ -18,15 +18,17 @@ public class SendEmail
 
       // Assuming you are sending email from localhost
       String host = "mail.ruandunduma120.org";
+      // String host = "ruandunduma120.org";
 
       // Get system properties
       Properties properties = new Properties();
 
       // Setup mail server
       properties.put("mail.smtp.host", host);
-      properties.put("mail.smtp.port", "465");
+      // properties.put("mail.smtp.port", "465");
+      properties.put("mail.smtp.port", "25");
       properties.put("mail.smtp.auth", "true");
-      properties.put("mail.smtp.ssl.enable", "true");
+      // properties.put("mail.smtp.ssl.enable", "true");
       
 
       // Get the default Session object.

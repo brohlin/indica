@@ -74,7 +74,7 @@
 	int x = Database.callProc("p_upd_organization_otros_datos", parameters);
 
 	if (x==1) {
-		response.sendRedirect("/indica/es/main.jsp?target=empresa&section=fin&organization_id=" + p_organization_id);
+		response.sendRedirect("/indica/es/main.jsp?target=empresa&section=empresa_fin&organization_id=" + p_organization_id);
 	} else {
 		response.sendRedirect("/indica/es/main.jsp?target=error");
 	}

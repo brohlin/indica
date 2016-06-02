@@ -226,7 +226,7 @@
 			<div class="bc-gray-2d text-white padding-small borde-inferior">
 				<div class="container">
 					<h3 class="text-white"></h3>
-					<h1 class="text-white">RESULTADOS</h1>
+					<h1 class="text-white"><fmt:message key="gestionar_resultados.element1" /></h1>
 				</div>
 			</div>
 		</header>
@@ -238,97 +238,102 @@
 						<fieldset>
 						<!-- Form Name -->
 						<legend>
-							<h3 >Buscar Resultados</h3>
+							<h3><fmt:message key="gestionar_resultados.element2" /></h3>
 						</legend>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="pais_de_ubicacion_lkup">País</label>
+							<label class="col-md-4 control-label" for="pais_de_ubicacion_lkup"><fmt:message key="gestionar_resultados.element3" /></label>
 							<div class="col-md-7">
 								<select id="pais_de_ubicacion_lkup" name="pais_de_ubicacion_lkup" class="form-control" required="required" >
-									<option value="0" <% if (v_pais_de_ubicacion_lkup.equals("0")) { %> selected <% } %>>Todos</option>
-<option value="5" <% if (v_pais_de_ubicacion_lkup.equals("5")) { %> selected <% } %>>Argentina</option>
-<option value="4" <% if (v_pais_de_ubicacion_lkup.equals("4")) { %> selected <% } %>>Barbados</option>
-<option value="12" <% if (v_pais_de_ubicacion_lkup.equals("12")) { %> selected <% } %>>Belice</option>
-<option value="7" <% if (v_pais_de_ubicacion_lkup.equals("7")) { %> selected <% } %>>Bolivia</option>
-<option value="13" <% if (v_pais_de_ubicacion_lkup.equals("13")) { %> selected <% } %>>Brasil</option>
-<option value="14" <% if (v_pais_de_ubicacion_lkup.equals("14")) { %> selected <% } %>>Chile</option>
-<option value="15" <% if (v_pais_de_ubicacion_lkup.equals("15")) { %> selected <% } %>>Colombia</option>
-<option value="8" <% if (v_pais_de_ubicacion_lkup.equals("8")) { %> selected <% } %>>Costa Rica</option>
-<option value="9" <% if (v_pais_de_ubicacion_lkup.equals("9")) { %> selected <% } %>>Cuba</option>
-<option value="10" <% if (v_pais_de_ubicacion_lkup.equals("10")) { %> selected <% } %>>Dominica</option>
-<option value="11" <% if (v_pais_de_ubicacion_lkup.equals("11")) { %> selected <% } %>>Ecuador</option>
-<option value="16" <% if (v_pais_de_ubicacion_lkup.equals("16")) { %> selected <% } %>>El Salvador</option>
-<option value="19" <% if (v_pais_de_ubicacion_lkup.equals("19")) { %> selected <% } %>>Guatemala</option>
-<option value="20" <% if (v_pais_de_ubicacion_lkup.equals("20")) { %> selected <% } %>>Guyana</option>
-<option value="22" <% if (v_pais_de_ubicacion_lkup.equals("22")) { %> selected <% } %>>Haití</option>
-<option value="23" <% if (v_pais_de_ubicacion_lkup.equals("23")) { %> selected <% } %>>Honduras</option>
-<option value="27" <% if (v_pais_de_ubicacion_lkup.equals("27")) { %> selected <% } %>>Jamaica</option>
-<option value="29" <% if (v_pais_de_ubicacion_lkup.equals("29")) { %> selected <% } %>>México</option>
-<option value="30" <% if (v_pais_de_ubicacion_lkup.equals("30")) { %> selected <% } %>>Nicaragua</option>
-<option value="31" <% if (v_pais_de_ubicacion_lkup.equals("31")) { %> selected <% } %>>Panamá</option>
-<option value="32" <% if (v_pais_de_ubicacion_lkup.equals("32")) { %> selected <% } %>>Paraguay</option>
-<option value="33" <% if (v_pais_de_ubicacion_lkup.equals("33")) { %> selected <% } %>>Perú</option>
-<option value="35" <% if (v_pais_de_ubicacion_lkup.equals("35")) { %> selected <% } %>>República Dominicana</option>
-<option value="40" <% if (v_pais_de_ubicacion_lkup.equals("40")) { %> selected <% } %>>Suriname</option>
-<option value="41" <% if (v_pais_de_ubicacion_lkup.equals("41")) { %> selected <% } %>>Trinidad y Tobago</option>
-<option value="42" <% if (v_pais_de_ubicacion_lkup.equals("42")) { %> selected <% } %>>Uruguay</option>
-<option value="43" <% if (v_pais_de_ubicacion_lkup.equals("43")) { %> selected <% } %>>Venezuela</option>
+									<option value="0" <% if (v_pais_de_ubicacion_lkup.equals("0")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element4" /></option>
+<option value="5" <% if (v_pais_de_ubicacion_lkup.equals("5")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element5" /></option>
+<option value="4" <% if (v_pais_de_ubicacion_lkup.equals("4")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element6" /></option>
+<option value="12" <% if (v_pais_de_ubicacion_lkup.equals("12")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element7" /></option>
+<option value="7" <% if (v_pais_de_ubicacion_lkup.equals("7")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element8" /></option>
+<option value="13" <% if (v_pais_de_ubicacion_lkup.equals("13")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element9" /></option>
+<option value="14" <% if (v_pais_de_ubicacion_lkup.equals("14")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element10" /></option>
+<option value="15" <% if (v_pais_de_ubicacion_lkup.equals("15")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element11" /></option>
+<option value="8" <% if (v_pais_de_ubicacion_lkup.equals("8")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element12" /></option>
+<option value="9" <% if (v_pais_de_ubicacion_lkup.equals("9")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element13" /></option>
+<option value="10" <% if (v_pais_de_ubicacion_lkup.equals("10")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element14" /></option>
+<option value="11" <% if (v_pais_de_ubicacion_lkup.equals("11")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element15" /></option>
+<option value="16" <% if (v_pais_de_ubicacion_lkup.equals("16")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element16" /></option>
+<option value="105" <% if (v_pais_de_ubicacion_lkup.equals("105")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element64" /></option>
+<option value="19" <% if (v_pais_de_ubicacion_lkup.equals("19")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element17" /></option>
+<option value="20" <% if (v_pais_de_ubicacion_lkup.equals("20")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element18" /></option>
+<option value="22" <% if (v_pais_de_ubicacion_lkup.equals("22")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element19" /></option>
+<option value="23" <% if (v_pais_de_ubicacion_lkup.equals("23")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element20" /></option>
+<option value="27" <% if (v_pais_de_ubicacion_lkup.equals("27")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element21" /></option>
+<option value="106" <% if (v_pais_de_ubicacion_lkup.equals("106")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element65" /></option>
+<option value="107" <% if (v_pais_de_ubicacion_lkup.equals("107")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element66" /></option>
+<option value="29" <% if (v_pais_de_ubicacion_lkup.equals("29")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element22" /></option>
+<option value="109" <% if (v_pais_de_ubicacion_lkup.equals("109")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element68" /></option>
+<option value="30" <% if (v_pais_de_ubicacion_lkup.equals("30")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element23" /></option>
+<option value="108" <% if (v_pais_de_ubicacion_lkup.equals("108")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element67" /></option>
+<option value="31" <% if (v_pais_de_ubicacion_lkup.equals("31")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element24" /></option>
+<option value="32" <% if (v_pais_de_ubicacion_lkup.equals("32")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element25" /></option>
+<option value="33" <% if (v_pais_de_ubicacion_lkup.equals("33")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element26" /></option>
+<option value="35" <% if (v_pais_de_ubicacion_lkup.equals("35")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element27" /></option>
+<option value="40" <% if (v_pais_de_ubicacion_lkup.equals("40")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element28" /></option>
+<option value="41" <% if (v_pais_de_ubicacion_lkup.equals("41")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element29" /></option>
+<option value="42" <% if (v_pais_de_ubicacion_lkup.equals("42")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element30" /></option>
+<option value="43" <% if (v_pais_de_ubicacion_lkup.equals("43")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element31" /></option>
   
 								</select>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="sector_de_actividad_lkup">Sector</label>
+							<label class="col-md-4 control-label" for="sector_de_actividad_lkup"><fmt:message key="gestionar_resultados.element32" /></label>
 							<div class="col-md-7">
 								<select id="sector_de_actividad_lkup" name="sector_de_actividad_lkup" class="form-control" required="required" >
-									<option value="0" <% if (v_sector_de_actividad_lkup.equals("0")) { %> selected <% } %>>Todos</option>
-<option value="118" <% if (v_sector_de_actividad_lkup.equals("118")) { %> selected <% } %>>Sector Agropecuario y Agro-industrial</option>
-<option value="120" <% if (v_sector_de_actividad_lkup.equals("120")) { %> selected <% } %>>Sector Alimentario</option>
-<option value="121" <% if (v_sector_de_actividad_lkup.equals("121")) { %> selected <% } %>>Sector Comercio</option>
-<option value="122" <% if (v_sector_de_actividad_lkup.equals("122")) { %> selected <% } %>>Sector Comunicaciones</option>
-<option value="123" <% if (v_sector_de_actividad_lkup.equals("123")) { %> selected <% } %>>Sector Construcción</option>
-<option value="125" <% if (v_sector_de_actividad_lkup.equals("125")) { %> selected <% } %>>Sector Educación</option>
-<option value="126" <% if (v_sector_de_actividad_lkup.equals("126")) { %> selected <% } %>>Sector Financiero-Bancario</option>
-<option value="119" <% if (v_sector_de_actividad_lkup.equals("119")) { %> selected <% } %>>Sector Industrial</option>
-<option value="127" <% if (v_sector_de_actividad_lkup.equals("127")) { %> selected <% } %>>Sector Infraestructura</option>
-<option value="128" <% if (v_sector_de_actividad_lkup.equals("128")) { %> selected <% } %>>Sector Minero y Energético</option>
-<option value="124" <% if (v_sector_de_actividad_lkup.equals("124")) { %> selected <% } %>>Sector Servicios</option>
-<option value="129" <% if (v_sector_de_actividad_lkup.equals("129")) { %> selected <% } %>>Sector Solidario</option>
-<option value="130" <% if (v_sector_de_actividad_lkup.equals("130")) { %> selected <% } %>>Sector Transporte</option>
+									<option value="0" <% if (v_sector_de_actividad_lkup.equals("0")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element33" /></option>
+<option value="118" <% if (v_sector_de_actividad_lkup.equals("118")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element34" /></option>
+<option value="120" <% if (v_sector_de_actividad_lkup.equals("120")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element35" /></option>
+<option value="121" <% if (v_sector_de_actividad_lkup.equals("121")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element36" /></option>
+<option value="122" <% if (v_sector_de_actividad_lkup.equals("122")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element37" /></option>
+<option value="123" <% if (v_sector_de_actividad_lkup.equals("123")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element38" /></option>
+<option value="125" <% if (v_sector_de_actividad_lkup.equals("125")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element39" /></option>
+<option value="126" <% if (v_sector_de_actividad_lkup.equals("126")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element40" /></option>
+<option value="119" <% if (v_sector_de_actividad_lkup.equals("119")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element41" /></option>
+<option value="127" <% if (v_sector_de_actividad_lkup.equals("127")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element42" /></option>
+<option value="128" <% if (v_sector_de_actividad_lkup.equals("128")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element43" /></option>
+<option value="124" <% if (v_sector_de_actividad_lkup.equals("124")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element44" /></option>
+<option value="129" <% if (v_sector_de_actividad_lkup.equals("129")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element45" /></option>
+<option value="130" <% if (v_sector_de_actividad_lkup.equals("130")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element46" /></option>
 
 								</select>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="num_de_personas_trabajadores">Tamaño</label>
+							<label class="col-md-4 control-label" for="num_de_personas_trabajadores"><fmt:message key="gestionar_resultados.element47" /></label>
 							<div class="col-md-7">
 								<select id="num_de_personas_trabajadores" name="num_de_personas_trabajadores" class="form-control" required="required" >
 									<!-- option disabled>Seleccione una opción</option -->
-									<option value="0" <% if (v_num_de_personas_trabajadores.equals("0")) { %> selected <% } %>>Todos</option>
-<option value="63" <% if (v_num_de_personas_trabajadores.equals("63")) { %> selected <% } %>>De 1 a 9 (Microempresa/organización)</option>
-<option value="64" <% if (v_num_de_personas_trabajadores.equals("64")) { %> selected <% } %>>De 10 a 19 (Mediana empresa/organización)</option>
-<option value="67" <% if (v_num_de_personas_trabajadores.equals("67")) { %> selected <% } %>>De 101 a 250 (Mediana empresa/organización)</option>
-<option value="65" <% if (v_num_de_personas_trabajadores.equals("65")) { %> selected <% } %>>De 20 a 49 (Mediana empresa/organización)</option>
-<option value="66" <% if (v_num_de_personas_trabajadores.equals("66")) { %> selected <% } %>>De 51 a 100 (Mediana empresa/organización)</option>
-<option value="68" <% if (v_num_de_personas_trabajadores.equals("68")) { %> selected <% } %>>Más de 250 (gran empresa/organización)</option>
+									<option value="0" <% if (v_num_de_personas_trabajadores.equals("0")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element48" /></option>
+<option value="63" <% if (v_num_de_personas_trabajadores.equals("63")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element49" /></option>
+<option value="64" <% if (v_num_de_personas_trabajadores.equals("64")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element50" /></option>
+<option value="67" <% if (v_num_de_personas_trabajadores.equals("67")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element51" /></option>
+<option value="65" <% if (v_num_de_personas_trabajadores.equals("65")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element52" /></option>
+<option value="66" <% if (v_num_de_personas_trabajadores.equals("66")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element53" /></option>
+<option value="68" <% if (v_num_de_personas_trabajadores.equals("68")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element54" /></option>
 
 								</select>
 							</div>
 						</div>	
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" for="num_de_personas_trabajadores">Pilar</label>
+							<label class="col-md-4 control-label" for="num_de_personas_trabajadores"><fmt:message key="gestionar_resultados.element55" /></label>
 							<div class="col-md-7">
 								<select id="pilar" name="pilar" class="form-control" required="required" >
 									<option disabled>Seleccione una opción</option>
-									<option value="ge" <% if (v_pilar.equals("ge")) { %> selected <% } %>>Ámbitos generales de empresas u organizaciones (GE)</option>  
-									<option value="cp" <% if (v_pilar.equals("cp")) { %> selected <% } %>>Descripción del personal (CP)</option>  
-									<option value="rs" <% if (v_pilar.equals("rs")) { %> selected <% } %>>Reclutamiento y selección y de contratación (RS)</option>  
-									<option value="dp" <% if (v_pilar.equals("dp")) { %> selected <% } %>>Desarrollo profesional y desempeño (DP)</option> 
-									<option value="r" <% if (v_pilar.equals("r")) { %> selected <% } %>>Remuneración (R)</option> 
-									<option value="pv" <% if (v_pilar.equals("pv")) { %> selected <% } %>>Prevención del acoso en el ámbito laboral (PV)</option> 
+									<option value="ge" <% if (v_pilar.equals("ge")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element56" /></option>  
+									<option value="cp" <% if (v_pilar.equals("cp")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element57" /></option>  
+									<option value="rs" <% if (v_pilar.equals("rs")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element58" /></option>  
+									<option value="dp" <% if (v_pilar.equals("dp")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element59" /></option> 
+									<option value="r" <% if (v_pilar.equals("r")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element60" /></option> 
+									<option value="pv" <% if (v_pilar.equals("pv")) { %> selected <% } %>><fmt:message key="gestionar_resultados.element61" /></option> 
 
 								</select>
 							</div>
@@ -338,7 +343,7 @@
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="singlebutton"></label>
 						  <div class="col-md-7">
-						  	<button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Buscar</button>
+						  	<button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block"><fmt:message key="gestionar_resultados.element62" /></button>
 						  </div>
 						</div>
 
@@ -365,10 +370,10 @@
 				<input type="hidden" name="num_de_personas_trabajadores" value="<%= v_num_de_personas_trabajadores %>">
 				<input type="hidden" name="pilar" value="<%= v_pilar %>">
 				
-				<input type="submit" class="butnTxt" value="Descargar Datos a Excel" name="export">
+				<input type="submit" class="butnTxt" value="<fmt:message key="gestionar_resultados.element69" />" name="export">
 			</form>
 <br>
-			Fecha: <%= sdf.format(new java.util.Date()) %>
+			<fmt:message key="gestionar_resultados.element63" />: <%= sdf.format(new java.util.Date()) %>
 <br>		
 <%
 	if (v_pilar.equals("ge")) {

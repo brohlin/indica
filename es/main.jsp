@@ -5,7 +5,7 @@
   	String mID = "0";
   	String mEmail = "";
   	String mUser_id = "";
- 
+
  	try {
 		mName = request.getParameter("name");
 		mID = request.getParameter("id"); 
@@ -50,11 +50,16 @@
 <%	
 		} else if (p_target.equals("estructura")) {
 %>
-			<%@include file="./estructura.jsp" %>
+			<!-- %@include file="./estructura.jsp" % -->
+			<jsp:include page="estructura.jsp" flush="true" />
 <%	
 		}  else if (p_target.equals("gestionar_empresas")) {
 %>
-			<%@include file="./gestionar_empresas.jsp" %>
+			<!-- %@include file="./gestionar_empresas.jsp" % -->
+			<jsp:include page="gestionar_empresas.jsp">
+        		<jsp:param name="id" value="<%= mID %>"/>
+        		<jsp:param name="name" value="<%= mName %>"/>
+    		</jsp:include>
 <%	
 		}  else if (p_target.equals("empresa_nueva")) {
 %>
@@ -66,7 +71,11 @@
 <%	
 		}  else if (p_target.equals("gestionar_cuentas")) {
 %>
-			<%@include file="./gestionar_cuentas.jsp" %>
+			<!-- %@include file="./gestionar_cuentas.jsp" % -->
+			<jsp:include page="gestionar_cuentas.jsp">
+        		<jsp:param name="email" value="<%= mEmail %>"/>
+        		<jsp:param name="user_id" value="<%= mUser_id %>"/>
+    		</jsp:include>
 <%	
 		}  else if (p_target.equals("cuenta")) {
 %>
@@ -97,7 +106,9 @@
 <%	
 		}    else if (p_target.equals("descargas")) {
 %>
-			<%@include file="./descargas.jsp" %>
+			<!-- %@include file="./descargas.jsp" % -->
+			<jsp:include page="descargas.jsp" flush="true" />
+			
 <%	
 		}  else if (p_target.equals("encuesta")) {
 %>
@@ -114,7 +125,8 @@
 <%	
 		}  else if (p_target.equals("exito")) {
 %>
-			<%@include file="./exito.jsp" %>
+			<!-- %@include file="./exito.jsp" % -->
+			<jsp:include page="exito.jsp" flush="true" />
 <%	
 		}  else if (p_target.equals("inicio")) {
 %>
@@ -132,9 +144,10 @@
 %>
 			<%@include file="./gestionar_encuestas.jsp" %>
 <%	
-		}  else if (p_target.equals("exito")) {
+		}  else if (p_target.equals("error")) {
 %>
-			<%@include file="./exito.jsp" %>
+			<%@include file="./error.jsp" %>
+			
 <%	
 		}  else {
 %>					

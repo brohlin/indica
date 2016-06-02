@@ -7,10 +7,22 @@
 <web-app>
 
 	<context-param> 
-	    <description>Location to store uploaded file</description> 
-	    <param-name>file-upload</param-name> 
-	    <param-value>C:/apache-tomcat-7.0.32/webapps/data/</param-value>
+	    <param-name>phantomjs-reports-directory</param-name> 
+	    <param-value>/tmp/</param-value>
 	</context-param>
+	
+	<context-param> 
+	    <param-name>domain-url</param-name> 
+	    <!--  param-value>http://127.0.0.1:8080/</param-value -->
+	    <!--  param-value>https://www.ruandunduma120.org/</param-value -->
+	    <param-value>http://americalatinagenera.org:8080/</param-value>
+	</context-param>	
+	
+	<context-param> 
+	    <param-name>phantomjs-path</param-name> 
+	    <!--  param-value>/phantomjs-1.9.8-windows/</param-value -->
+	    <param-value>/usr/bin/phantomjs-1.9.8-linux-x86_64/</param-value>
+	</context-param>	
 
   <description>MySQL Indica App</description>
   <resource-ref>
@@ -21,18 +33,28 @@
   </resource-ref>
 
   
-    <!-- servlet>
-    <servlet-name>Carpeta</servlet-name>
-    <servlet-class>Carpeta</servlet-class>
+    <servlet>
+    <servlet-name>ViewPDF</servlet-name>
+    <servlet-class>ViewPDF</servlet-class>
     <load-on-startup>1</load-on-startup>
-  </servlet -->
+  </servlet>
   
   <!-- The mapping for the servlet -->
-  <!-- servlet-mapping>
-    <servlet-name>Carpeta</servlet-name>
-    <url-pattern>/Carpeta</url-pattern>
-  </servlet-mapping -->
+  <servlet-mapping>
+    <servlet-name>ViewPDF</servlet-name>
+    <url-pattern>/ViewPDF</url-pattern>
+  </servlet-mapping>
 
+    <servlet>
+	<servlet-name>HSSFCreate</servlet-name>
+    <servlet-class>org.undp.utils.HSSFCreate</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>   
+  
+  <servlet-mapping>
+    <servlet-name>HSSFCreate</servlet-name>
+    <url-pattern>/HSSFCreate</url-pattern>
+  </servlet-mapping>  
   
   <!-- Establish the default MIME type mappings -->
   <mime-mapping>
@@ -42,7 +64,7 @@
 
   <!-- Establish the default list of welcome files -->
   <welcome-file-list>
-    <welcome-file>main.jsp</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
 <error-page>

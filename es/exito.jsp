@@ -18,7 +18,7 @@
 <table>
 	<tr>
 		<td colspan="2">
-			<h1>Éxito</h1>
+			<h1><fmt:message key="exito.label.element1" /></h1>
 		</td>
 	</tr>
 	

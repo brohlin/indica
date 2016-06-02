@@ -1,8 +1,17 @@
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page language="java" import="java.sql.*" %>
 <%@ page import="org.undp.database.*" %>
 <%@ page import="org.undp.utils.*" %>
 <%@ page import="org.undp.utils.arrays.*" %>
 <%@ page import="org.undp.log.*" %>
+<%@ page import="java.util.Enumeration" %>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="org.undp.i18n.text" />
 
 <%
 	String un = (String) session.getAttribute("temp_user_id");
@@ -288,7 +297,7 @@
 <section role="dialog" class="borde-superior fondo-gris">
 	<header>
 		<div class="well">
-			<h1 class="text-center text-white">RESULTADOS</h1>
+			<h1 class="text-center text-white"><fmt:message key="empresa_resultados.element1" /></h1>
 		</div>
 		<div class="well-2 bc-purple">
 			<h3 class="text-center text-white"><%= session.getAttribute("temp_admin_organization_nm").toString() %></h3>
@@ -297,23 +306,23 @@
 <div class="container">
 
 <div class="col-xs-12 col-sm-8 col-md-8 cuadrado">
-<h5><label class="label label-primary">AUTO-DIAGNÓSTICO</label></h5>
+<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element2" /></label></h5>
 <!-- nav class="col-xs-12 col-lg-3 separador-top navegacion2 side-menu" role="navigation" -->		
 	<!-- ul class="nav nav-stacked text-center" -->
 	<ul>
-		<li>CARACTERIZACIÓN BÁSICA - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cb").toString() %></li>
-		<li>PLANTILLA - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_plantilla").toString() %></li>
-		<li>CONDICIONES LABORALES - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cl").toString() %></li>
-		<li>GESTIÓN DEL PERSONAL - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_gestion_del_personal").toString() %></li>
-		<li>OTROS DATOS - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_otros_datos").toString() %></li>
+		<li><fmt:message key="empresa_resultados.element3" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cb").toString() %></li>
+		<li><fmt:message key="empresa_resultados.element4" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_plantilla").toString() %></li>
+		<li><fmt:message key="empresa_resultados.element5" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cl").toString() %></li>
+		<li><fmt:message key="empresa_resultados.element6" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_gestion_del_personal").toString() %></li>
+		<li><fmt:message key="empresa_resultados.element7" /> - <%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_otros_datos").toString() %></li>
 <%
 	if (session.getAttribute("temp_admin_organization_completed").toString().equals("N")) {
 %>
-		<li>Todavía, no hemos recibido su auto-diagnóstico</li>
+		<li><fmt:message key="empresa_resultados.element8" /></li>
 <%
 	} else if (session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa").toString().equals("100") && session.getAttribute("temp_admin_organization_completed").toString().equals("Y")) {
 %>						
-		<li>Ya hemos recibido su auto-diagnóstico enviado el <%= session.getAttribute("temp_admin_organization_last_mod_tmstmp").toString() %> </li>
+		<li><fmt:message key="empresa_resultados.element9" /> <%= session.getAttribute("temp_admin_organization_last_mod_tmstmp").toString() %> </li>
 <%
 	}
 
@@ -322,7 +331,7 @@
 
 <BR>
 
-<h5><label class="label label-primary">ENCUESTAS</label></h5>
+<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element10" /></label></h5>
 	<table>
 	
 		<tr>
@@ -336,7 +345,7 @@
 <%
 	} else {
 %>
-			<td colspan="2">No hay encuestas enviadas a los empleados de <%= session.getAttribute("temp_admin_organization_nm").toString() %>.</td>				
+			<td colspan="2"><fmt:message key="empresa_resultados.element11" /> <%= session.getAttribute("temp_admin_organization_nm").toString() %>.</td>				
 
 <%	
 	}
@@ -344,16 +353,16 @@
 		</tr>
 	</table>
 <br>
-<h5><label class="label label-primary">Ámbitos generales de empresas u organizaciones (GE)</label></h5>
+<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element12" /></label></h5>
 <div class="table-responsive">
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Tasa de absentismo total en la empresa/organización</label></div><div class="col-xs-4 " align="right"><%= ge1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge1_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en las tasas de absentismo de mujeres y hombres</label></div><div class="col-xs-4 " align="right"><%= ge2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge2_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en las tasas de cese de actividad de la empresa/organización de las mujeres y los hombres (índice de rotación)</label></div><div class="col-xs-4 " align="right"><%= ge3 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge3_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Uso de comunicación a favor de la igualdad y no discriminación entre mujeres y hombres (comunicación incluyente)</label></div><div class="col-xs-4 " align="right"><%= ge4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge4_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la plantilla sobre si la comunicación interna contempla criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= ge5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge5_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si la comunicación interna contempla criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= ge6 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge6_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE7</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si la comunicación externa contempla criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= ge7 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge7_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE8</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la plantilla sobre si la comunicación externa contempla criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= ge8 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge8_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element13" /></label></div><div class="col-xs-4 " align="right"><%= ge1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge1_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element14" /></label></div><div class="col-xs-4 " align="right"><%= ge2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge2_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element15" /></label></div><div class="col-xs-4 " align="right"><%= ge3 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge3_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element16" /></label></div><div class="col-xs-4 " align="right"><%= ge4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge4_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element17" /></label></div><div class="col-xs-4 " align="right"><%= ge5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge5_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element18" /></label></div><div class="col-xs-4 " align="right"><%= ge6 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge6_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE7</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element19" /></label></div><div class="col-xs-4 " align="right"><%= ge7 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge7_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">GE8</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element20" /></label></div><div class="col-xs-4 " align="right"><%= ge8 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= ge8_color %>_mini.png"></div></div>
 </div>
 
 	<table align="center">
@@ -382,19 +391,19 @@
 <br>
 
 	
-		<h5><label class="label label-primary">Descripción del personal (CP)</label></h5>
+		<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element21" /></label></h5>
 	
 <div class="table-responsive">
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio de presencia femenina y masculina en la plantilla.</label></div><div class="col-xs-4 " align="right"><%= cp1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp1_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Presencia equilibrada de mujeres y hombres en cada tipo de puesto de la empresa/organización (ausencia de segregación horizontal)</label></div><div class="col-xs-4 " align="right"><%= cp2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp2_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Presencia equilibrada de mujeres en cada uno de los cargos de responsabilidad (índice de segregación en los cargos de responsabilidad) </label></div><div class="col-xs-4 " align="right"><%= cp3 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp3_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Brecha en la presencia de mujeres y hombres en los cargos de responsabilidad</label></div><div class="col-xs-4 " align="right"><%= cp4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp4_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Brecha en la presencia de mujeres y hombres en los consejos de dirección</label></div><div class="col-xs-4 " align="right"><%= cp5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp5_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Tasa relativa de éxito para ocupar cargos de responsabilidad (mujeres/hombres)</label></div><div class="col-xs-4 " align="right"><%= cp6 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp6_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP7</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio entre la tasa relativa de presencia de las mujeres con contrato indefinido y de los hombres con contrato indefinido (Equidad en la contratación indefinida)</label></div><div class="col-xs-4 " align="right"><%= cp7 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp7_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP8</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Brecha de contratación indefinida (Equidad en la contratación indefinida)</label></div><div class="col-xs-4 " align="right"><%= cp8 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp8_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP9</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio entre la tasa relativa de presencia de las mujeres con contrato a tiempo completo y de los hombres con contrato a tiempo completo (Equidad en la contratación a tiempo completo)</label></div><div class="col-xs-4 " align="right"><%= cp9 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp9_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP10</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Brecha de contratación a tiempo completo (Equidad en la contratación a tiempo completo)</label></div><div class="col-xs-4 " align="right"><%= cp10 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp10_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element22" /></label></div><div class="col-xs-4 " align="right"><%= cp1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp1_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element23" /></label></div><div class="col-xs-4 " align="right"><%= cp2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp2_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element24" /></label></div><div class="col-xs-4 " align="right"><%= cp3 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp3_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element25" /></label></div><div class="col-xs-4 " align="right"><%= cp4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp4_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element26" /></label></div><div class="col-xs-4 " align="right"><%= cp5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp5_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element27" /></label></div><div class="col-xs-4 " align="right"><%= cp6 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp6_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP7</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element28" /></label></div><div class="col-xs-4 " align="right"><%= cp7 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp7_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP8</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element29" /></label></div><div class="col-xs-4 " align="right"><%= cp8 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp8_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP9</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element30" /></label></div><div class="col-xs-4 " align="right"><%= cp9 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp9_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">CP10</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element31" /></label></div><div class="col-xs-4 " align="right"><%= cp10 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= cp10_color %>_mini.png"></div></div>
 </div>
 
 	<table align="center">
@@ -425,13 +434,13 @@
 <br>
 	<table align="center">
 	
-		<h5><label class="label label-primary">Ingreso en las empresas u organizaciones<br>Reclutamiento y selección y de contratación (RSC)</label></h5>		
+		<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element32" /></label></h5>		
 <div class="table-responsive">
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio de presencia femenina y masculina al tomar en consideración candidaturas o postulaciones en procesos de selección</label></div><div class="col-xs-4 " align="right"><%= rs1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs1_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio entre las oportunidades de éxito de contratación de las mujeres participantes en procesos de selección y contratación y las de los hombres participantes en los procesos de selección y contratación.</label></div><div class="col-xs-4 " align="right"><%= rs2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs2_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Inclusión de la perspectiva de género y a favor de la igualdad en los procesos de selección y contratación</label></div><div class="col-xs-4 " align="right"><%= rs3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs3_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la mujeres y hombres sobre si los procesos de selección y contratación contemplan criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= rs4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs4_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si los procesos de selección y contratación contemplan criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= rs5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs5_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element33" /></label></div><div class="col-xs-4 " align="right"><%= rs1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs1_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element34" /></label></div><div class="col-xs-4 " align="right"><%= rs2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs2_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element35" /></label></div><div class="col-xs-4 " align="right"><%= rs3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs3_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element36" /></label></div><div class="col-xs-4 " align="right"><%= rs4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs4_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">RS5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element37" /></label></div><div class="col-xs-4 " align="right"><%= rs5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= rs5_color %>_mini.png"></div></div>
 
 </div>
 		<tr><td>&nbsp;</td></tr>
@@ -454,37 +463,37 @@
 
 	</table>
 <br>
-<h5><label class="label label-primary">Desarrollo profesional y desempeño (DP)</label></h5>		
+<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element38" /></label></h5>		
 <div class="table-responsive">
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio de presencia femenina y masculina al tomar en consideración candidaturas o postulaciones en procesos de promoción</label></div><div class="col-xs-4 " align="right"><%= dp1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp1_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio entre las oportunidades promocionarse u obtener un ascenso de las mujeres participantes en procesos de promoción y las de los hombres participantes en los procesos de promoción</label></div><div class="col-xs-4 " align="right"><%= dp2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp2_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Inclusión de la perspectiva de género y a favor de la igualdad en los procesos de promoción</label></div><div class="col-xs-4 " align="right"><%= dp3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp3_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la mujeres y hombres sobre si los procesos de promoción contemplan criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= dp4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp4_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si los procesos de promoción contemplan criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= dp5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp5_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equidad en el número de horas de capacitación que dedican las mujeres y el número de horas de capacitación que dedican los hombres</label></div><div class="col-xs-4 " align="right"><%= dp6 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp6_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP7</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Inclusión de la perspectiva de género y a favor de la igualdad en los procesos de capacitación o formación interna</label></div><div class="col-xs-4 " align="right"><%= dp7 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp7_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP8</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la mujeres y hombres sobre si los procesos de capacitación o formación interna contemplan criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= dp8 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp8_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP9</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si los procesos de capacitación o formación interna contemplan criterios de igualdad y no discriminación por razón de sexo</label></div><div class="col-xs-4 " align="right"><%= dp9 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp9_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element39" /></label></div><div class="col-xs-4 " align="right"><%= dp1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp1_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element40" /></label></div><div class="col-xs-4 " align="right"><%= dp2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp2_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element41" /></label></div><div class="col-xs-4 " align="right"><%= dp3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp3_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element42" /></label></div><div class="col-xs-4 " align="right"><%= dp4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp4_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element43" /></label></div><div class="col-xs-4 " align="right"><%= dp5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp5_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element44" /></label></div><div class="col-xs-4 " align="right"><%= dp6 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp6_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP7</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element45" /></label></div><div class="col-xs-4 " align="right"><%= dp7 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp7_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP8</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element46" /></label></div><div class="col-xs-4 " align="right"><%= dp8 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp8_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">DP9</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element47" /></label></div><div class="col-xs-4 " align="right"><%= dp9 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= dp9_color %>_mini.png"></div></div>
 </div>
 <br>
-<h5><label class="label label-primary">Remuneración (R)</label></h5>
+<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element48" /></label></h5>
 <div class="table-responsive">
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Brecha salarial en el conjunto de la plantilla</label></div><div class="col-xs-4 " align="right"><%= r1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r1_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Brecha salarial en los cargos de responsabilidad</label></div><div class="col-xs-4 " align="right"><%= r2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r2_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Brecha salarial en el conjunto de puestos distintos a los cargos de responsabilidad</label></div><div class="col-xs-4 " align="right"><%= r3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r3_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Inclusión de la perspectiva de género y a favor de la igualdad en la política salarial</label></div><div class="col-xs-4 " align="right"><%= r4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r4_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la mujeres y hombres sobre si la política salarial de la empresa/organización es equitativa y se hace desde criterios de igualdad de mujeres y hombres</label></div><div class="col-xs-4 " align="right"><%= r5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r5_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en la valoración/percepción de la mujeres y hombres sobre si la política salarial de la empresa/organización es equitativa y se hace desde criterios de igualdad de mujeres y hombres</label></div><div class="col-xs-4 " align="right"><%= r6 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r6_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element49" /></label></div><div class="col-xs-4 " align="right"><%= r1 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r1_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element50" /></label></div><div class="col-xs-4 " align="right"><%= r2 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r2_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element51" /></label></div><div class="col-xs-4 " align="right"><%= r3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r3_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element52" /></label></div><div class="col-xs-4 " align="right"><%= r4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r4_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element53" /></label></div><div class="col-xs-4 " align="right"><%= r5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r5_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">R6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element54" /></label></div><div class="col-xs-4 " align="right"><%= r6 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= r6_color %>_mini.png"></div></div>
 </div>
 <br>
-<h5><label class="label label-primary">Prevención del acoso en el ámbito laboral (PV)</label></h5>
+<h5><label class="label label-primary"><fmt:message key="empresa_resultados.element55" /></label></h5>
 <div class="table-responsive">
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio entre las acciones adoptadas (sanciones y/u otras soluciones positivas) en relación al número de casos sobre acoso denunciados</label></div><div class="col-xs-4 " align="right"><%= pv1 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv1_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Inclusión de la perspectiva de género y a favor de la igualdad en las políticas para la prevención y tratamiento del acoso sexual y violencia de género</label></div><div class="col-xs-4 " align="right"><%= pv2 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv2_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la mujeres y hombres sobre si el mecanismo y/o protocolo de prevención y actuación en caso de acoso es eficaz</label></div><div class="col-xs-4 " align="right"><%= pv3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv3_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en la Valoración/percepción de la mujeres y hombres sobre si el mecanismo y/o protocolo de prevención y actuación en caso de acoso es eficaz</label></div><div class="col-xs-4 " align="right"><%= pv4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv4_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Valoración/percepción de la mujeres y hombres sobre sobre si conocen la existencia del mecanismo y/o protocolo de prevención y actuación en caso de acoso sexual y si lo consideran de fácil acceso</label></div><div class="col-xs-4 " align="right"><%= pv5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv5_color %>_mini.png"></div></div>
-	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input">Equilibrio en  la Valoración/percepción de la mujeres y hombres sobre sobre si conocen la existencia del mecanismo y/o protocolo de prevención y actuación en caso de acoso sexual y si lo consideran de fácil acceso</label></div><div class="col-xs-4 " align="right"><%= pv6 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv6_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV1</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element56" /></label></div><div class="col-xs-4 " align="right"><%= pv1 %>&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv1_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV2</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element57" /></label></div><div class="col-xs-4 " align="right"><%= pv2 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv2_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV3</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element58" /></label></div><div class="col-xs-4 " align="right"><%= pv3 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv3_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV4</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element59" /></label></div><div class="col-xs-4 " align="right"><%= pv4 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv4_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV5</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element60" /></label></div><div class="col-xs-4 " align="right"><%= pv5 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv5_color %>_mini.png"></div></div>
+	<div class="row form-group"><div class="col-xs-1 "><label class="numero-otros-datos">PV6</label></div><div class="col-xs-6 col-sm-7"><label class="titulo-input"><fmt:message key="empresa_resultados.element61" /></label></div><div class="col-xs-4 " align="right"><%= pv6 %>%&nbsp;&nbsp;&nbsp;<img src="/indica/assets/images/<%= pv6_color %>_mini.png"></div></div>
 </div>
 </div>
 </div>

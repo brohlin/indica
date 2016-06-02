@@ -1,13 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!-- %@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" % --> 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="ISO-8859-1" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
 
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ page language="java" import="java.sql.*" %>
 <%@ page import="org.undp.database.*" %>
 <%@ page import="org.undp.utils.*" %>
 <%@ page import="org.undp.utils.arrays.*" %>
 <%@ page import="org.undp.log.*" %>
+<%@ page import="java.util.Enumeration" %>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="org.undp.i18n.text" />
 
 <%	
 
@@ -349,26 +355,26 @@
 <section  class="borde-superior ">
 	<header>
 		<div class="well">
-			<h1 class="text-center text-white">RESULTADOS</h1>
+			<h1 class="text-center text-white"><fmt:message key="resultados_otros_datos.element1" /></h1>
 		</div>
 		<div class="well-2 bc-purple">
-			<h3 class="text-center text-white"> EMPRESA <%= session.getAttribute("temp_admin_organization_nm").toString() %></h3>
+			<h3 class="text-center text-white"> <fmt:message key="resultados_otros_datos.element2" /> <%= session.getAttribute("temp_admin_organization_nm").toString() %></h3>
 		</div>
 	</header>
 	<!-- Cabezote gris -->
 	<div id="cabezote-resultados" class="bc-gray padding-medium">
 		<div class="container">
 			<div class="col-md-6">
-				<!-- h4 class="resaltado">El autodiagnositico fue recibido exitosamente el día: xx de xx</h4 -->
+				<!-- h4 class="resaltado">El autodiagnositico fue recibido exitosamente el dÃ­a: xx de xx</h4 -->
 				<h4 class="resaltado">
 				<%
 					if (session.getAttribute("temp_admin_organization_completed").toString().equals("N")) {
 				%>
-						<li>Aún no hemos recibido el autodiagnóstico de la empesa</li>
+						<li><fmt:message key="resultados_otros_datos.element3" /></li>
 				<%
 					} else if (session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa").toString().equals("100") && session.getAttribute("temp_admin_organization_completed").toString().equals("Y")) {
 				%>						
-						<li>El autodianóstico fue recibido exitosamente el día <%= session.getAttribute("temp_admin_organization_last_mod_tmstmp").toString() %> </li>
+						<fmt:message key="resultados_otros_datos.element4" /> <%= session.getAttribute("temp_admin_organization_last_mod_tmstmp").toString() %>
 				<%
 					}
 
@@ -377,19 +383,19 @@
 
 		</div>
 		<ul>  
-			<li>Caracterización básica- 
+			<li><fmt:message key="resultados_otros_datos.element5" /> - 
 				<%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cb").toString() %>
 			</li>
-			<li>Plantilla - 
+			<li><fmt:message key="resultados_otros_datos.element6" /> - 
 				<%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_plantilla").toString() %>
 			</li>
-			<li>Condiciones laborales - 
+			<li><fmt:message key="resultados_otros_datos.element7" />  - 
 				<%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_cl").toString() %>
 			</li>
-			<li>Gestión del personal - 
+			<li><fmt:message key="resultados_otros_datos.element8" /> - 
 				<%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_gestion_del_personal").toString() %>
 			</li>
-			<li>Otros datos - 
+			<li><fmt:message key="resultados_otros_datos.element9" /> - 
 				<%= session.getAttribute("temp_admin_organization_f_get_pct_complete_empresa_otros_datos").toString() %>
 			</li>
 		</ul>
@@ -397,22 +403,22 @@
 	</div>
 </div> <!-- fin de cabezote gris -->
 <div class="container resultados">
-	<h4 class="text-center separador-top separador-bottom">A continuación encontrará los resultados del formulario de valoración de la empresa </h4>
+	<h4 class="text-center separador-top separador-bottom"><fmt:message key="resultados_otros_datos.element10" /> </h4>
 
 	<div id="otros-comunicacion-interna">
 		<h5>
-			<div class="label label-primary padding-small">COMUNICACIÓN INTERNA</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element11" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h4 class="text-center">PREGUNTAS DESGLOSADAS</h4>
+				<h4 class="text-center"><fmt:message key="resultados_otros_datos.element12" /></h4>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
-					<li role="presentation" class="active"><a href="#otros1" aria-controls="otros1" role="tab" data-toggle="tab">Pregunta 1</a></li>
-					<li role="presentation"><a href="#otros2" aria-controls="otros2" role="tab" data-toggle="tab">Pregunta 2</a></li>
-					<li role="presentation"><a href="#otros3" aria-controls="otros3" role="tab" data-toggle="tab">Pregunta 3</a></li>
-					<li role="presentation"><a href="#otros4" aria-controls="otros4" role="tab" data-toggle="tab">Pregunta 4</a></li>
+					<li role="presentation" class="active"><a href="#otros1" aria-controls="otros1" role="tab" data-toggle="tab"><fmt:message key="resultados_otros_datos.element13" /> 1</a></li>
+					<li role="presentation"><a href="#otros2" aria-controls="otros2" role="tab" data-toggle="tab"><fmt:message key="resultados_otros_datos.element13" /> 2</a></li>
+					<li role="presentation"><a href="#otros3" aria-controls="otros3" role="tab" data-toggle="tab"><fmt:message key="resultados_otros_datos.element13" /> 3</a></li>
+					<li role="presentation"><a href="#otros4" aria-controls="otros4" role="tab" data-toggle="tab"><fmt:message key="resultados_otros_datos.element13" /> 4</a></li>
 				</ul>
 			</div>	 
 			<!-- Tab panes -->
@@ -420,50 +426,50 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros1">
 						<div class="col-xs-12  panel-heading" >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización tiene en cuenta, en la comunicación interna, la utilización de un lenguaje inclusivo (imágenes no estereotipadas, visibilizando a mujeres y hombres, y lenguaje no sexista)?
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element14" />
 							</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q1_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q1_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q1_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q1_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q1_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q1_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span>
 							</h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros2">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En su opinión, los mecanismos de comunicación interna se utilizan con la intención de que la información llegue al 100% de la plantilla ?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q2_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q2_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q2_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element18" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q2_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q2_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q2_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span>
 							</h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros3">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">Se ha comunicado a la plantilla el compromiso de la empresa/organización con la igualdad de género</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q3_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q3_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q3_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element19" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q3_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q3_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q3_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span>
 							</h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros4">
 						<div class="col-xs-12 panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿considera que la comunicación interna contempla criterios de igualdad y no discriminación por cuestión de sexo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q43_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q43_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q43_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element20" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q43_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q43_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q43_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom"  >
-			<h4 class="text-center">RESUMEN DE LAS RESPUESTAS</h4>
+			<h4 class="text-center"><fmt:message key="resultados_otros_datos.element21" /></h4>
 			<div id="gr-otros-1" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin otros-comunicacion-interna -->
 	<div id="otros-comunicacion-externa">
 		<h5>
-			<div class="label label-primary padding-small">COMUNICACIÓN EXTERNA</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element22" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h4 class="text-center">PREGUNTAS DESGLOSADAS</h4>
+				<h4 class="text-center"><fmt:message key="resultados_otros_datos.element23" /></h4>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
 					<li role="presentation" class="active"><a href="#otros5" aria-controls="otros5" role="tab" data-toggle="tab">P. 5</a></li>
 					<li role="presentation"><a href="#otros6" aria-controls="otros6" role="tab" data-toggle="tab">P. 6</a></li>
@@ -476,46 +482,46 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros5">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización tiene en cuenta, en la comunicación externa y publicidad, la utilización de un lenguaje inclusivo (imágenes no estereotipadas, visibilizando a mujeres y hombres de manera equilibrada, y lenguaje no sexista)?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q4_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q4_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q4_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element24" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q4_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q4_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q4_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros6">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">Se ha comunicado hacia el exterior el compromiso de la empresa/organización con la igualdad de género</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q5_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q5_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q5_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element25" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q5_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q5_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q5_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros7">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización tiene en cuenta, en la comunicación externa y publicidad, la utilización imágenes de hombres y de mujeres desempeñando roles distintos de los tradicionales de género ?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q6_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q6_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q6_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element26" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q6_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q6_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q6_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane" id="otros8">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿considera que la comunicación externa contempla criterios de igualdad y no discriminación por cuestión de sexo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q44_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q44_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q44_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element27" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q44_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q44_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q44_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom "  >
-			<h4 class="text-center">RESUMEN DE LAS RESPUESTAS</h4>
+			<h4 class="text-center"><fmt:message key="resultados_otros_datos.element28" /></h4>
 			<div id="gr-otros-2" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin otros-comunicacion-externa -->
 	<div id="otros-reclutamiento">
 		<h5>
-			<div class="label label-primary padding-small">PROCESOS DE RECLUTAMIENTO Y SELECCIÓN DE CONTRATACIÓN</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element29" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h4 class="text-center">PREGUNTAS DESGLOSADAS</h4>
+				<h4 class="text-center"><fmt:message key="resultados_otros_datos.element30" /></h4>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
 					<li role="presentation" class="active"><a href="#otros9" aria-controls="otros9" role="tab" data-toggle="tab">P. 9</a></li>
 					<li role="presentation"><a href="#otros10" aria-controls="otros10" role="tab" data-toggle="tab">P. 10</a></li>
@@ -533,76 +539,76 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros9">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización tiene metas de contratación para la promoción de la equidad de género en todos los niveles jerárquicos de todas las áreas?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q7_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q7_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q7_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element31" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q7_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q7_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q7_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros10">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En la empresa/organización ¿Se llevan o se han llevado a cabo procesos de reclutamiento y selección dirigidos específicamente a contratar mujeres para equilibrar su presencia en la plantilla?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q8_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q8_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q8_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element32" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q8_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q8_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q8_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros11">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">Cuando se lleva a cabo un proceso de reclutamiento y selección, en los anuncios para la captación, ¿se pone especial cuidado en que éstos tengan un lenguaje inclusivo y sean atrayentes tanto para hombres como para mujeres?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q9_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q9_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q9_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element33" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q9_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q9_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q9_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros12">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En la empresa/organización todas las personas que entran lo hacen a través de un procedimiento formal y documentado de búsqueda y selección de personal?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q10_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q10_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q10_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element34" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q10_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q10_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q10_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros13">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Existen, en la empresa/ organización, puestos o tipos de tareas que estén reservados sólo a las mujeres?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q11_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q11_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q11_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element35" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q11_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q11_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q11_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros14">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Existen, en la empresa/ organización, puestos o tipos de tareas que estén reservados sólo a los hombres?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q12_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q12_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q12_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element36" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q12_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q12_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q12_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros15">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Tienen mujeres y hombres las mismas facilidades para acceder a la promoción sobre puestos vacantes?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q13_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q13_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q13_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element37" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q13_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q13_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q13_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros16">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La política de la organización prohíbe expresamente que se produzcan desvinculaciones de procesos de reclutamiento y selección basadas en el estado civil , en la edad, en el embarazo o la posibilidad del embarazo, la etnia?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q14_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q14_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q14_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element38" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q14_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q14_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q14_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros17">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿considera que los procesos de reclutamiento, selección y contratación son igualitarios para mujeres y hombres?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q45_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q45_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q45_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element39" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q45_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q45_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q45_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom"  >
-			<h4 class="text-center">RESUMEN DE LAS RESPUESTAS</h4>
+			<h4 class="text-center"><fmt:message key="resultados_otros_datos.element40" /></h4>
 			<div id="gr-otros-3" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin reclutamiento -->
-	<div id="otros-promoción">
+	<div id="otros-promociÃ³n">
 		<h5>
-			<div class="label label-primary padding-small">PROCESOS DE PROMOCIÓN</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element41" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h3 class="text-center">PREGUNTAS DESGLOSADAS</h3>
+				<h3 class="text-center"><fmt:message key="resultados_otros_datos.element42" /></h3>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
 					<li role="presentation" class="active"><a href="#otros18" aria-controls="otros18" role="tab" data-toggle="tab">P. 18</a></li>
 					<li role="presentation"><a href="#otros19" aria-controls="otros19" role="tab" data-toggle="tab">P. 19</a></li>
@@ -619,70 +625,70 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros18">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización realiza habitualmente evaluaciones objetivas y equitativas del desempeño de las personas empleadas?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q15_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q15_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q15_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element43" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q15_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q15_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q15_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros19">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Cuenta la empresa/organización con mecanismos para asegurar que la promoción de personal está en coherencia con la evaluación de desempeño del personal, sin sesgos de sexo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q16_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q16_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q16_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element44" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q16_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q16_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q16_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros20">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La política de promoción interna de la empresa/organización está diseñada para garantizar la participación femenina equitativa con la masculina en los procesos decisorios y en la gestión en todos los niveles y áreas de la empresa/organización?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q17_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q17_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q17_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element45" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q17_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q17_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q17_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros21">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización tiene objetivos concretos de promoción y movilidad horizontal que reviertan positivamente en la equidad de género en todos los niveles jerárquicos de todas las áreas o departamentos?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q18_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q18_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q18_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element46" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q18_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q18_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q18_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros22">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Los procesos de promoción establecen mecanismos para asegurar que tanto hombres como mujeres tengan acceso a la promoción sobre oportunidades de desarrollo profesional?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q19_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q19_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q19_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element47" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q19_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q19_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q19_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros23">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">Cuando se lleva a cabo un proceso de promoción ¿se asegura que, entre las candidaturas a valorar y considerar, exista una representación paritaria de ambos sexos?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q20_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q20_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q20_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element48" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q20_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q20_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q20_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros24">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Cuenta la empresa/organización con planes de carrera que permiten orientar el desarrollo profesionales de las personas?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q21_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q21_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q21_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element49" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q21_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q21_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q21_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros25">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿cree que los procesos de promoción contemplan criterios de igualdad y no discriminación por razón de sexo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q46_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q46_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q46_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element50" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q46_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q46_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q46_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom"  >
-			<h3 class="text-center">RESUMEN DE LAS RESPUESTAS</h3>
+			<h3 class="text-center"><fmt:message key="resultados_otros_datos.element51" /></h3>
 			<div id="gr-otros-4" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin PROMOCION -->
 	<div id="otros-capacitacion">
 		<h5>
-			<div class="label label-primary padding-small">PROCESOS DE CAPACITACIÓN</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element52" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h4 class="text-center">PREGUNTAS DESGLOSADAS</h4>
+				<h4 class="text-center"><fmt:message key="resultados_otros_datos.element53" /></h4>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
 					<li role="presentation" class="active"><a href="#otros26" aria-controls="otros26" role="tab" data-toggle="tab">P. 26</a></li>
 					<li role="presentation"><a href="#otros27" aria-controls="otros27" role="tab" data-toggle="tab">P. 27</a></li>
@@ -699,70 +705,70 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros26">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización tiene un plan de capacitación coherente con la detección de necesidades previamente consultada entre la plantilla (hombres y mujeres)?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q22_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q22_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q22_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element54" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q22_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q22_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q22_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros27">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización tiene objetivos concretos de capacitación o formación interna de la equidad de género en todos los niveles jerárquicos de todas las áreas?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q23_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q23_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q23_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element55" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q23_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q23_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q23_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros28">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización cuenta con mecanismos para asegurar un acceso igualitario a la capacitación en cantidad e horas de capacitación, tipo de capacitación y recursos asignados?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q24_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q24_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q24_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element56" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q24_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q24_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q24_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros29">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización cuenta con mecanismos/instrumentos que permitan verificar que la capacitación se realiza en horario o jornada laboral?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q25_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q25_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q25_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element57" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q25_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q25_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q25_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros30">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización promueve que mujeres y hombres accedan a capacitaciones para prepararlos/as en puestos y funciones no tradicionales de su sexo o en las cuales no se encuentran adecuadamente representados?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q26_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q26_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q26_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element58" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q26_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q26_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q26_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros31">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Los cursos de capacitación de la empresa/organización se realizan en las propias instalaciones, tomando en cuenta que la duración, frecuencia y horarios no interfieran con las responsabilidades familiares de los/las empleados/as para asegurar su participación?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q27_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q27_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q27_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element59" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q27_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q27_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q27_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros32">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización ofrece anualmente , en todos los niveles, capacitación en género a cargo de profesionales especializados en el tema. (Prioritariamente alta gerencia, jefaturas, recursos humanos, sindicatos/ trabajadores-as, comité/comisiones/mesas de género de la empresa/organización)?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q28_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q28_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q28_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element60" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q28_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q28_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q28_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros33">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿considera que los procesos de capacitación/formación contemplan criterios de igualdad y no discriminación por razón de sexo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q47_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q47_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q47_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element61" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q47_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q47_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q47_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom"  >
-			<h4 class="text-center">RESUMEN DE LAS RESPUESTAS</h4>
+			<h4 class="text-center"><fmt:message key="resultados_otros_datos.element62" /></h4>
 			<div id="gr-otros-5" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin capacitacion -->
 	<div id="otros-salario">
 		<h5>
-			<div class="label label-primary padding-small">POLÍTICA SALARIAL</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element63" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h4 class="text-center">PREGUNTAS DESGLOSADAS</h4>
+				<h4 class="text-center"><fmt:message key="resultados_otros_datos.element64" /></h4>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
 					<li role="presentation" class="active"><a href="#otros35" aria-controls="otros34" role="tab" data-toggle="tab">P. 34</a></li>
 					<li role="presentation"><a href="#otros35" aria-controls="otros35" role="tab" data-toggle="tab">P. 35</a></li>
@@ -776,52 +782,52 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros34">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La política de la empresa/organización es explícita en lo que se refiere a garantizar la remuneración de la plantilla desde una perspectiva de igualdad de género, asegurando que hombres y mujeres obtengan el mismo salario para un mismo trabajo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q29_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q29_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q29_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element65" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q29_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q29_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q29_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros35">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización cuenta con un sistema de información y comunicación transparente sobre la política de compensaciones y que permite clarificar dudas del personal?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q30_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q30_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q30_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element66" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q30_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q30_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q30_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros36">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización cuenta con una política de remuneración y compensaciones que asegure la implementación del principio de igual remuneración por igual trabajo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q31_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q31_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q31_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element67" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q31_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q31_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q31_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros37">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Los criterios de asignación de remuneraciones aplican un método de cálculo de incentivos/prestaciones/beneficios sin sesgos de género, que son informados y conocidos por toda la plantilla?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q32_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q32_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q32_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element68" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q32_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q32_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q32_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros38">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Tiene la empresa/organización una política salarial equitativa desde el punto de vista de género y que es aplicada a todos los puestos de la empresa/organización?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q33_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q33_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q33_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element69" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q33_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q33_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q33_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom"  >
-			<h4 class="text-center">RESUMEN DE LAS RESPUESTAS</h4>
+			<h4 class="text-center"><fmt:message key="resultados_otros_datos.element70" /></h4>
 			<div id="gr-otros-6" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin salario -->
 	<div id="otros-prevencion-acoso">
 		<h5>
-			<div class="label label-primary padding-small">PREVENCIÓN Y TRATAMIENTO DEL ACOSO SEXUAL Y ACOSO POR RAZÓN DE SEXO</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element71" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h4 class="text-center">PREGUNTAS DESGLOSADAS</h4>
+				<h4 class="text-center"><fmt:message key="resultados_otros_datos.element72" /></h4>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
 					<li role="presentation" class="active"><a href="#otros39" aria-controls="otros39" role="tab" data-toggle="tab">P. 39</a></li>
 					<li role="presentation"><a href="#otros40" aria-controls="otros40" role="tab" data-toggle="tab">P. 40</a></li>
@@ -842,88 +848,88 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros39">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Se informa a la plantilla sobre la prohibición expresa de la empresa/organización de actividades que puedan acosar a las mujeres en el ámbito laboral?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q34_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q34_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q34_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element73" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q34_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q34_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q34_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros40">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Se aplica una política institucional específica que regule la prevención, sanción y eliminación del acoso sexual en base a la legislación nacional?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q35_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q35_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q35_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element74" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q35_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q35_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q35_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros41">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización lleva a cabo anualmente acciones para que las personas responsables de establecer medidas para prevenir, detectar y actuar en casos de acoso tengan formación actualizada sobre género y acoso sexual?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q36_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q36_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q36_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element75" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q36_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q36_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q36_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros42">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Se ha asignado a una persona, comité o comisión responsable de establecer medidas para prevenir, detectar y actuar en casos de acoso?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q37_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q37_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q37_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element76" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q37_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q37_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q37_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros43">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Se realiza en la empresa/organización un seguimiento de la incidencia de casos de acoso en la empresa/organización?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q38_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q38_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q38_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element77" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q38_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q38_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q38_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros44">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización ha impartido talleres o charlas de sensibilización a la todo el personal sobre el acoso sexual y laboral?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q39_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q39_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q39_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element78" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q39_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q39_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q39_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros45">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En la empresa/organización existe y se aplica un procedimiento documentado para la detección y el tratamiento del acoso sexual y laboral?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q40_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q40_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q40_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element79" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q40_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q40_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q40_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros46">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Se da seguimiento, en la empresa, a las denuncias que sobre acoso laboral y se aplican sanciones si se demuestran las denuncias?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q41_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q41_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q41_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element80" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q41_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q41_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q41_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros47">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿La empresa/organización lleva a cabo anualmente acciones de sensibilización para evitar el acoso, las actitudes sexistas y el trato discriminatorio en la empresa/organización?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q42_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q42_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q42_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element81" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q42_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q42_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q42_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros48">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿cree que todas las personas de la plantilla tienen conocimiento sobre la existencia del mecanismo y/o protocolo de prevención y actuación en caso de acoso sexual y lo considera de fácil acceso?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q48_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q48_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q48_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element82" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q48_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q48_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q48_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros49">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿considera que este mecanismo o protocolo puede ser eficaz si se recurre a él?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q49_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q49_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q49_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element83" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q49_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q49_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q49_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom"  >
-			<h4 class="text-center">RESUMEN DE LAS RESPUESTAS</h4>
+			<h4 class="text-center"><fmt:message key="resultados_otros_datos.element84" /></h4>
 			<div id="gr-otros-7" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin acoso -->
 	<div id="otros-conciliacion">
 		<h5>
-			<div class="label label-primary padding-small">POLÍTICA A FAVOR DE LA CONCILIACIÓN DE LA VIDA FAMILIAR, PROFESIONAL Y PERSONAL CON CORRESPONSABILIDAD</div>
+			<div class="label label-primary padding-small"><fmt:message key="resultados_otros_datos.element85" /></div>
 		</h5>
 
 		<div class="col-xs-12 text-center">
 			<!-- Nav tabs -->
 			<div class="blockD">
-				<h4 class="text-center">PREGUNTAS DESGLOSADAS</h4>
+				<h4 class="text-center"><fmt:message key="resultados_otros_datos.element86" /></h4>
 				<ul class="nav nav-pills super-letra-indicadores centeredD" role="tablist">
 					<li role="presentation" class="active"><a href="#otros50" aria-controls="otros50" role="tab" data-toggle="tab">P. 50</a></li>
 					<li role="presentation"><a href="#otros51" aria-controls="otros51" role="tab" data-toggle="tab">P. 51</a></li>
@@ -944,70 +950,70 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="otros50">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Usted cree que en esta empresa/organización alguna mujer ha tenido que renunciar por situación de maternidad y/o cuidado de la familia?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q50_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q50_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q50_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element87" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q50_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q50_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q50_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 
 					<div role="tabpanel" class="tab-pane " id="otros51">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En su empresa, usted considera, que se cumplen los beneficios de las licencias por maternidad y paternidad, de acuerdo a lo que estipula la legislación vigente?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q51_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q51_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q51_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element88" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q51_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q51_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q51_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane " id="otros52">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En su empresa/organización se consulta a los trabajadores y trabajadoras acerca de necesidades familiares y personales que podrían ser compatibilizadas con el trabajo?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q52_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q52_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q52_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element89" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q52_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q52_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q52_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros53">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿Considera que su empresa/organización fomenta la co-parentalidad, es decir promueve el cuidado de hijos e hijas tanto de hombres como de mujeres?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q53_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q53_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q53_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element90" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q53_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q53_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q53_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros54">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En esta empresa/organización existen apoyos para servicios de cuidado para hijos/as y otras personas (detallar tipo de servicios: guardería en la empresa, subvenciones económicas para guarderías; subvenciones para el cuidado de otro tipo de dependientes; apoyo en el verano para hijos/as, etc.).</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q54_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q54_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q54_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element91" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q54_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q54_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q54_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros55">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En su empresa/organización existe algún sistema de jornada reducida, horarios flexibles y tele-trabajo el personal?(por ejemplo: jornadas reducidas, semana reducida, flexibilidad de horario, jornada coincidente con horario escolar, trabajo partido, tele-trabajo, etc.).</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q55_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q55_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q55_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element92" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q55_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q55_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q55_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros56">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En la empresa/organización a las personas se les anima a que equilibren su vida de trabajo y su vida personal?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q56_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q56_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q56_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element93" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q56_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q56_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q56_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros57">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿El personal cuenta con la posibilidad de solicitar permisos para ausentarse dentro del horario laboral para atender situaciones particulares, familiares o escolares de carácter extraordinario?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q57_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q57_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q57_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element94" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q57_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q57_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q57_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros58">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">En definitiva y a la vista de sus respuestas anteriores, ¿cree que estas políticas en favor de la conciliación de la vida familiar, laboral de la empresa/organización se realizan de forma equitativa y se hacen desde criterios de igualdad de mujeres y hombres?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q58_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q58_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q58_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element95" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q58_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q58_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q58_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane 	" id="otros59">
 						<div class="col-xs-12  panel-heading " >
-							<p class=" col-xs-12 reset-margin">¿En definitiva y a la vista de sus respuestas anteriores, ¿cree que toda la plantilla conoce la existencia de las medidas de conciliación que facilita la empresa/organización y las consideran de fácil acceso?</p>
-							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q59_lkup").equals("89")) { %>Siempre <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q59_lkup").equals("90")) { %>Algunas veces <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q59_lkup").equals("91")) { %>Nunca <img class="indicador-calificacion" alt="Evaluación positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
+							<p class=" col-xs-12 reset-margin"><fmt:message key="resultados_otros_datos.element96" /></p>
+							<h4 class=" col-xs-12"><span class="badge"><% if (session.getAttribute("temp_admin_organization_q59_lkup").equals("89")) { %><fmt:message key="resultados_otros_datos.element15" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/green_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q59_lkup").equals("90")) { %><fmt:message key="resultados_otros_datos.element16" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/yellow_mini.png"><% } else if (session.getAttribute("temp_admin_organization_q59_lkup").equals("91")) { %><fmt:message key="resultados_otros_datos.element17" /> <img class="indicador-calificacion" alt="EvaluaciÃ³n positiva o negativa" src="/indica/assets/images/red_mini.png"><% } %></span></h4>
 						</div>
 					</div>
 				</div> <!-- fin de tab-content -->
 			</div> <!-- fin de tab panes -->
 		</div> <!-- fin de tabpanel -->
 		<div class="col-xs-12 separador-bottom"  >
-			<h4 class="text-center">RESUMEN DE LAS RESPUESTAS</h4>
+			<h4 class="text-center"><fmt:message key="resultados_otros_datos.element97" /></h4>
 			<div id="gr-otros-8" class="col-md-8 col-centered"></div>
 		</div>
 	</div> <!-- fin cfls -->

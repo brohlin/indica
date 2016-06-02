@@ -12,7 +12,18 @@
 %>
 
 <%	
-	String p_user_id = session.getAttribute("temp_user_id").toString();
+	String p_user_id = request.getParameter("user_id");
+	
+	if (p_user_id == null || p_user_id.equals("") || p_user_id.equals("null")) {
+		p_user_id = session.getAttribute("temp_user_id").toString();
+		System.out.println("no user_id param");
+	} else if (session.getAttribute("temp_user_role_nm") != null && session.getAttribute("temp_user_role_nm").equals("Admin")) {
+		System.out.println("admin and user_id param");
+	} else if (session.getAttribute("temp_user_role_nm") != null && session.getAttribute("temp_user_role_nm").equals("Empresa")) {
+		response.sendRedirect("/indica/es/main.jsp?target=error");
+		System.out.println("empresa and user_id param");
+	}
+	
 	DbResults db_p_get_user_status_options = null;
 	DbResults db_p_get_role_options = null;
 	DbResults db_p_get_organization_options = null;
@@ -56,8 +67,8 @@
 		<header>
 			<div class="bc-gray-2d text-white padding-small borde-inferior">
 				<div class="container">
-					<h3 class="text-white">Administración general</h3>
-					<h1 class="text-white">EDITAR CUENTA</h1>
+					<h3 class="text-white"><fmt:message key="cuenta.label.element1" /></h3>
+					<h1 class="text-white"><fmt:message key="cuenta.label.element2" /></h1>
 				</div>
 			</div>
 		</header>
@@ -69,49 +80,50 @@
 			<input type="hidden" value="<% if (session.getAttribute("temp_admin_user_skype_handle") != null) { %><%= session.getAttribute("temp_admin_user_skype_handle").toString() %><% } %>" name="skype_handle">
 
 			<div class="form-group">
-				<label for="inputPrimerNombre">Primer Nombre</label>
+				<label for="inputPrimerNombre"><fmt:message key="cuenta.label.element3" /></label>
 				<div class="col-sm-12 input-group">
 					<input type="text" class="form-control" id="inputPrimerNombre" placeholder="Primer Nombre" name="first_nm"  value="<% if (session.getAttribute("temp_admin_user_first_nm") != null) { %><%= session.getAttribute("temp_admin_user_first_nm").toString() %><% } %>">
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label for="inputApellido">Apellido</label>
+				<label for="inputApellido"><fmt:message key="cuenta.label.element4" /></label>
 				<div class="col-sm-12 input-group">
 					<input type="text" class="form-control" id="inputApellido" placeholder="Apellido" name="last_nm"  value="<% if (session.getAttribute("temp_admin_user_last_nm") != null) { %><%= session.getAttribute("temp_admin_user_last_nm").toString() %><% } %>">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="inputEmail">Email</label>
+				<label for="inputEmail"><fmt:message key="cuenta.label.element5" /></label>
 				<div class="col-sm-12 input-group">
 					<input type="email" class="form-control" id="inputApellido" placeholder="Email" name="email"  value="<% if (session.getAttribute("temp_admin_user_email") != null) { %><%= session.getAttribute("temp_admin_user_email").toString() %><% } %>">
 				</div>
 			</div>
 
+
 			<div class="form-group">
-				<label for="user_status">Estatus</label>
-    			<select name="user_status"  class="col-sm-12 form-control"> 
+				<label for="user_status"><fmt:message key="cuenta.label.element6" /></label>
+    			<select name="user_status"  class="col-sm-12 form-control" <% if(session.getAttribute("temp_user_role_nm").equals("Empresa")) { %> disabled <% } %>> 
 					<%= db_p_get_user_status_options.generateSelectOptions() %>
 				</select>
 			</div>
 
 			<div class="form-group">
-				<label for="role">Rol</label>
-    			<select name="role"  class="col-sm-12 form-control">
+				<label for="role"><fmt:message key="cuenta.label.element7" /></label>
+    			<select name="role"  class="col-sm-12 form-control" <% if(session.getAttribute("temp_user_role_nm").equals("Empresa")) { %> disabled <% } %>>
 					<%= db_p_get_role_options.generateSelectOptions() %>
 				</select>
 			</div>		
 
 			<div class="form-group">
-				<label for="organization">Empresa</label>
-    			<select name="organization"  class="col-sm-12 form-control"> 
+				<label for="organization"><fmt:message key="cuenta.label.element8" /></label>
+    			<select name="organization"  class="col-sm-12 form-control" <% if(session.getAttribute("temp_user_role_nm").equals("Empresa")) { %> disabled <% } %>> 
 					<%= db_p_get_organization_options.generateSelectOptions() %>
 				</select>
 			</div>	
 
 			<div class="form-group">
-				<label for="inputPosition">Posición/Título</label>
+				<label for="inputPosition"><fmt:message key="cuenta.label.element9" /></label>
 				<div class="input-group col-sm-12">
 					<input type="text" class=" form-control" id="inputPosition" placeholder="Posición/Título" name="position_title"  value="<% if (session.getAttribute("temp_admin_user_position_title") != null) { %><%= session.getAttribute("temp_admin_user_position_title").toString() %><% } %>">
 				</div>
@@ -119,27 +131,27 @@
 
 
 			<div class="form-group">
-				<label for="inputTel_nbr">Teléfono</label>
+				<label for="inputTel_nbr"><fmt:message key="cuenta.label.element10" /></label>
 				<div class=" input-group col-sm-12">
 					<input type="text" class="form-control" id="inputTel_nbr" placeholder="Teléfono" name="tel_nbr"  value="<% if (session.getAttribute("temp_admin_user_tel_nbr") != null) { %><%= session.getAttribute("temp_admin_user_tel_nbr").toString() %><% } %>">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="inputPassword">Contrase&ntilde;a</label>
+				<label for="inputPassword"><fmt:message key="cuenta.label.element11" /></label>
 				<div class=" input-group col-sm-12">
 						<input type="password" class=" form-control" id="inputPassword" placeholder="Contrase&ntilde;a" name="pwd" value="<% if (session.getAttribute("temp_admin_user_pwd") != null) { %><%= session.getAttribute("temp_admin_user_pwd").toString() %><% } %>">
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="inputConfirmPassword">Confirmar Contrase&ntilde;a</label>
+				<label for="inputConfirmPassword"><fmt:message key="cuenta.label.element12" /></label>
 				<div class="input-group col-sm-12">
 						<input type="password" class="col-sm-12 form-control" id="inputConfirmPassword" placeholder="Confirmar Contrase&ntilde;a" name="confirm_pwd" value="<% if (session.getAttribute("temp_admin_user_pwd") != null) { %><%= session.getAttribute("temp_admin_user_pwd").toString() %><% } %>">
 				</div>
 			</div>
 
-			<button type="submit" class="btn btn-info btn-block separador-top">GRABAR</button>
+			<button type="submit" class="btn btn-info btn-block separador-top"><fmt:message key="cuenta.label.element13" /></button>
 		</form>
 	</fieldset>
 </div>

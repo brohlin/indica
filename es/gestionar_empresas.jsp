@@ -1,5 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
+
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ page language="java" import="java.sql.*" %>
+<%@ page import="org.undp.database.*" %>
+<%@ page import="org.undp.utils.*" %>
+<%@ page import="org.undp.utils.arrays.*" %>
+<%@ page import="org.undp.log.*" %>
+<%@ page import="java.util.Enumeration" %>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="org.undp.i18n.text" />
+
 <%
 	String un = (String) session.getAttribute("temp_user_id");
+	String _id = request.getParameter("id");
+	String _name = request.getParameter("name");
+	
 	System.out.println(un);
 	if ( un == null || un.equals("null")) {
 		System.out.println("in if statement");
@@ -14,8 +34,8 @@
 			<header>
 			<div class="bc-gray-2d text-white padding-small borde-inferior">
 				<div class="container">
-					<h3 class="text-white">Administración general</h3>
-					<h1 class="text-white">GESTIONAR EMPRESAS</h1>
+					<h3 class="text-white"><fmt:message key="gestionar_empresas.element1" /></h3>
+					<h1 class="text-white"><fmt:message key="gestionar_empresas.element2" /></h1>
 				</div>
 			</div>
 		</header>	
@@ -29,12 +49,12 @@
 						<fieldset>
 						<!-- Form Name -->
 						<legend>
-							<h3 >Buscar una empresa creada</h3>
+							<h3 ><fmt:message key="gestionar_empresas.element3" /></h3>
 						</legend>
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="id">Buscar por ID</label>  
+						  <label class="col-md-4 control-label" for="id"><fmt:message key="gestionar_empresas.element4" /></label>  
 						  <div class="col-md-7">
 						  <input id="id" name="id" type="text" placeholder="ID" class="form-control input-md">
 						  </div>
@@ -42,9 +62,9 @@
 
 						<!-- Text input-->
 						<div class="form-group">
-						  <label class="col-md-4 control-label" for="name">Buscar por nombre</label>  
+						  <label class="col-md-4 control-label" for="name"><fmt:message key="gestionar_empresas.element5" /></label>  
 						  <div class="col-md-7">
-						  <input id="name" name="name" type="text" placeholder="Nombre" class="form-control input-md">
+						  <input id="name" name="name" type="text" placeholder="<fmt:message key="gestionar_empresas.element6" />" class="form-control input-md">
 						
 						  </div>
 						</div>
@@ -53,7 +73,7 @@
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="singlebutton"></label>
 						  <div class="col-md-7">
-						  	<button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block">Buscar</button>
+						  	<button id="singlebutton" name="singlebutton" class="btn btn-primary btn-block"><fmt:message key="gestionar_empresas.element7" /></button>
 						  </div>
 						</div>
 
@@ -61,15 +81,15 @@
 						</form>
 
 				</div>
-				<!-- Añadir empresa -->	
+				<!-- AÃ±adir empresa -->	
 				<div id="anadir-empresa" class="col-md-5 padding-small">
 					<fieldset>
 						<legend>
-							<h3 >Añadir una empresa nueva</h3>
+							<h3 ><fmt:message key="gestionar_empresas.element8" /></h3>
 						</legend>
 						<form role="form" name="empresa" action="/indica/es/main.jsp?target=empresa_nueva" method="post">
 							<div class="col-centered col-md-7 separador-top">
-								<button type="submit" class="btn btn-info padding-small btn-block">Pulse este botón para crear un registro de empresa</button>
+								<button type="submit" class="btn btn-info padding-small btn-block"><fmt:message key="gestionar_empresas.element9" /></button>
 							</div>
 						</form>
 					</fieldset>
@@ -82,19 +102,19 @@
 					
 			<div id="lista-empresas" class="col-md-8 col-centered separador-bottom ">
 				
-				<h3 class="text-center separador-top "> Lista de empresas registradas</h3>
+				<h3 class="text-center separador-top "> <fmt:message key="gestionar_empresas.element10" /></h3>
 				
 				<table class="table table-hover separador-top separador-bottom" >
 					<tr>
-						<th nowrap>ID</th>
-						<th nowrap>Empresa</th>
-						<th nowrap>País de Ubicación</th>
+						<th nowrap><fmt:message key="gestionar_empresas.element11" /></th>
+						<th nowrap><fmt:message key="gestionar_empresas.element12" /></th>
+						<th nowrap><fmt:message key="gestionar_empresas.element13" /></th>
 					</tr>	
 					<%	
 
 						DynStringArray parameters = new DynStringArray();
-						parameters.add(mID);
-						parameters.add(mName);
+						parameters.add(_id);
+						parameters.add(_name);
 
 						DbResults db = Database.callProcResults("p_get_organizations", parameters);
 						
