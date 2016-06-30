@@ -13,15 +13,15 @@
 	
 	<context-param> 
 	    <param-name>domain-url</param-name> 
-	    <param-value>http://127.0.0.1:8080/</param-value>
-	    <!--  param-value>https://www.ruandunduma120.org/</param-value -->
+	    <!--  param-value>http://127.0.0.1:8080/</param-value -->
+	    <param-value>https://www.ruandunduma120.org/</param-value>
 	    <!--  param-value>http://americalatinagenera.org:8080/</param-value -->
 	</context-param>	
 	
 	<context-param> 
 	    <param-name>phantomjs-path</param-name> 
-	    <param-value>/phantomjs-1.9.8-windows/</param-value>
-	    <!--  param-value>/usr/bin/phantomjs-1.9.8-linux-x86_64/</param-value -->
+	    <!--  param-value>/phantomjs-1.9.8-windows/</param-value -->
+	    <param-value>/usr/bin/phantomjs-1.9.8-linux-x86_64/</param-value>
 	</context-param>	
 
   <description>MySQL Indica App</description>
