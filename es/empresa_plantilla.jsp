@@ -497,7 +497,9 @@
 				
 								<div class="row form-group fila-subtotal bc-orange">
 									<div class="col-xs-6 col-md-8 ">
-										<label class="titulo-input"><fmt:message key="empresa_plantilla.element45" /></label>
+										<label class="titulo-input"><fmt:message key="empresa_plantilla.element45" />
+											<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_plantilla.element54" />" class="fa fa-question-circle"></a>
+										</label>
 									</div>
 									<div class="col-xs-3 col-md-2">
 										<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="coinicide_con_tabla1_mujeres" name="coinicide_con_tabla1_mujeres" value="<% if (session.getAttribute("temp_admin_organization_coinicide_con_tabla1_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_coinicide_con_tabla1_mujeres").toString() %><% } %>" readonly>

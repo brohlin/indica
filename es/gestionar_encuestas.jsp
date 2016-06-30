@@ -91,7 +91,7 @@
 						<td nowrap><%= db.getRow(size).get(0) %></td>
 						<td nowrap><%= db.getRow(size).get(1) %></td>
 						<td nowrap><%= db.getRow(size).get(2) %></td>
-						<td nowrap><a href="./main.jsp?target=encuesta&id=<%= db.getRow(size).get(0) + "&validation_code=" + db.getRow(size).get(3) %>" ><%= db.getRow(size).get(3) %></a></td>
+						<td nowrap><%= db.getRow(size).get(3) %></td>
 						<td nowrap><%= db.getRow(size).get(4) %></td>
 						<td nowrap><%= db.getRow(size).get(5) %></td>
 						<td nowrap><%= db.getRow(size).get(6) %></td>

@@ -369,7 +369,9 @@
 								<a class="icono-pos6"></a>
 							</div>
 							<h2 class="text-gray "><fmt:message key="empresa_condiciones_laborales.element38" /></h2>
-							<h3 class="text-orange reset-margin" ><fmt:message key="empresa_condiciones_laborales.element39" /></h3>
+							<h3 class="text-orange reset-margin" ><fmt:message key="empresa_condiciones_laborales.element39" />
+								<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element80" />" class="fa fa-question-circle"></a>
+							</h3>
 						</div>
 							<div class="table-responsive">
 								<table class="table">
@@ -386,7 +388,10 @@
 											</tr>
 											<tr>
 												<th class="col-xs-4" >
-													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element42" /></label></h6>
+													<h6 class="reset-margin">
+														<label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element42" />
+														</label>
+													</h6>
 												</th>
 												<th class="col-xs-2 ">
 													<h6 class="reset-margin"><label class="label label-subtitulo"><fmt:message key="empresa_condiciones_laborales.element43" /></label></h6>
@@ -617,7 +622,9 @@
 											</tr>
 											<tr>
 												<td class="col-xs-4" >
-													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element67" /></label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element67" />
+														<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element81" />" class="fa fa-question-circle"></a>
+													</label>
 												</td>
 												<td class="col-xs-2">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_teletrabajo_en_sit_de_acogerse_mujeres" name="num_teletrabajo_en_sit_de_acogerse_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_teletrabajo_en_sit_de_acogerse_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_teletrabajo_en_sit_de_acogerse_mujeres").toString() %><% } %>">
@@ -710,7 +717,9 @@
 											</tr>
 											<tr>
 												<td class="" >
-													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element75" /></label>
+													<label class="titulo-input"><fmt:message key="empresa_condiciones_laborales.element75" />
+														<a tabindex="0" role="button" data-toggle="popover"   data-trigger="focus" data-content="<fmt:message key="empresa_condiciones_laborales.element82" />" class="fa fa-question-circle"></a>
+													</label>
 												</td>
 												<td class="">
 													<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> type="text" class="form-control" id="num_quejas_recibidas_acoso_sexual_mujeres" name="num_quejas_recibidas_acoso_sexual_mujeres" placeholder=""  value="<% if (session.getAttribute("temp_admin_organization_num_quejas_recibidas_acoso_sexual_mujeres") != null) { %><%= session.getAttribute("temp_admin_organization_num_quejas_recibidas_acoso_sexual_mujeres").toString() %><% } %>">

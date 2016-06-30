@@ -129,15 +129,15 @@
 					</div>
 					<div class="form-group">
 						<label for="telefono"><fmt:message key="empresa_caracterizacion_basica.label.element19" /></label>
-						<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> required="required" maxlength="15" type="text" class="form-control" id="contacto_tel" placeholder="<fmt:message key="empresa_caracterizacion_basica.label.element21" />" name="contacto_tel" value="<% if (session.getAttribute("temp_admin_organization_contacto_tel") != null) { %><%= session.getAttribute("temp_admin_organization_contacto_tel").toString() %><% } %>">
+						<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> required="required" maxlength="15" type="text" class="form-control" id="contacto_tel" placeholder="<fmt:message key="empresa_caracterizacion_basica.label.element20" />" name="contacto_tel" value="<% if (session.getAttribute("temp_admin_organization_contacto_tel") != null) { %><%= session.getAttribute("temp_admin_organization_contacto_tel").toString() %><% } %>">
 					</div>
 					<div class="form-group">
-						<label for="fax"><fmt:message key="empresa_caracterizacion_basica.label.element22" /></label>
-						<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> maxlength="15" type="text" class="form-control" id="contacto_fax" placeholder="<fmt:message key="empresa_caracterizacion_basica.label.element23" />" name="contacto_fax" value="<% if (session.getAttribute("temp_admin_organization_contacto_fax") != null) { %><%= session.getAttribute("temp_admin_organization_contacto_fax").toString() %><% } %>">
+						<label for="fax"><fmt:message key="empresa_caracterizacion_basica.label.element21" /></label>
+						<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> maxlength="15" type="text" class="form-control" id="contacto_fax" placeholder="<fmt:message key="empresa_caracterizacion_basica.label.element22" />" name="contacto_fax" value="<% if (session.getAttribute("temp_admin_organization_contacto_fax") != null) { %><%= session.getAttribute("temp_admin_organization_contacto_fax").toString() %><% } %>">
 					</div>
 					<div class="form-group">
-						<label for="email"><fmt:message key="empresa_caracterizacion_basica.label.element24" /></label>
-						<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> maxlength="30" type="email" class="form-control" id="contacto_email" placeholder="Ingrese su correo electrónico" name="contacto_email" value="<% if (session.getAttribute("temp_admin_organization_contacto_email") != null) { %><%= session.getAttribute("temp_admin_organization_contacto_email").toString() %><% } %>">
+						<label for="email"><fmt:message key="empresa_caracterizacion_basica.label.element23" /></label>
+						<input <% if (session.getAttribute("temp_admin_organization_completed").toString().equals("Y") && session.getAttribute("temp_user_role_nm").toString().equals("Empresa")) { %> readonly <% } %> maxlength="30" type="email" class="form-control" id="contacto_email" placeholder="<fmt:message key="empresa_caracterizacion_basica.label.element24" />" name="contacto_email" value="<% if (session.getAttribute("temp_admin_organization_contacto_email") != null) { %><%= session.getAttribute("temp_admin_organization_contacto_email").toString() %><% } %>">
 					</div>
 
 <% 
