@@ -29,12 +29,15 @@
 			session.setAttribute("temp_emp_survey_date_sent",db.getRow(size).get(6));
 			session.setAttribute("temp_emp_survey_date_expires",db.getRow(size).get(7));
 			session.setAttribute("temp_emp_survey_last_mod_tmstmp",db.getRow(size).get(8));
+			session.setAttribute("temp_emp_survey_expired",db.getRow(size).get(9));
 			
 			size++;
 		}
 		
 		if (session.getAttribute("temp_emp_survey_completed").equals("Y")) {
 			response.sendRedirect("/indica/es/main.jsp?target=encuesta_recibida");
+		} else if (session.getAttribute("temp_emp_survey_expired").equals("Y") && session.getAttribute("temp_emp_survey_completed").equals("N")) {
+			response.sendRedirect("/indica/es/main.jsp?target=encuesta_expirada");
 		} else {
 			response.sendRedirect("/indica/es/main.jsp?target=encuesta&id=" + session.getAttribute("temp_emp_survey_id").toString() + "&validation_code=" + session.getAttribute("temp_emp_survey_validation_code").toString());	
 		}

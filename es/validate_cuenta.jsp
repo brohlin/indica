@@ -21,6 +21,18 @@
 	String p_organization = request.getParameter("organization");
 	String p_user_id = request.getParameter("user_id");		
 	
+	if (p_role == null || p_role.equals("null")) {
+		p_role = session.getAttribute("temp_admin_user_role_id").toString();
+	}
+	
+	if (p_user_status == null || p_user_status.equals("null")) {
+		p_user_status = session.getAttribute("temp_admin_user_user_status_id").toString();
+	}
+	
+	if (p_organization == null || p_organization.equals("null")) {
+		p_organization = session.getAttribute("temp_admin_user_organization_id").toString();
+	}	
+	
 	DynStringArray parameters = new DynStringArray();
 	parameters.clear();
 	parameters.add(p_user_status);

@@ -18,6 +18,7 @@
 <%
 	String p_target = request.getParameter("target");
 	String p_message = request.getParameter("message");
+	String p_bad_email = request.getParameter("bad_email");
 	
 	String p_organization_id = request.getParameter("organization_id");
 	String p_page = request.getParameter("page");

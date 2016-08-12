@@ -59,6 +59,8 @@
 			<jsp:include page="gestionar_empresas.jsp">
         		<jsp:param name="id" value="<%= mID %>"/>
         		<jsp:param name="name" value="<%= mName %>"/>
+        		<jsp:param name="message" value="<%= p_message %>"/>
+        		<jsp:param name="bad_email" value="<%= p_bad_email %>"/>
     		</jsp:include>
 <%	
 		}  else if (p_target.equals("empresa_nueva")) {
@@ -117,7 +119,11 @@
 <%	
 		}  else if (p_target.equals("encuesta_recibida")) {
 %>
-			<%@include file="./encuesta_recibida.jsp" %>
+			<jsp:include page="encuesta_recibida.jsp" flush="true" />
+<%	
+		}  else if (p_target.equals("encuesta_expirada")) {
+%>
+			<jsp:include page="encuesta_expirada.jsp" flush="true" />
 <%	
 		}  else if (p_target.equals("encuesta_login")) {
 %>

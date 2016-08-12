@@ -93,6 +93,14 @@
 <!-- 	INICIALIZAR EL TOOLTIP Y EL POPOVER -->
 	<script type="text/javascript">
 	
+	$(document).on("change", "#email_cellphone_survey", function () {
+		
+		var value = $( this ).val();
+		// alert(value);
+
+		
+	});	
+	
 	$(document).on("change", "#table1", function () {
 		
 		updateTableFields();

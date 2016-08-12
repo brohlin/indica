@@ -1,3 +1,7 @@
+<%
+	String _message = request.getParameter("message");
+	String _bad_email = request.getParameter("bad_email");
+%>
 	<section>
 		<header>
 			<div class="bc-purple text-white padding-small borde-inferior">
@@ -16,27 +20,35 @@
 							<legend >
 								<h3 ><fmt:message key="gestionar_encuestas.element3" /></h3>
 							</legend>
+							
+							<div id="send_by">
+								<input type="radio" id="email_cellphone_survey" name="email_cellphone_survey" value="email" required checked="checked">Email&nbsp;&nbsp;&nbsp;
+								<input type="radio" id="email_cellphone_survey" name="email_cellphone_survey" value="cellphone" required><fmt:message key="gestionar_encuestas.element18" />
+							</div>
+							
+							<p>&nbsp;</p>
 							<p><fmt:message key="gestionar_encuestas.element4" /></p>
 						</fieldset>
 						
-						<!-- %@include file="./encuesta_resultados.jsp" % -->
-						<!-- jsp:include page="encuesta_resultados.jsp" flush="true" / -->
+						<br>
 						
-						<!--  comentado por DIANA para integrar el campo de enviar correos.
-						<form role="form" name="cuenta" action="main.jsp?target=enviar_encuesta" method="post">
-							<div class="col-centered col-md-7 separador-top">
-								<button type="submit" class="btn btn-info padding-small btn-block">Pulse este botón para enviar la encuesta</button>
-							</div>
-						</form> --> 
-
+						
 						<!-- Marzo 4. Integrar el campo para enviar las encuestas -->
 						<fieldset class="col-sm-6">
 							<div class="form-group">
+	<% 
+		if ((p_message != null) && (p_message.equals("bad_email_list"))) {
+	%>
+		<span style="color:red"><h3><fmt:message key="gestionar_encuestas.bad_email_list" /> <%= _bad_email %>.</h3></span>	
+	<%
+		}
+	%>	
+							
 								<input type="hidden" value="<%= session.getAttribute("temp_user_organization_id").toString() %>" name="organization_id">
 								<textarea name="email" class="form-control" rows="7" maxlength="1000" placeholder="<fmt:message key="gestionar_encuestas.element5" />"></textarea>
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block"><fmt:message key="gestionar_encuestas.element6" /></button>
+								<button id="submit_button" type="submit" class="btn btn-primary btn-block"><fmt:message key="gestionar_encuestas.element6" /></button>
 							</div>
 						</fieldset>
 					</form>
@@ -67,7 +79,6 @@
 							<th nowrap class="text-center"><fmt:message key="gestionar_encuestas.element8" /></th>
 							<th nowrap class="text-center"><fmt:message key="gestionar_encuestas.element9" /></th>
 							<th nowrap class="text-center"><fmt:message key="gestionar_encuestas.element10" /></th>
-							<th nowrap class="text-center"><fmt:message key="gestionar_encuestas.element11" /></th>
 							<th nowrap class="text-center"><fmt:message key="gestionar_encuestas.element12" /></th>
 							<th nowrap class="text-center"><fmt:message key="gestionar_encuestas.element13" /></th>
 							<th nowrap class="text-center"><fmt:message key="gestionar_encuestas.element14" /></th>
@@ -91,18 +102,17 @@
 						<td nowrap><%= db.getRow(size).get(0) %></td>
 						<td nowrap><%= db.getRow(size).get(1) %></td>
 						<td nowrap><%= db.getRow(size).get(2) %></td>
-						<td nowrap><%= db.getRow(size).get(3) %></td>
 						<td nowrap><%= db.getRow(size).get(4) %></td>
 						<td nowrap><%= db.getRow(size).get(5) %></td>
 						<td nowrap><%= db.getRow(size).get(6) %></td>
 						<td nowrap><%= db.getRow(size).get(7) %></td>
 						</tr>
-								<%
+						<%
 								size++;
 							}
 
 							if (size>0) {
-							%>
+						%>
 					</table>
 				</div>	
 					<%
